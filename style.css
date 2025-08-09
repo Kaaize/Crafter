@@ -5,7 +5,6 @@ body {
     height: 100vh;
 }
 
-/* Sidebar esquerda */
 #sidebar {
     width: 300px;
     background-color: #f4f4f4;
@@ -14,14 +13,19 @@ body {
     overflow-y: auto;
 }
 
-/* Área principal (painel da direita) */
 #painel-principal {
+    width: 350px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+#painel-ingredientes {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
 }
 
-/* Receita na sidebar (imagem + texto lado a lado) */
 .recipe {
     display: flex;
     align-items: center;
@@ -45,7 +49,6 @@ body {
     border-radius: 5px;
 }
 
-/* Receita selecionada no painel da direita */
 .selected-recipe {
     display: flex;
     align-items: center;
@@ -77,4 +80,9 @@ body {
 .selected-recipe-details input[type="number"] {
     width: 60px;
     margin-left: 10px;
+}
+
+.ingredient-item {
+    font-size: 16px;
+    margin-bottom: 6px;
 }

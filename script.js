@@ -5,13 +5,13 @@ async function carregarReceitas() {
 
         const listaReceitas = document.getElementById("lista-receitas");
         const selecionadas = document.getElementById("selecionadas");
+        const listaIngredientes = document.getElementById("lista-ingredientes");
 
-        // Objeto para controlar receitas selecionadas e quantidades
         const receitasSelecionadas = {};
 
-        // Função para atualizar o painel das selecionadas
+        // Atualiza painel das receitas selecionadas (meio)
         function atualizarSelecionadas() {
-            selecionadas.innerHTML = ""; // limpa tudo
+            selecionadas.innerHTML = "";
 
             Object.entries(receitasSelecionadas).forEach(([id, info]) => {
                 const div = document.createElement("div");
@@ -35,7 +35,6 @@ async function carregarReceitas() {
                 inputQtd.min = 1;
                 inputQtd.value = info.quantidade;
 
-                // Atualiza quantidade ao mudar o input
                 inputQtd.addEventListener("input", () => {
                     let val = parseInt(inputQtd.value);
                     if (isNaN(val) || val < 1) {
@@ -43,6 +42,7 @@ async function carregarReceitas() {
                         inputQtd.value = val;
                     }
                     receitasSelecionadas[id].quantidade = val;
+                    atualizarIngredientes();
                 });
 
                 detalhes.appendChild(nome);
@@ -54,9 +54,54 @@ async function carregarReceitas() {
 
                 selecionadas.appendChild(div);
             });
+
+            atualizarIngredientes(); // Atualiza ingredientes toda vez que mudar selecionadas
         }
 
-        // Cria lista de receitas na sidebar com imagem + nome
+        // Função recursiva para agregar ingredientes
+        // idReceita = id da receita ou ingrediente
+        // quantidade = multiplicador da receita (ex: se receita for 2x, ingredientes também)
+        // acumulador = objeto para somar ingredientes por id
+        function agregarIngredientes(idReceita, quantidade, acumulador) {
+            const receita = data.RECIPES[idReceita];
+            if (receita) {
+                // É uma receita, itera ingredientes recursivamente
+                receita.ingredientes.forEach(idIng => {
+                    agregarIngredientes(String(idIng), quantidade, acumulador);
+                });
+            } else {
+                // Não é receita, é ingrediente simples
+                if (!acumulador[idReceita]) acumulador[idReceita] = 0;
+                acumulador[idReceita] += quantidade;
+            }
+        }
+
+        // Atualiza painel ingredientes totais (direita)
+        function atualizarIngredientes() {
+            listaIngredientes.innerHTML = "";
+
+            const acumulador = {};
+
+            // Para cada receita selecionada, agrega ingredientes recursivamente
+            Object.entries(receitasSelecionadas).forEach(([id, info]) => {
+                agregarIngredientes(id, info.quantidade, acumulador);
+            });
+
+            // Monta a lista final de ingredientes
+            Object.entries(acumulador).forEach(([idIng, quantidade]) => {
+                const item = data.ITEMS[idIng];
+                if (!item) return; // ignorar IDs inválidos
+
+                const div = document.createElement("div");
+                div.classList.add("ingredient-item");
+
+                div.textContent = `${item.nome}: ${quantidade} unidade(s)`;
+
+                listaIngredientes.appendChild(div);
+            });
+        }
+
+        // Monta a lista da sidebar com imagem + nome
         Object.entries(data.RECIPES).forEach(([idReceita, receita]) => {
             const div = document.createElement("div");
             div.classList.add("recipe");
@@ -71,17 +116,11 @@ async function carregarReceitas() {
             div.appendChild(img);
             div.appendChild(span);
 
-            // Ao clicar adiciona/atualiza a receita selecionada
             div.addEventListener("click", () => {
                 if (receitasSelecionadas[idReceita]) {
-                    // Se já existe, incrementa a quantidade
                     receitasSelecionadas[idReceita].quantidade++;
                 } else {
-                    // Senão cria com quantidade 1
-                    receitasSelecionadas[idReceita] = {
-                        receita,
-                        quantidade: 1
-                    };
+                    receitasSelecionadas[idReceita] = { receita, quantidade: 1 };
                 }
                 atualizarSelecionadas();
             });
