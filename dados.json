@@ -1,14 +1,14 @@
 {
     "ITEMS": {
-        "1": { "nome": "Ostra Fresca", "custo": 10, "image": "/images/ostra_fresca.png" },
-        "2": { "nome": "Cogumelo Selvagem", "custo": 5, "image": "/images/cogumelo_selvagem.png" },
-        "3": { "nome": "Carne de Porco", "custo": 15, "image": "/images/carne_de_porco.png" },
-        "4": { "nome": "Cenoura", "custo": 3, "image": "/images/cenoura.png" },
-        "5": { "nome": "Batata", "custo": 4, "image": "/images/batata.png" },
-        "6": { "nome": "Cebola", "custo": 2, "image": "/images/cebola.png" }
+        "1": {"nome": "Sopa de Cogumelo", "custo": 10, "image": "/images/sopa_de_cogumelo.png", "craftid": 4},
+        "2": {"nome": "Cogumelo Selvagem", "custo": 5, "image": "/images/cogumelo_selvagem.png"},
+        "3": {"nome": "Carne de Porco", "custo": 15, "image": "/images/carne_de_porco.png"},
+        "4": {"nome": "Cenoura", "custo": 3, "image": "/images/cenoura.png"},
+        "5": {"nome": "Batata", "custo": 4, "image": "/images/batata.png"},
+        "6": {"nome": "Cebola", "custo": 2, "image": "/images/cebola.png"}
     },
     "RECIPES": {
-        "1": { "nome": "Ensopado de Ostra", "ingredientes": [1, 2, 3], "image": "/images/ensopado_de_ostra.png" },
-        "2": { "nome": "Sopa de Cogumelo", "ingredientes": [4, 5, 6], "image": "/images/sopa_de_cogumelo.png" }
+        "1": {"nome": "Ensopado de Ostra", "ingredientes": [1, 2, 3], "image": "/images/ensopado_de_ostra.png" },
+        "2": {"nome": "Sopa de Cogumelo", "ingredientes": [4, 5, 6], "image": "/images/sopa_de_cogumelo.png" }
     }
 }

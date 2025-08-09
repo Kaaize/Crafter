@@ -62,27 +62,36 @@ async function carregarReceitas() {
         // idReceita = id da receita ou ingrediente
         // quantidade = multiplicador da receita (ex: se receita for 2x, ingredientes também)
         // acumulador = objeto para somar ingredientes por id
-        function agregarIngredientes(idReceita, quantidade, acumulador, visitados = new Set()) {
-            idReceita = String(idReceita);
+        function agregarIngredientes(idItem, quantidade, acumulador, visitados = new Set()) {
+            idItem = String(idItem);
 
-            // Se já processamos essa receita na cadeia atual, evita repetir
-            if (visitados.has(idReceita)) {
-                return; // evita ciclo infinito
+            // Evita ciclos infinitos
+            if (visitados.has(idItem)) return;
+            visitados.add(idItem);
+
+            const item = data.ITEMS[idItem];
+            if (!item) {
+                // Item desconhecido, aborta
+                return;
             }
-            visitados.add(idReceita);
 
-            const receita = data.RECIPES[idReceita];
-            if (receita) {
-                receita.ingredientes.forEach(idIng => {
-                    agregarIngredientes(idIng, quantidade, acumulador, visitados);
+            if (item.craftid) {
+                // Este item é fabricado por uma receita, expandimos essa receita
+                const idReceita = String(item.craftid);
+                if (visitados.has(idReceita)) return; // evita ciclo
+                const receita = data.RECIPES[idReceita];
+                if (!receita) return;
+
+                receita.ingredientes.forEach(subId => {
+                    agregarIngredientes(subId, quantidade, acumulador, visitados);
                 });
             } else {
-                if (!acumulador[idReceita]) acumulador[idReceita] = 0;
-                acumulador[idReceita] += quantidade;
+                // Ingrediente básico, acumula
+                if (!acumulador[idItem]) acumulador[idItem] = 0;
+                acumulador[idItem] += quantidade;
             }
 
-            // Opcional: remove do set para permitir caminhos diferentes sem bloquear
-            visitados.delete(idReceita);
+            visitados.delete(idItem); // libera para outros caminhos
         }
 
 
