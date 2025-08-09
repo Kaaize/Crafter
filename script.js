@@ -8,6 +8,7 @@ async function carregarReceitas() {
         const listaIngredientes = document.getElementById("lista-ingredientes");
 
         const receitasSelecionadas = {};
+        var valorTotal = 0;
 
         // Atualiza painel das receitas selecionadas (meio)
         function atualizarSelecionadas() {
@@ -62,29 +63,31 @@ async function carregarReceitas() {
         // idReceita = id da receita ou ingrediente
         // quantidade = multiplicador da receita (ex: se receita for 2x, ingredientes também)
         // acumulador = objeto para somar ingredientes por id
-        function agregarIngredientes(idItem, quantidade, acumulador) {
-            idItem = String(idItem);
+        function agregarIngredientes(idItem, quantidade, acumulador) {            
+            const ingredientes = data.RECIPES[idItem].ingredientes;
+            ingredientes.forEach(ingrediente => {
+                console.log(`Ingrediente ID: ${ingrediente.id}, Quantidade: ${ingrediente.quantidade}`);
+                idItem = String(ingrediente.id);
 
-            const item = data.ITEMS[idItem];
-            if (!item) {
-                // Item desconhecido, aborta
-                return;
-            }
+                const item = data.ITEMS[idItem];
+                if (!item) {
+                    // Item desconhecido, aborta
+                    return;
+                }
 
-            if (item.craftid) {
-                // Este item é fabricado por uma receita, expandimos essa receita
-                const idReceita = String(item.craftid);
-                const receita = data.RECIPES[idReceita];
-                if (!receita) return;
-
-                receita.ingredientes.forEach(subId => {
-                    agregarIngredientes(subId, quantidade, acumulador);
-                });
-            } else {
-                // Ingrediente básico, acumula
-                if (!acumulador[idItem]) acumulador[idItem] = 0;
-                acumulador[idItem] += quantidade;
-            }
+                if (item.craftid) {
+                    // Este item é fabricado por uma receita, expandimos essa receita
+                    const idReceita = String(item.craftid);
+                    const receita = data.RECIPES[idReceita];
+                    if (!receita) return;
+                    agregarIngredientes(item.craftid, quantidade * ingrediente.quantidade, acumulador);
+                } else {
+                    // Ingrediente básico, acumula
+                    if (!acumulador[idItem]) acumulador[idItem] = 0;
+                    acumulador[idItem] += quantidade * ingrediente.quantidade;
+                    valorTotal += item.custo * quantidade * ingrediente.quantidade;
+                }
+            });
         }
 
 
@@ -93,6 +96,7 @@ async function carregarReceitas() {
             listaIngredientes.innerHTML = "";
 
             const acumulador = {};
+            valorTotal = 0;
 
             // Para cada receita selecionada, agrega ingredientes recursivamente
             Object.entries(receitasSelecionadas).forEach(([id, info]) => {
@@ -107,10 +111,32 @@ async function carregarReceitas() {
                 const div = document.createElement("div");
                 div.classList.add("ingredient-item");
 
-                div.textContent = `${item.nome}: ${quantidade} unidade(s)`;
+                const img = document.createElement("img");
+                img.src = item.image;
+                img.alt = item.image;
+
+                const divInfo = document.createElement("div");
+                divInfo.classList.add("ingredient-info");
+
+                const span = document.createElement("span");
+                span.textContent = `${item.nome}: ${quantidade}`;
+                span.classList.add("ingredient-name");
+
+                const span2 = document.createElement("span");
+                span2.textContent = `Custo total: $${item.custo * quantidade}`;
+                span2.classList.add("total-cost");
+
+                divInfo.appendChild(span);
+                divInfo.appendChild(span2);
+                div.appendChild(img);
+                div.appendChild(divInfo);
 
                 listaIngredientes.appendChild(div);
+
             });
+
+            const caption = document.querySelector(".caption-incredientes");
+            caption.textContent = `Ingredientes Totais ($${valorTotal})`;
         }
 
         // Monta a lista da sidebar com imagem + nome
