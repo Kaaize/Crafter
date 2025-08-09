@@ -62,19 +62,29 @@ async function carregarReceitas() {
         // idReceita = id da receita ou ingrediente
         // quantidade = multiplicador da receita (ex: se receita for 2x, ingredientes também)
         // acumulador = objeto para somar ingredientes por id
-        function agregarIngredientes(idReceita, quantidade, acumulador) {
+        function agregarIngredientes(idReceita, quantidade, acumulador, visitados = new Set()) {
+            idReceita = String(idReceita);
+
+            // Se já processamos essa receita na cadeia atual, evita repetir
+            if (visitados.has(idReceita)) {
+                return; // evita ciclo infinito
+            }
+            visitados.add(idReceita);
+
             const receita = data.RECIPES[idReceita];
             if (receita) {
-                // É uma receita, itera ingredientes recursivamente
                 receita.ingredientes.forEach(idIng => {
-                    agregarIngredientes(String(idIng), quantidade, acumulador);
+                    agregarIngredientes(idIng, quantidade, acumulador, visitados);
                 });
             } else {
-                // Não é receita, é ingrediente simples
                 if (!acumulador[idReceita]) acumulador[idReceita] = 0;
                 acumulador[idReceita] += quantidade;
             }
+
+            // Opcional: remove do set para permitir caminhos diferentes sem bloquear
+            visitados.delete(idReceita);
         }
+
 
         // Atualiza painel ingredientes totais (direita)
         function atualizarIngredientes() {
