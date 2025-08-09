@@ -1,14 +1,208 @@
 {
     "ITEMS": {
-        "1": {"nome": "Sopa de Cogumelo", "custo": 10, "image": "/images/sopa_de_cogumelo.png", "craftid": 4},
-        "2": {"nome": "Cogumelo Selvagem", "custo": 5, "image": "/images/cogumelo_selvagem.png"},
-        "3": {"nome": "Carne de Porco", "custo": 15, "image": "/images/carne_de_porco.png"},
-        "4": {"nome": "Cenoura", "custo": 3, "image": "/images/cenoura.png"},
-        "5": {"nome": "Batata", "custo": 4, "image": "/images/batata.png"},
-        "6": {"nome": "Cebola", "custo": 2, "image": "/images/cebola.png"}
+        "1": {
+            "nome": "BIFE CRU PREMIUM",
+            "custo": 200,
+            "image": "/images/BIFE_CRU_PREMIUM.png"
+        },
+        "2": {
+            "nome": "LAGOSTA CRUA",
+            "custo": 370,
+            "image": "/images/LAGOSTA_CRUA.png"
+        },
+        "3": {
+            "nome": "CAMARAO CRU",
+            "custo": 300,
+            "image": "/images/CAMARAO_CRU.png"
+        },
+        "4": {
+            "nome": "CARNE CRUA DE COELHO",
+            "custo": 186,
+            "image": "/images/CARNE_CRUA_DE_COELHO.png"
+        },
+        "5": {
+            "nome": "PEIXE CRU",
+            "custo": 50,
+            "image": "/images/PEIXE_CRU.png"
+        },
+        "6": {
+            "nome": "ATUM",
+            "custo": 86,
+            "image": "/images/ATUM.png"
+        },
+        "7": {
+            "nome": "OSTRA",
+            "custo": 360,
+            "image": "/images/OSTRA.png"
+        },
+        "8": {
+            "nome": "BACON",
+            "custo": 10,
+            "image": "/images/BACON.png"
+        },
+        "9": {
+            "nome": "OVOS",
+            "custo": 10,
+            "image": "/images/OVOS.png"
+        },
+        "10": {
+            "nome": "MANTEIGA",
+            "custo": 40,
+            "image": "/images/MANTEIGA.png"
+        },
+        "11": {
+            "nome": "FOLHAS VERDES",
+            "custo": 15,
+            "image": "/images/FOLHAS_VERDES.png"
+        },
+        "12": {
+            "nome": "WFACE",
+            "custo": 20,
+            "image": "/images/ALFACE.png"
+        },
+        "13": {
+            "nome": "TOMATES",
+            "custo": 10,
+            "image": "/images/TOMATES.png"
+        },
+        "14": {
+            "nome": "LIMAO",
+            "custo": 10,
+            "image": "/images/LIMAO.png"
+        },
+        "15": {
+            "nome": "AGUA",
+            "custo": 5,
+            "image": "/images/AGUA.png"
+        },
+        "16": {
+            "nome": "VINHO BRANCO",
+            "custo": 700,
+            "image": "/images/VINHO_BRANCO.png"
+        },
+        "17": {
+            "nome": "COGUMELO",
+            "custo": 20,
+            "image": "/images/COGUMELO.png"
+        },
+        "18": {
+            "nome": "TRUFA BRANCA",
+            "custo": 250,
+            "image": "/images/TRUFA_BRANCA.png"
+        },
+        "19": {
+            "nome": "SAL",
+            "custo": 10,
+            "image": "/images/SAL.png"
+        },
+        "20": {
+            "nome": "PIMENTA",
+            "custo": 15,
+            "image": "/images/PIMENTA.png"
+        },
+        "21": {
+            "nome": "ARROZ",
+            "custo": 10,
+            "image": "/images/ARROZ.png"
+        },
+        "22": {
+            "nome": "ALHO",
+            "custo": 10,
+            "image": "/images/ALHO.png"
+        },
+        "23": {
+            "nome": "BATATA",
+            "custo": 10,
+            "image": "/images/BATATA.png"
+        },
+        "24": {
+            "nome": "AZEITE",
+            "custo": 15,
+            "image": "/images/AZEITE.png"
+        },
+        "25": {
+            "nome": "CEBOLA",
+            "custo": 10,
+            "image": "/images/CEBOLA.png"
+        },
+        "26": {
+            "nome": "CREME DE LEITE",
+            "custo": 20,
+            "image": "/images/CREME_DE_LEITE.png"
+        },
+        "27": {
+            "nome": "PASTA",
+            "custo": 10,
+            "image": "/images/PASTA.png"
+        },
+        "28": {
+            "nome": "QUEIJO",
+            "custo": 15,
+            "image": "/images/QUEIJO.png"
+        },
+        "29": {
+            "nome": "CARNE DE CARANGUEIJO",
+            "custo": 400,
+            "image": "/images/CARNE_DE_CARANGUEIJO.png"
+        },
+        "30": {
+            "nome": "POLVO CRU",
+            "custo": 500,
+            "image": "/images/POLVO_CRU.png"
+        },
+        "31": {
+            "nome": "GALINHA",
+            "custo": 300,
+            "image": "/images/GALINHA.png"
+        },
+        "32": {
+            "nome": "CARNE DE CORDEIRO CRU",
+            "custo": 650,
+            "image": "/images/CARNE_DE_CORDEIRO_CRU.png"
+        }
     },
     "RECIPES": {
-        "1": {"nome": "Ensopado de Ostra", "ingredientes": [1, 2, 3], "image": "/images/ensopado_de_ostra.png" },
-        "2": {"nome": "Sopa de Cogumelo", "ingredientes": [4, 5, 6], "image": "/images/sopa_de_cogumelo.png" }
+        "1": {
+            "nome": "FRANGO TERIYAKI",
+            "ingredientes": [
+                {
+                    "id": "31",
+                    "quantidade": 5
+                },
+                {
+                    "id": "20",
+                    "quantidade": 1
+                },
+                {
+                    "id": "13",
+                    "quantidade": 3
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 6
+                },
+                {
+                    "id": "11",
+                    "quantidade": 3
+                },
+                {
+                    "id": "22",
+                    "quantidade": 3
+                },
+                {
+                    "id": "18",
+                    "quantidade": 3
+                },
+                {
+                    "id": "26",
+                    "quantidade": 3
+                }
+            ],
+            "image": "/images/FRANGO_TERIYAKI.png"
+        }
     }
 }

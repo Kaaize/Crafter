@@ -62,12 +62,8 @@ async function carregarReceitas() {
         // idReceita = id da receita ou ingrediente
         // quantidade = multiplicador da receita (ex: se receita for 2x, ingredientes também)
         // acumulador = objeto para somar ingredientes por id
-        function agregarIngredientes(idItem, quantidade, acumulador, visitados = new Set()) {
+        function agregarIngredientes(idItem, quantidade, acumulador) {
             idItem = String(idItem);
-
-            // Evita ciclos infinitos
-            if (visitados.has(idItem)) return;
-            visitados.add(idItem);
 
             const item = data.ITEMS[idItem];
             if (!item) {
@@ -78,20 +74,17 @@ async function carregarReceitas() {
             if (item.craftid) {
                 // Este item é fabricado por uma receita, expandimos essa receita
                 const idReceita = String(item.craftid);
-                if (visitados.has(idReceita)) return; // evita ciclo
                 const receita = data.RECIPES[idReceita];
                 if (!receita) return;
 
                 receita.ingredientes.forEach(subId => {
-                    agregarIngredientes(subId, quantidade, acumulador, visitados);
+                    agregarIngredientes(subId, quantidade, acumulador);
                 });
             } else {
                 // Ingrediente básico, acumula
                 if (!acumulador[idItem]) acumulador[idItem] = 0;
                 acumulador[idItem] += quantidade;
             }
-
-            visitados.delete(idItem); // libera para outros caminhos
         }
 
 
