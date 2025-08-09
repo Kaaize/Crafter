@@ -6,15 +6,13 @@ async function carregarReceitas() {
         const listaReceitas = document.getElementById("lista-receitas");
 
         Object.entries(data.RECIPES).forEach(([idReceita, receita]) => {
-            // Cria o container da receita
             const recipeDiv = document.createElement("div");
             recipeDiv.classList.add("recipe");
 
-            // Botão para expandir/fechar
             const btn = document.createElement("button");
             btn.textContent = receita.nome;
+            btn.setAttribute("aria-expanded", "false");
 
-            // Lista de ingredientes
             const ul = document.createElement("ul");
             ul.classList.add("ingredients");
 
@@ -25,9 +23,10 @@ async function carregarReceitas() {
                 ul.appendChild(li);
             });
 
-            // Evento para expandir/recolher
             btn.addEventListener("click", () => {
-                ul.style.display = ul.style.display === "block" ? "none" : "block";
+                ul.classList.toggle("visible");
+                const isExpanded = btn.getAttribute("aria-expanded") === "true";
+                btn.setAttribute("aria-expanded", String(!isExpanded));
             });
 
             recipeDiv.appendChild(btn);
