@@ -34,7 +34,7 @@ def converter_nomes_arquivos(diretorio):
         
         # Manter a extensão do arquivo
         nome_base, extensao = os.path.splitext(nome_novo)
-        nome_novo_final = nome_base + extensao
+        nome_novo_final = nome_base + extensao.upper()
         
         caminho_antigo = os.path.join(diretorio, nome_antigo)
         caminho_novo = os.path.join(diretorio, nome_novo_final)
