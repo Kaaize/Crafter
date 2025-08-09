@@ -36,6 +36,19 @@ async function carregarReceitas() {
                 inputQtd.min = 1;
                 inputQtd.value = info.quantidade;
 
+                const delBtn = document.createElement("button");
+                delBtn.classList.add("delete-btn");
+                delBtn.addEventListener("click", () => {
+                    delete receitasSelecionadas[id];
+                    atualizarSelecionadas();
+                });
+        
+                const delBtnImg = document.createElement("img");
+                delBtnImg.src = "/Crafter/images/cancelar.png";
+                delBtnImg.alt = "Cancelar";
+        
+                delBtn.appendChild(delBtnImg);
+
                 inputQtd.addEventListener("input", () => {
                     let val = parseInt(inputQtd.value);
                     if (isNaN(val) || val < 1) {
@@ -49,6 +62,7 @@ async function carregarReceitas() {
                 detalhes.appendChild(nome);
                 detalhes.appendChild(labelQtd);
                 detalhes.appendChild(inputQtd);
+                detalhes.appendChild(delBtn);
 
                 div.appendChild(img);
                 div.appendChild(detalhes);

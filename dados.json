@@ -156,9 +156,9 @@
             "image": "/Crafter/images//GALINHA.png"
         },
         "32": {
-            "nome": "CARNE DE CORDEIRO CRU",
+            "nome": "CARNE DE CORDEIRO CRUA",
             "custo": 650,
-            "image": "/Crafter/images//CARNE_DE_CORDEIRO_CRU.png"
+            "image": "/Crafter/images//CARNE_DE_CORDEIRO_CRUA.png"
         }
     },
     "RECIPES": {
@@ -203,6 +203,620 @@
                 }
             ],
             "image": "/Crafter/images//FRANGO_TERIYAKI.png"
+        },
+        "2": {
+            "nome": "ATUM GRELHADO",
+            "ingredientes": [
+                {
+                    "id": "6",
+                    "quantidade": 5
+                },
+                {
+                    "id": "10",
+                    "quantidade": 2
+                },
+                {
+                    "id": "11",
+                    "quantidade": 2
+                },
+                {
+                    "id": "12",
+                    "quantidade": 4
+                },
+                {
+                    "id": "14",
+                    "quantidade": 2
+                },
+                {
+                    "id": "16",
+                    "quantidade": 1
+                },
+                {
+                    "id": "20",
+                    "quantidade": 2
+                },
+                {
+                    "id": "22",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 2
+                }
+            ],
+            "image": "/Crafter/images//ATUM_GRELHADO.png"
+        },
+        "3": {
+            "nome": "BIFE E OVO DE FRIGIDEIRA",
+            "ingredientes": [
+                {
+                    "id": "1",
+                    "quantidade": 3
+                },
+                {
+                    "id": "9",
+                    "quantidade": 2
+                },
+                {
+                    "id": "11",
+                    "quantidade": 1
+                },
+                {
+                    "id": "19",
+                    "quantidade": 4
+                },
+                {
+                    "id": "20",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images//BIFE_E_OVO_DE_FRIGIDEIRA.png"
+        },
+        "4": {
+            "nome": "BIFE WAGYU",
+            "ingredientes": [
+                {
+                    "id": "1",
+                    "quantidade": 6
+                },
+                {
+                    "id": "19",
+                    "quantidade": 4
+                },
+                {
+                    "id": "20",
+                    "quantidade": 3
+                },
+                {
+                    "id": "24",
+                    "quantidade": 6
+                },
+                {
+                    "id": "11",
+                    "quantidade": 4
+                },
+                {
+                    "id": "25",
+                    "quantidade": 3
+                },
+                {
+                    "id": "22",
+                    "quantidade": 2
+                },
+                {
+                    "id": "17",
+                    "quantidade": 5
+                },
+                {
+                    "id": "14",
+                    "quantidade": 2
+                },
+                {
+                    "id": "16",
+                    "quantidade": 1
+                },
+                {
+                    "id": "18",
+                    "quantidade": 2
+                }
+            ],
+            "image": "/Crafter/images//BIFE_WAGYU.png"
+        },
+        "5": {
+            "nome": "CAMAROES SALTEADOS",
+            "ingredientes": [
+                {
+                    "id": "3",
+                    "quantidade": 4
+                },
+                {
+                    "id": "10",
+                    "quantidade": 1
+                },
+                {
+                    "id": "11",
+                    "quantidade": 2
+                },
+                {
+                    "id": "14",
+                    "quantidade": 2
+                },
+                {
+                    "id": "16",
+                    "quantidade": 1
+                },
+                {
+                    "id": "18",
+                    "quantidade": 1
+                },
+                {
+                    "id": "19",
+                    "quantidade": 1
+                },
+                {
+                    "id": "20",
+                    "quantidade": 2
+                },
+                {
+                    "id": "22",
+                    "quantidade": 4
+                },
+                {
+                    "id": "24",
+                    "quantidade": 3
+                }
+            ],
+            "image": "/Crafter/images//CAMAROES_SALTEADOS.png"
+        },
+        "6": {
+            "nome": "CURRY DE COELHO",
+            "ingredientes": [
+                {
+                    "id": "4",
+                    "quantidade": 5
+                },
+                {
+                    "id": "9",
+                    "quantidade": 1
+                },
+                {
+                    "id": "13",
+                    "quantidade": 2
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "20",
+                    "quantidade": 2
+                },
+                {
+                    "id": "22",
+                    "quantidade": 1
+                },
+                {
+                    "id": "24",
+                    "quantidade": 2
+                },
+                {
+                    "id": "25",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images//CURRY_DE_COELHO.png"
+        },
+        "7": {
+            "nome": "ENSOPADO DE OSTRA",
+            "ingredientes": [
+                {
+                    "id": "7",
+                    "quantidade": 3
+                },
+                {
+                    "id": "10",
+                    "quantidade": 2
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "20",
+                    "quantidade": 2
+                },
+                {
+                    "id": "22",
+                    "quantidade": 1
+                },
+                {
+                    "id": "25",
+                    "quantidade": 1
+                },
+                {
+                    "id": "26",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images//ENSOPADO_DE_OSTRA.png"
+        },
+        "8": {
+            "nome": "ESPETO DE CARNE GOURMET",
+            "ingredientes": [
+                {
+                    "id": "1",
+                    "quantidade": 4
+                },
+                {
+                    "id": "8",
+                    "quantidade": 5
+                },
+                {
+                    "id": "11",
+                    "quantidade": 3
+                },
+                {
+                    "id": "16",
+                    "quantidade": 1
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "20",
+                    "quantidade": 3
+                },
+                {
+                    "id": "24",
+                    "quantidade": 3
+                },
+                {
+                    "id": "25",
+                    "quantidade": 4
+                }
+            ],
+            "image": "/Crafter/images//ESPETO_DE_CARNE_GOURMET.png"
+        },
+        "9": {
+            "nome": "MEDALHAO DE CARNE",
+            "ingredientes": [
+                {
+                    "id": "1",
+                    "quantidade": 3
+                },
+                {
+                    "id": "8",
+                    "quantidade": 8
+                },
+                {
+                    "id": "11",
+                    "quantidade": 1
+                },
+                {
+                    "id": "14",
+                    "quantidade": 2
+                },
+                {
+                    "id": "15",
+                    "quantidade": 4
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "22",
+                    "quantidade": 1
+                },
+                {
+                    "id": "23",
+                    "quantidade": 4
+                },
+                {
+                    "id": "24",
+                    "quantidade": 3
+                }
+            ],
+            "image": "/Crafter/images//MEDALHAO_DE_CARNE.png"
+        },
+        "10": {
+            "nome": "PAELLA DE FRUTOS DO MAR",
+            "ingredientes": [
+                {
+                    "id": "2",
+                    "quantidade": 3
+                },
+                {
+                    "id": "3",
+                    "quantidade": 5
+                },
+                {
+                    "id": "5",
+                    "quantidade": 1
+                },
+                {
+                    "id": "11",
+                    "quantidade": 1
+                },
+                {
+                    "id": "13",
+                    "quantidade": 1
+                },
+                {
+                    "id": "15",
+                    "quantidade": 3
+                },
+                {
+                    "id": "19",
+                    "quantidade": 3
+                },
+                {
+                    "id": "20",
+                    "quantidade": 1
+                },
+                {
+                    "id": "21",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images//PAELLA_DE_FRUTOS_DO_MAR.png"
+        },
+        "11": {
+            "nome": "SALADA ITALIANA",
+            "ingredientes": [
+                {
+                    "id": "11",
+                    "quantidade": 1
+                },
+                {
+                    "id": "12",
+                    "quantidade": 5
+                },
+                {
+                    "id": "13",
+                    "quantidade": 3
+                },
+                {
+                    "id": "18",
+                    "quantidade": 5
+                },
+                {
+                    "id": "19",
+                    "quantidade": 1
+                },
+                {
+                    "id": "23",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images//SALADA_ITALIANA.png"
+        },
+        "12": {
+            "nome": "ESPETINHO DE POLVO",
+            "ingredientes": [
+                {
+                    "id": "19",
+                    "quantidade": 4
+                },
+                {
+                    "id": "20",
+                    "quantidade": 1
+                },
+                {
+                    "id": "22",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 2
+                },
+                {
+                    "id": "25",
+                    "quantidade": 1
+                },
+                {
+                    "id": "30",
+                    "quantidade": 3
+                }
+            ],
+            "image": "/Crafter/images/ESPETINHO_DE_POLVO.png"
+        },
+        "13": {
+            "nome": "SOPA DE CARANGUEIJO",
+            "ingredientes": [
+                {
+                    "id": "11",
+                    "quantidade": 3
+                },
+                {
+                    "id": "13",
+                    "quantidade": 6
+                },
+                {
+                    "id": "15",
+                    "quantidade": 9
+                },
+                {
+                    "id": "18",
+                    "quantidade": 2
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "20",
+                    "quantidade": 4
+                },
+                {
+                    "id": "25",
+                    "quantidade": 3
+                },
+                {
+                    "id": "27",
+                    "quantidade": 13
+                },
+                {
+                    "id": "28",
+                    "quantidade": 3
+                },
+                {
+                    "id": "29",
+                    "quantidade": 4
+                }
+            ],
+            "image": "/Crafter/images/SOPA_DE_CARANGUEIJO.png"
+        },
+        "14": {
+            "nome": "CARNE DE CORDEIRO",
+            "ingredientes": [
+                {
+                    "id": "11",
+                    "quantidade": 2
+                },
+                {
+                    "id": "14",
+                    "quantidade": 1
+                },
+                {
+                    "id": "16",
+                    "quantidade": 1
+                },
+                {
+                    "id": "17",
+                    "quantidade": 2
+                },
+                {
+                    "id": "18",
+                    "quantidade": 1
+                },
+                {
+                    "id": "19",
+                    "quantidade": 2
+                },
+                {
+                    "id": "20",
+                    "quantidade": 1
+                },
+                {
+                    "id": "22",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 3
+                },
+                {
+                    "id": "25",
+                    "quantidade": 2
+                },
+                {
+                    "id": "32",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images/CARNE_DE_CORDEIRO.png"
+        },
+        "15": {
+            "nome": "POLVO GRELHADO",
+            "ingredientes": [
+                {
+                    "id": "11",
+                    "quantidade": 3
+                },
+                {
+                    "id": "13",
+                    "quantidade": 6
+                },
+                {
+                    "id": "18",
+                    "quantidade": 1
+                },
+                {
+                    "id": "19",
+                    "quantidade": 4
+                },
+                {
+                    "id": "22",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 2
+                },
+                {
+                    "id": "25",
+                    "quantidade": 2
+                },
+                {
+                    "id": "26",
+                    "quantidade": 3
+                },
+                {
+                    "id": "28",
+                    "quantidade": 3
+                },
+                {
+                    "id": "30",
+                    "quantidade": 5
+                }
+            ],
+            "image": "/Crafter/images/POLVO_GRELHADO.png"
+        },
+        "16": {
+            "nome": "PAELLA DE CAMARAO",
+            "ingredientes": [
+                {
+                    "id": "3",
+                    "quantidade": 8
+                },
+                {
+                    "id": "11",
+                    "quantidade": 1
+                },
+                {
+                    "id": "13",
+                    "quantidade": 1
+                },
+                {
+                    "id": "15",
+                    "quantidade": 3
+                },
+                {
+                    "id": "18",
+                    "quantidade": 3
+                },
+                {
+                    "id": "19",
+                    "quantidade": 1
+                },
+                {
+                    "id": "20",
+                    "quantidade": 1
+                },
+                {
+                    "id": "21",
+                    "quantidade": 2
+                },
+                {
+                    "id": "24",
+                    "quantidade": 1
+                }
+            ],
+            "image": "/Crafter/images/PAELLA_DE_CAMARAO.png"
         }
     }
 }
