@@ -1,3 +1,14 @@
 {
-    "mensagem": "TESTE 2"
+    "ITEMS": {
+        "1": { "nome": "Ostra Fresca", "custo": 10 },
+        "2": { "nome": "Cogumelo Selvagem", "custo": 5 },
+        "3": { "nome": "Carne de Porco", "custo": 15 },
+        "4": { "nome": "Cenoura", "custo": 3 },
+        "5": { "nome": "Batata", "custo": 4 },
+        "6": { "nome": "Cebola", "custo": 2 }
+    },
+    "RECIPES": {
+        "1": { "nome": "Ensopado de Ostra", "ingredientes": [1, 2, 3] },
+        "2": { "nome": "Sopa de Cogumelo", "ingredientes": [4, 5, 6] }
+    }
 }

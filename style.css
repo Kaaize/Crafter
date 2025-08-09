@@ -1,15 +1,50 @@
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    text-align: center;
-    padding: 50px;
+    display: flex;
 }
 
-h1 {
-    color: #333;
+/* Lateral */
+#sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+    padding: 15px;
+    height: 100vh;
+    overflow-y: auto;
 }
 
-p {
-    font-size: 18px;
+.recipe {
+    margin-bottom: 10px;
+}
+
+.recipe button {
+    width: 100%;
+    background-color: #ddd;
+    border: none;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.recipe button:hover {
+    background-color: #ccc;
+}
+
+.ingredients {
+    display: none;
+    padding-left: 15px;
+    font-size: 14px;
     color: #555;
+}
+
+.ingredients li {
+    margin: 4px 0;
+}
+
+/* Área principal */
+main {
+    flex: 1;
+    padding: 20px;
 }
