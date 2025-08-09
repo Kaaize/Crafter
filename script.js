@@ -44,7 +44,7 @@ async function carregarReceitas() {
                 });
         
                 const delBtnImg = document.createElement("img");
-                delBtnImg.src = "/Crafter/images/cancelar.png";
+                delBtnImg.src = "/Crafter/images/CANCELAR.PNG";
                 delBtnImg.alt = "Cancelar";
         
                 delBtn.appendChild(delBtnImg);
