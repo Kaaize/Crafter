@@ -1,7 +1,6 @@
 #nav {
-    width: fit-content;
+    width: 100%;
     margin: 0;
-    display: flex;
 }
 
 * {
