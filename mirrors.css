@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: block;
+    height: 100vh;
+    width: 100%;
+}
+
+#nav {
+    width: fit;
+    margin: 0;
+}
+
+.menu-container {
+    display: flex;
+    background-color: #333;
+}
+
+.logo img{
+    width: 32px;
+    height: 32px;
+}
+
+.dropdown-container {
+    display: flex;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+
+.menu-icon {
+    width: fit-content;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    padding:  0 6vw 0 6vw;
+    margin: 0 1vw
+  }
+
+.menu-icon img {
+    width: 32px;
+    height: 32px;
+}
+    
+.dropdown-content {
+top: 32px;
+font-size: 32px;
+display: none;
+flex-direction:column;
+position: absolute;
+min-width: 15vw;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+}
+  
+.dropdown-content a {
+background-color: #333;
+color: white;
+padding: 1vh 2vh;
+text-decoration: none;
+display: flex;
+align-items: center;
+} 
+
+.menu-icon:hover {
+    background-color: #ad8484;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+    color: black
+}
+
+.menu-icon:hover .dropdown-content {
+display: flex;
+}
+
+.filter-menu {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-icon button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: white;
+    background-color: #333;
+    margin: 25px;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.active button{
+    background-color: red;
+    box-shadow: 12px 12px 8px 0px rgb(0, 0, 0);
+}
+
+.images-mirror {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 50px 0 50px
+}
+
+.mirror-img {
+    display: none;
+    margin: 10px
+}
+
+.show {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+
+    .filter-icon button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+        color: white;
+        background-color: #333;
+        margin: 5px;
+        width: 64px;
+        height: 64px;
+        cursor: pointer;
+        border-radius: 100%;
+    }
+
+    .active button{
+        background-color: red;
+        box-shadow: 5px 5px 5px 0px rgb(0, 0, 0);
+    }
+    
+    .mirror-img {
+        width: 100vw;
+        height: 107vw;
+    }
+}

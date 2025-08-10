@@ -1,29 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receitas</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receitas</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="crafter.css">
 </head>
+
 <body>
-  <aside id="sidebar">
-    <h2>Receitas</h2>
-    <div id="lista-receitas"></div>
-  </aside>
+  <div id="nav">
+    <nav>
+      <div class="menu-container">
+        <div class="logo">
+          <a href="/"><img src="/imgs/rocket.png"></a>
+        </div>
+        <div class="dropdown-container">
+          <div class="menu-icon">
+            <img src="/imgs/GLA.ico">
+            <div class="dropdown-content">
+              <a href="/crafter.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de
+                Crafts</a>
+              <a href="/calcpots.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de
+                Pots</a>
+              <a href="/puzzles.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Quebra-Cabeças</a>
+              <a href="/mirrors.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Espelhos</a>
+            </div>
+          </div>
+          <div class="menu-icon">
+            <img src="/imgs/PXG.ico">
+            <div class="dropdown-content">
+              <a href="/"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Boost</a>
+              <a href="/"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Craft</a>
+              <a href="/"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Celebi</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div id="main">
+    <aside id="sidebar">
+      <h2>Receitas</h2>
+      <div id="lista-receitas"></div>
+    </aside>
 
-  <main id="painel-principal">
-    <h1>Receitas Selecionadas</h1>
-    <div id="selecionadas"></div>
-  </main>
+    <main id="painel-principal">
+      <h1>Receitas Selecionadas</h1>
+      <div id="selecionadas"></div>
+    </main>
 
-  <section id="painel-ingredientes">
-    <h1 class="caption-incredientes">Ingredientes Totais</h1>
-    <div id="lista-ingredientes"></div>
-  </section>
+    <section id="painel-ingredientes">
+      <h1 class="caption-incredientes">Ingredientes Totais</h1>
+      <div id="lista-ingredientes"></div>
+    </section>
 
-  <script src="script.js"></script>
+    <script src="crafter.js"></script>
+  </div>
 </body>
 
 </body>
+
 </html>
