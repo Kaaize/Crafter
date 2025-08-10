@@ -1,7 +1,7 @@
 function SetFilter() {
     img = document.getElementById("puzzle-img")
     puzz = this.id
-    img.src = "/imgs/puzzles/"+this.id+".png"    
+    img.src = "/imgs/puzzles/"+this.id+".PNG"    
   }
   
   function changeActive(){
