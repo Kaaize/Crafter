@@ -3,162 +3,162 @@
         "1": {
             "nome": "BIFE CRU PREMIUM",
             "custo": 200,
-            "image": "/Crafter/images/BIFE_CRU_PREMIUM.PNG"
+            "image": "images/BIFE_CRU_PREMIUM.PNG"
         },
         "2": {
             "nome": "LAGOSTA CRUA",
             "custo": 370,
-            "image": "/Crafter/images/LAGOSTA_CRUA.PNG"
+            "image": "images/LAGOSTA_CRUA.PNG"
         },
         "3": {
             "nome": "CAMARAO CRU",
             "custo": 300,
-            "image": "/Crafter/images/CAMARAO_CRU.PNG"
+            "image": "images/CAMARAO_CRU.PNG"
         },
         "4": {
             "nome": "CARNE CRUA DE COELHO",
             "custo": 186,
-            "image": "/Crafter/images/CARNE_CRUA_DE_COELHO.PNG"
+            "image": "images/CARNE_CRUA_DE_COELHO.PNG"
         },
         "5": {
             "nome": "PEIXE CRU",
             "custo": 50,
-            "image": "/Crafter/images/PEIXE_CRU.PNG"
+            "image": "images/PEIXE_CRU.PNG"
         },
         "6": {
             "nome": "ATUM",
             "custo": 86,
-            "image": "/Crafter/images/ATUM.PNG"
+            "image": "images/ATUM.PNG"
         },
         "7": {
             "nome": "OSTRA",
             "custo": 360,
-            "image": "/Crafter/images/OSTRA.PNG"
+            "image": "images/OSTRA.PNG"
         },
         "8": {
             "nome": "BACON",
             "custo": 10,
-            "image": "/Crafter/images/BACON.PNG"
+            "image": "images/BACON.PNG"
         },
         "9": {
             "nome": "OVOS",
             "custo": 10,
-            "image": "/Crafter/images/OVOS.PNG"
+            "image": "images/OVOS.PNG"
         },
         "10": {
             "nome": "MANTEIGA",
             "custo": 40,
-            "image": "/Crafter/images/MANTEIGA.PNG"
+            "image": "images/MANTEIGA.PNG"
         },
         "11": {
             "nome": "FOLHAS VERDES",
             "custo": 15,
-            "image": "/Crafter/images/FOLHAS_VERDES.PNG"
+            "image": "images/FOLHAS_VERDES.PNG"
         },
         "12": {
             "nome": "WFACE",
             "custo": 20,
-            "image": "/Crafter/images/ALFACE.PNG"
+            "image": "images/ALFACE.PNG"
         },
         "13": {
             "nome": "TOMATES",
             "custo": 10,
-            "image": "/Crafter/images/TOMATES.PNG"
+            "image": "images/TOMATES.PNG"
         },
         "14": {
             "nome": "LIMAO",
             "custo": 10,
-            "image": "/Crafter/images/LIMAO.PNG"
+            "image": "images/LIMAO.PNG"
         },
         "15": {
             "nome": "AGUA",
             "custo": 5,
-            "image": "/Crafter/images/AGUA.PNG"
+            "image": "images/AGUA.PNG"
         },
         "16": {
             "nome": "VINHO BRANCO",
             "custo": 700,
-            "image": "/Crafter/images/VINHO_BRANCO.PNG"
+            "image": "images/VINHO_BRANCO.PNG"
         },
         "17": {
             "nome": "COGUMELO",
             "custo": 20,
-            "image": "/Crafter/images/COGUMELO.PNG"
+            "image": "images/COGUMELO.PNG"
         },
         "18": {
             "nome": "TRUFA BRANCA",
             "custo": 250,
-            "image": "/Crafter/images/TRUFA_BRANCA.PNG"
+            "image": "images/TRUFA_BRANCA.PNG"
         },
         "19": {
             "nome": "SAL",
             "custo": 10,
-            "image": "/Crafter/images/SAL.PNG"
+            "image": "images/SAL.PNG"
         },
         "20": {
             "nome": "PIMENTA",
             "custo": 15,
-            "image": "/Crafter/images/PIMENTA.PNG"
+            "image": "images/PIMENTA.PNG"
         },
         "21": {
             "nome": "ARROZ",
             "custo": 10,
-            "image": "/Crafter/images/ARROZ.PNG"
+            "image": "images/ARROZ.PNG"
         },
         "22": {
             "nome": "ALHO",
             "custo": 10,
-            "image": "/Crafter/images/ALHO.PNG"
+            "image": "images/ALHO.PNG"
         },
         "23": {
             "nome": "BATATA",
             "custo": 10,
-            "image": "/Crafter/images/BATATA.PNG"
+            "image": "images/BATATA.PNG"
         },
         "24": {
             "nome": "AZEITE",
             "custo": 15,
-            "image": "/Crafter/images/AZEITE.PNG"
+            "image": "images/AZEITE.PNG"
         },
         "25": {
             "nome": "CEBOLA",
             "custo": 10,
-            "image": "/Crafter/images/CEBOLA.PNG"
+            "image": "images/CEBOLA.PNG"
         },
         "26": {
             "nome": "CREME DE LEITE",
             "custo": 20,
-            "image": "/Crafter/images/CREME_DE_LEITE.PNG"
+            "image": "images/CREME_DE_LEITE.PNG"
         },
         "27": {
             "nome": "PASTA",
             "custo": 10,
-            "image": "/Crafter/images/PASTA.PNG"
+            "image": "images/PASTA.PNG"
         },
         "28": {
             "nome": "QUEIJO",
             "custo": 15,
-            "image": "/Crafter/images/QUEIJO.PNG"
+            "image": "images/QUEIJO.PNG"
         },
         "29": {
             "nome": "CARNE DE CARANGUEIJO",
             "custo": 400,
-            "image": "/Crafter/images/CARNE_DE_CARANGUEIJO.PNG"
+            "image": "images/CARNE_DE_CARANGUEIJO.PNG"
         },
         "30": {
             "nome": "POLVO CRU",
             "custo": 500,
-            "image": "/Crafter/images/POLVO_CRU.PNG"
+            "image": "images/POLVO_CRU.PNG"
         },
         "31": {
             "nome": "GALINHA",
             "custo": 300,
-            "image": "/Crafter/images/GALINHA.PNG"
+            "image": "images/GALINHA.PNG"
         },
         "32": {
             "nome": "CARNE DE CORDEIRO CRUA",
             "custo": 650,
-            "image": "/Crafter/images/CARNE_DE_CORDEIRO_CRUA.PNG"
+            "image": "images/CARNE_DE_CORDEIRO_CRUA.PNG"
         }
     },
     "RECIPES": {
@@ -202,7 +202,7 @@
                     "quantidade": 3
                 }
             ],
-            "image": "/Crafter/images/FRANGO_TERIYAKI.PNG"
+            "image": "images/FRANGO_TERIYAKI.PNG"
         },
         "2": {
             "nome": "ATUM GRELHADO",
@@ -244,7 +244,7 @@
                     "quantidade": 2
                 }
             ],
-            "image": "/Crafter/images/ATUM_GRELHADO.PNG"
+            "image": "images/ATUM_GRELHADO.PNG"
         },
         "3": {
             "nome": "BIFE E OVO DE FRIGIDEIRA",
@@ -274,7 +274,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/BIFE_E_OVO_DE_FRIGIDEIRA.PNG"
+            "image": "images/BIFE_E_OVO_DE_FRIGIDEIRA.PNG"
         },
         "4": {
             "nome": "BIFE WAGYU",
@@ -324,7 +324,7 @@
                     "quantidade": 2
                 }
             ],
-            "image": "/Crafter/images/BIFE_WAGYU.PNG"
+            "image": "images/BIFE_WAGYU.PNG"
         },
         "5": {
             "nome": "CAMAROES SALTEADOS",
@@ -370,7 +370,7 @@
                     "quantidade": 3
                 }
             ],
-            "image": "/Crafter/images/CAMAROES_SALTEADOS.PNG"
+            "image": "images/CAMAROES_SALTEADOS.PNG"
         },
         "6": {
             "nome": "CURRY DE COELHO",
@@ -408,7 +408,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/CURRY_DE_COELHO.PNG"
+            "image": "images/CURRY_DE_COELHO.PNG"
         },
         "7": {
             "nome": "ENSOPADO DE OSTRA",
@@ -442,7 +442,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/ENSOPADO_DE_OSTRA.PNG"
+            "image": "images/ENSOPADO_DE_OSTRA.PNG"
         },
         "8": {
             "nome": "ESPETO DE CARNE GOURMET",
@@ -480,7 +480,7 @@
                     "quantidade": 4
                 }
             ],
-            "image": "/Crafter/images/ESPETO_DE_CARNE_GOURMET.PNG"
+            "image": "images/ESPETO_DE_CARNE_GOURMET.PNG"
         },
         "9": {
             "nome": "MEDALHAO DE CARNE",
@@ -522,7 +522,7 @@
                     "quantidade": 3
                 }
             ],
-            "image": "/Crafter/images/MEDALHAO_DE_CARNE.PNG"
+            "image": "images/MEDALHAO_DE_CARNE.PNG"
         },
         "10": {
             "nome": "PAELLA DE FRUTOS DO MAR",
@@ -568,7 +568,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/PAELLA_DE_FRUTOS_DO_MAR.PNG"
+            "image": "images/PAELLA_DE_FRUTOS_DO_MAR.PNG"
         },
         "11": {
             "nome": "SALADA ITALIANA",
@@ -602,7 +602,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/SALADA_ITALIANA.PNG"
+            "image": "images/SALADA_ITALIANA.PNG"
         },
         "12": {
             "nome": "ESPETINHO DE POLVO",
@@ -632,7 +632,7 @@
                     "quantidade": 3
                 }
             ],
-            "image": "/Crafter/images/ESPETINHO_DE_POLVO.PNG"
+            "image": "images/ESPETINHO_DE_POLVO.PNG"
         },
         "13": {
             "nome": "SOPA DE CARANGUEIJO",
@@ -678,7 +678,7 @@
                     "quantidade": 4
                 }
             ],
-            "image": "/Crafter/images/SOPA_DE_CARANGUEIJO.PNG"
+            "image": "images/SOPA_DE_CARANGUEIJO.PNG"
         },
         "14": {
             "nome": "CARNE DE CORDEIRO",
@@ -728,7 +728,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/CARNE_DE_CORDEIRO.PNG"
+            "image": "images/CARNE_DE_CORDEIRO.PNG"
         },
         "15": {
             "nome": "POLVO GRELHADO",
@@ -774,7 +774,7 @@
                     "quantidade": 5
                 }
             ],
-            "image": "/Crafter/images/POLVO_GRELHADO.PNG"
+            "image": "images/POLVO_GRELHADO.PNG"
         },
         "16": {
             "nome": "PAELLA DE CAMARAO",
@@ -816,7 +816,7 @@
                     "quantidade": 1
                 }
             ],
-            "image": "/Crafter/images/PAELLA_DE_CAMARAO.PNG"
+            "image": "images/PAELLA_DE_CAMARAO.PNG"
         }
     }
 }
