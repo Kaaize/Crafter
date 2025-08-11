@@ -1,0 +1,122 @@
+body {
+
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    flex-direction: row;
+    display: flex;
+}
+
+.builder-container {
+    text-align: center;
+    color: rebeccapurple;
+    border-style: solid;
+    width: 70%;
+    height: 100%;
+    background-color: rgb(208, 212, 182);
+}
+
+.mid-div {
+    display: flex;
+    justify-content: center;
+}
+
+.character-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+}
+
+.character-image {
+    width: 300px;
+    height: 450px;
+    margin-top: 0px;
+}
+
+
+.skills-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skills-container h1 {
+    display: block;
+}
+
+.skill {
+    margin: 10px;
+    text-align: center;
+}
+
+.link-container {
+    margin: 20px;
+    text-align: center;
+}
+
+.link-container input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal h2 {
+    text-align: center;    
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.artifact-options, .trophy-options {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.artifact-option, .trophy-option {
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.artifact-name, .trophy-name {
+    font-weight: bold;
+    overflow-wrap: break-word;
+}
+
+.close-artifact, .close-trophy {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

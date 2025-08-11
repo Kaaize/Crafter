@@ -80,7 +80,6 @@ async function carregarReceitas() {
         function agregarIngredientes(idItem, quantidade, acumulador) {            
             const ingredientes = data.RECIPES[idItem].ingredientes;
             ingredientes.forEach(ingrediente => {
-                console.log(`Ingrediente ID: ${ingrediente.id}, Quantidade: ${ingrediente.quantidade}`);
                 idItem = String(ingrediente.id);
 
                 const item = data.ITEMS[idItem];

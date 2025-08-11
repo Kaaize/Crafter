@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Builder Drakantos</title>
+    <link rel="stylesheet" type="text/css" href="builder.css">
+</head>
+
+<body>
+    <div class="builder-container">
+        <h1>Builder Drakantos</h1>
+        <div>
+            <p class="character-name">NOME DO PERSONAGEM</p>
+        </div>
+        <div class="mid-div">
+            <div class="artifacts-container">
+                <h1>Artefatos</h1>
+                <div id="artifact-slot1" class="artifact">
+                    <img src="imgs/drakantos/artefato.png" alt="Heart of Depth" class="artifact-image">
+                    <p class="artifact-name">Heart of Depth</p>
+                </div>
+                <div class="artifact">
+                    <img src="imgs/drakantos/artefato.png" alt="Blizzard Strayer" class="artifact-image">
+                    <p class="artifact-name">Blizzard Strayer</p>
+                </div>
+            </div>
+            <div>
+                <img src="imgs/drakantos/korz.png" alt="Drakantos Image" class="character-image">
+            </div>
+            <div id="artifact-slot2" class="trophies-container">
+                <h1>Troféus</h1>
+                <div class="trophy">
+                    <img src="imgs/drakantos/artefato.png" alt="Heart of Depth" class="trophy-image">
+                    <p class="trophy-name">Heart of Depth</p>
+                </div>
+                <div class="trophy">
+                    <img src="imgs/drakantos/artefato.png" alt="Blizzard Strayer" class="trophy-image">
+                    <p class="trophy-name">Blizzard Strayer</p>
+                </div>
+            </div>
+        </div>
+        <h1>Habilidades</h1>
+        <div class="skills-container">
+            <div class="skill">
+                <img src="imgs/drakantos/artefato.png" alt="Skill 1" class="skill-image">
+            </div>
+            <div class="skill">
+                <img src="imgs/drakantos/artefato.png" alt="Skill 1" class="skill-image">
+            </div>
+            <div class="skill">
+                <img src="imgs/drakantos/artefato.png" alt="Skill 1" class="skill-image">
+            </div>
+            <div class="skill">
+                <img src="imgs/drakantos/artefato.png" alt="Skill 1" class="skill-image">
+            </div>
+            <div class="skill">
+                <img src="imgs/drakantos/artefato.png" alt="Skill 1" class="skill-image">
+            </div>
+            <div class="skill">
+                <img src="imgs/drakantos/artefato.png" alt="Skill 1" class="skill-image">
+            </div>
+        </div>
+
+    <div class="link-container">
+        <input id="input-link" type="text" id="link-input" value="AA-BB-CCC-DDD-EEE-FFF-000-001-002-003-004-005" readonly>
+        <button id="copy-button">Copy Código</button>
+    </div>
+    </div>  
+
+    <div id="artifact-modal" class="modal">
+        <div class="modal-content">
+            <h2>Selecione um Artefato</h2>
+            <div class="artifact-options">
+            </div>
+        </div>
+    </div>
+    <div id="trophy-modal" class="modal">
+        <div class="modal-content">
+            <h2>Selecione um Troféu</h2>
+            <div class="trophy-options">
+            </div>
+        </div>
+    </div>    
+    <script src="builder.js"></script>      
+</body>
+
+</html>

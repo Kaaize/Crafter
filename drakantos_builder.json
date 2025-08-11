@@ -1,0 +1,127 @@
+{
+    "CHARACTERS": {
+        "KORZ": {
+            "NAME": "Korz",
+            "IMAGE": "imgs/drakantos/korz.png",
+            "SKILLS": {
+                "SKILL1": [
+                    {
+                        "NAME": "Axe Slash",
+                        "DESCRIPTION": "Deals damage to a single target.",
+                        "POWER": 0.1,
+                        "COOLDOWN": 2
+                    },
+                    {
+                        "NAME": "Axe Slash",
+                        "DESCRIPTION": "Stuns the target for 2 seconds. casting time 25% faster.",
+                        "POWER": 0.1,
+                        "COOLDOWN": 1
+                    }
+                ],
+                "SKILL2": [
+                    {
+                        "NAME": "Brute Force",
+                        "DESCRIPTION": "Deals area damage around Korz.",
+                        "POWER": 0.2,
+                        "COOLDOWN": 6
+                    },
+                    {
+                        "NAME": "Brute Force",
+                        "DESCRIPTION": "Deals area damage around Korz. Hold to increse damage up to 50%.",
+                        "POWER": 0.2,
+                        "COOLDOWN": 8
+                    }
+                ],
+                "SKILL3": [
+                    {
+                        "NAME": "War Cry",
+                        "DESCRIPTION": "Increases Korz's attack speed by 20% for 5 seconds.",
+                        "POWER": 0,
+                        "COOLDOWN": 10
+                    },
+                    {
+                        "NAME": "War Cry",
+                        "DESCRIPTION": "Increases Korz's attack speed by 30% for 5 seconds. Allies within range also receive the buff.",
+                        "POWER": 0,
+                        "COOLDOWN": 12
+                    }
+                ],
+                "SKILL4": [
+                    {
+                        "NAME": "Earth Shatter",
+                        "DESCRIPTION": "Deals massive damage to all enemies in a large area.",
+                        "POWER": 0.5,
+                        "COOLDOWN": 10
+                    },
+                    {
+                        "NAME": "Earth Shatter",
+                        "DESCRIPTION": "Deals massive damage to all enemies in a large area and stuns them for 2 seconds.",
+                        "POWER": 0.5,
+                        "COOLDOWN": 25
+                    }
+                ],
+                "SKILL5": [
+                    {
+                        "NAME": "Berserker Rage",
+                        "DESCRIPTION": "Korz enters a berserk state, increasing his damage by 50% and reducing incoming damage by 20% for 10 seconds.",
+                        "POWER": 0,
+                        "COOLDOWN": 30
+                    },
+                    {
+                        "NAME": "Berserker Rage",
+                        "DESCRIPTION": "Korz enters a berserk state, increasing his damage by 70% and reducing incoming damage by 30% for 10 seconds. Additionally, Korz heals for 10% of his max health over the duration.",
+                        "POWER": 0,
+                        "COOLDOWN": 40
+                    }
+                ],
+                "SKILL6": [
+                    {
+                        "NAME": "Titan's Wrath",
+                        "DESCRIPTION": "Korz channels the power of the titans, greatly increasing his size and strength for 15 seconds. During this time, his basic attacks deal area damage and have a chance to knock back enemies.",
+                        "POWER": 0,
+                        "COOLDOWN": 60
+                    },
+                    {
+                        "NAME": "Titan's Wrath",
+                        "DESCRIPTION": "Korz channels the power of the titans, greatly increasing his size and strength for 15 seconds. During this time, his basic attacks deal area damage, have a chance to knock back enemies, and reduce their armor by 20% for 5 seconds.",
+                        "POWER": 0,
+                        "COOLDOWN": 75
+                    }
+                ]
+            }
+        }
+    },
+
+    "ARTIFACTS": [
+        {
+            "NAME": "Campfire",
+            "DESCRIPTION": "Heal all the party by 100 hp per second. only used out of combat.",
+            "CHARGES": 3
+        },
+        {
+            "NAME": "Warrior's Emblem",
+            "DESCRIPTION": "increases attack power by 10% for 10 seconds.",
+            "CHARGES": 5
+        },
+        {
+            "NAME": "Shield of Valor",
+            "DESCRIPTION": "Receive a shield that absorbs 400 damage for 10 seconds.",
+            "CHARGES": 4
+        }        
+    ],
+
+    "TROPHIES": [
+        {
+            "NAME": "Summon Trophy",
+            "DESCRIPTION": "Increase the damage from summoned creatures by 10%."
+        },
+        {
+            "NAME": "Celerity Trophy",
+            "DESCRIPTION": "Reduces all skill cooldowns by 10%."
+        },
+        {
+            "NAME": "Brute Trophy",
+            "DESCRIPTION": "Increase character's health by 10%."
+        }
+    ]
+}
