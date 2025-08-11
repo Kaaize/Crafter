@@ -6,6 +6,7 @@ var modalCharacter = document.getElementById("character-modal");
 var modalOrb = document.getElementById("orbs-modal");
 
 var copyButton = document.getElementById("copy-button");
+var linkInput = document.getElementById('link-input');
 
 var artifactSlots = document.getElementsByClassName('artifact-slot');
 var trophySlots = document.getElementsByClassName('trophy-slot');
@@ -118,7 +119,7 @@ function loadOrbs(character, skillID) {
         div.className = 'orb-option';         
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/orbs/"+character.NAME + skillID + "_" + index + ".png";
+        img.src = "imgs/drakantos/orbs/"+character.NAME.upper() + skillID + "_" + index + ".png";
         img.className = 'orb-image';
 
         var p = document.createElement('p');
@@ -141,7 +142,6 @@ function loadParamQuery() {
     var query = location.search.slice(1);
     var partes = query.split('&');
     var dataQuery = {};
-    var linkInput = document.getElementById('input-link');
 
     partes.forEach(function (parte) {
         var chaveValor = parte.split('=');
@@ -164,6 +164,7 @@ function setArtifact(slot, artifactID) {
 
     var slotNum = slot.getAttribute('data-artifact-slot');
     build.artifacts[slotNum] = artifactID;
+    setLink();
 };
 
 function artifactClick(artifactID) {
@@ -180,6 +181,7 @@ function setTrophy(slot, trophyID) {
 
     var slotNum = slot.getAttribute('data-trophy-slot');
     build.trophies[slotNum] = trophyID;
+    setLink();
 };
 
 function trophyClick(trophyID) {
@@ -191,10 +193,11 @@ function setCharacter(character) {
     var characterImage = document.getElementsByClassName('character-image')[0];
     var characterName = document.getElementsByClassName('character-name')[0];
 
-    characterImage.src = "imgs/drakantos/characters/" + character.NAME + ".png";
+    characterImage.src = "imgs/drakantos/characters/" + character.NAME.upper() + ".png";
     characterName.textContent = character.NAME;
 
     build.character = character.NAME;
+    setLink();
 };
 
 function characterClick(character) {
@@ -206,9 +209,10 @@ function setOrb(orb, skillID, orbID) {
     var orbDiv = document.getElementById('skill-'+skillID);
     var orbImage = orbDiv.getElementsByClassName('skill-image')[0];
     
-    orbImage.src = "imgs/drakantos/orbs/"+build.character + skillID + "_" + orbID + ".png"
+    orbImage.src = "imgs/drakantos/orbs/"+build.character + skillID + "_" + orbID + ".png";
 
-    build.orbs[skillID] = orbID
+    build.orbs[skillID] = orbID   ;
+    setLink();
 };
 
 function orbClick(orb, skillID, orbID) {
@@ -288,8 +292,10 @@ function setModalEvents() {
     };    
 };
 
-function getLink() {
-    var code = `${build.character}-${build.artifacts[0]}-${build.artifacts[1]}-${build.trophies[0]}-${build.trophies[1]}-${build.orbs[0]}-${build.orbs[1]}-${build.orbs[2]}-${build.orbs[3]}-${build.orbs[4]}-${build.orbs[5]}`;
+function setLink() {
+    var code = 'https://kaaize.github.io/Crafter/builder.html?code='+
+    `${build.character}-${build.artifacts[0]}-${build.artifacts[1]}-${build.trophies[0]}-${build.trophies[1]}` +
+    `-${build.orbs[0]}-${build.orbs[1]}-${build.orbs[2]}-${build.orbs[3]}-${build.orbs[4]}-${build.orbs[5]}`;
     console.log(code)
 
     var linkInput = document.getElementById('link-input');
@@ -322,7 +328,7 @@ function loadBuild(codigo) {
     setOrb(data.CHARACTERS[name].SKILLS.SKILL4, 3, skill4);
     setOrb(data.CHARACTERS[name].SKILLS.SKILL5, 4, skill5);
     setOrb(data.CHARACTERS[name].SKILLS.SKILL6, 5, skill6);
-    getLink();
+    setLink();
 };
 
 function main() {
@@ -332,10 +338,9 @@ function main() {
     loadParamQuery();
     setModalEvents();  
     
-    loadBuild('KORZ-0-0-0-0-0-0-0-0-0-0')
-
-    copyButton.addEventListener("click", () => {
-        getLink();
+    loadBuild('KORZ-0-0-0-0-0-0-0-0-0-0');
+    copyButton.addEventListener("click", () =>{
+        navigator.clipboard.writeText(linkInput.value)
     });
 }
 
