@@ -2,7 +2,6 @@
     "CHARACTERS": {
         "KORZ": {
             "NAME": "Korz",
-            "IMAGE": "imgs/drakantos/korz.png",
             "SKILLS": {
                 "SKILL1": [
                     {
@@ -86,6 +85,39 @@
                         "DESCRIPTION": "Korz channels the power of the titans, greatly increasing his size and strength for 15 seconds. During this time, his basic attacks deal area damage, have a chance to knock back enemies, and reduce their armor by 20% for 5 seconds.",
                         "POWER": 0,
                         "COOLDOWN": 75
+                    }
+                ]
+            }
+        },
+        "ARRYN": {
+            "NAME": "Arryn",
+            "SKILLS": {
+                "SKILL1": [
+                    {
+                        "NAME": "Arrow Shot",
+                        "DESCRIPTION": "Fires an arrow at a single target, dealing damage.",
+                        "POWER": 0.1,
+                        "COOLDOWN": 2
+                    },
+                    {
+                        "NAME": "Arrow Shot",
+                        "DESCRIPTION": "Fires an arrow that pierces through enemies, dealing damage to all in its path.",
+                        "POWER": 0.1,
+                        "COOLDOWN": 1
+                    }
+                ],
+                "SKILL2": [
+                    {
+                        "NAME": "Rapid Fire",
+                        "DESCRIPTION": "Increases Arryn's attack speed for a short duration.",
+                        "POWER": 0,
+                        "COOLDOWN": 6
+                    },
+                    {
+                        "NAME": "Rapid Fire",
+                        "DESCRIPTION": "Increases Arryn's attack speed and critical hit chance for a short duration.",
+                        "POWER": 0,
+                        "COOLDOWN": 8
                     }
                 ]
             }

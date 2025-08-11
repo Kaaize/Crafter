@@ -30,10 +30,18 @@ body {
     color: #333;
 }
 
+.character-container {
+    cursor: pointer;
+    margin: 10px;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+}
+
 .character-image {
-    width: 300px;
-    height: 450px;
     margin-top: 0px;
+    max-width: 450px;
+    max-height: 450px;
 }
 
 
@@ -47,9 +55,30 @@ body {
     display: block;
 }
 
-.skill {
+.skill-slot {
     margin: 10px;
     text-align: center;
+    width: 64px;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#skill-0 img{
+    width: 32px;
+    height: 32px;
+}
+
+#skill-3 {
+    width: 96px;
+    height: 96px;
+}
+
+#skill-3 img {
+    width: 96px;
+    height: 96px;    
+    border-radius: 50px;
 }
 
 .link-container {
@@ -91,32 +120,23 @@ body {
     width: 80%;
 }
 
-.artifact-options, .trophy-options {
+.artifact-options, .trophy-options, .character-options {
     display: flex;
     flex-wrap: wrap;
 }
 
-.artifact-option, .trophy-option {
+.artifact-option, .trophy-option, .character-option {
     margin: 10px;
     text-align: center;
     cursor: pointer;
 }
 
-.artifact-name, .trophy-name {
+.character-option {
+    width: 600px;
+    height: 600px;
+}
+
+.artifact-name, .trophy-name, .character-name {
     font-weight: bold;
     overflow-wrap: break-word;
-}
-
-.close-artifact, .close-trophy {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
