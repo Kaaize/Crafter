@@ -84,7 +84,7 @@ function loadCharacters() {
         div.className = 'character-option';         
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/characters/"+character.NAME+".PNG";
+        img.src = "imgs/drakantos/characters/"+character.NAME.toUpperCase()+".PNG";
         img.className = 'character-image';
 
         var p = document.createElement('p');
@@ -192,7 +192,7 @@ function setOrb(orb, skillID, orbID) {
     var orbDiv = document.getElementById('skill-'+skillID);
     var orbImage = orbDiv.getElementsByClassName('skill-image')[0];
     
-    orbImage.src = "imgs/drakantos/orbs/"+build.character + skillID + "_" + orbID + ".PNG";
+    orbImage.src = "imgs/drakantos/orbs/"+build.character.toUpperCase() + skillID + "_" + orbID + ".PNG";
 
     build.orbs[skillID] = orbID   ;
     setLink();
