@@ -34,7 +34,7 @@ function loadArtifacts() {
         div.className = 'artifact-option';
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/artifacts/"+index+".png";
+        img.src = "imgs/drakantos/artifacts/"+index+".PNG";
         img.className = 'artifact-image';
 
         var p = document.createElement('p');
@@ -59,7 +59,7 @@ function loadTrophies() {
         div.className = 'trophy-option';
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/trophies/"+index+".png";
+        img.src = "imgs/drakantos/trophies/"+index+".PNG";
         img.className = 'trophy-image';
 
         var p = document.createElement('p');
@@ -84,7 +84,7 @@ function loadCharacters() {
         div.className = 'character-option';         
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/characters/"+character.NAME+".png";
+        img.src = "imgs/drakantos/characters/"+character.NAME+".PNG";
         img.className = 'character-image';
 
         var p = document.createElement('p');
@@ -119,7 +119,7 @@ function loadOrbs(character, skillID) {
         div.className = 'orb-option';         
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/orbs/"+character.NAME.upper() + skillID + "_" + index + ".png";
+        img.src = "imgs/drakantos/orbs/"+character.NAME.toUpperCase() + skillID + "_" + index + ".PNG";
         img.className = 'orb-image';
 
         var p = document.createElement('p');
@@ -133,26 +133,9 @@ function loadOrbs(character, skillID) {
             orbClick(orb, skillID, index)
         });
 
-        const orbsOptions = document.getElementsByClassName('orbs-options')[0];
+        const orbsOptions = document.getElementsByClassName('orb-options')[0];
         orbsOptions.appendChild(div);
     });
-};
-
-function loadParamQuery() {
-    var query = location.search.slice(1);
-    var partes = query.split('&');
-    var dataQuery = {};
-
-    partes.forEach(function (parte) {
-        var chaveValor = parte.split('=');
-        var chave = chaveValor[0];
-        var valor = chaveValor[1];
-        dataQuery[chave] = valor;
-    });
-
-    if (dataQuery.codigo) {
-        linkInput.value = data.codigo || 'AA-BB-CCC-DDD-EEE-FFF-000-001-002-003-004-005';
-    };  
 };
 
 function setArtifact(slot, artifactID) {
@@ -160,7 +143,7 @@ function setArtifact(slot, artifactID) {
     var slotName = slot.getElementsByClassName('artifact-name')[0];
     
     slotName.textContent = data.ARTIFACTS[artifactID].NAME;
-    slotImg.src = `imgs/drakantos/artifacts/${artifactID}.png`;
+    slotImg.src = `imgs/drakantos/artifacts/${artifactID}.PNG`;
 
     var slotNum = slot.getAttribute('data-artifact-slot');
     build.artifacts[slotNum] = artifactID;
@@ -177,7 +160,7 @@ function setTrophy(slot, trophyID) {
     var slotName = slot.getElementsByClassName('trophy-name')[0];
 
     slotName.textContent = data.TROPHIES[trophyID].NAME;
-    slotImg.src = `imgs/drakantos/trophies/${trophyID}.png`;
+    slotImg.src = `imgs/drakantos/trophies/${trophyID}.PNG`;
 
     var slotNum = slot.getAttribute('data-trophy-slot');
     build.trophies[slotNum] = trophyID;
@@ -193,7 +176,7 @@ function setCharacter(character) {
     var characterImage = document.getElementsByClassName('character-image')[0];
     var characterName = document.getElementsByClassName('character-name')[0];
 
-    characterImage.src = "imgs/drakantos/characters/" + character.NAME.upper() + ".png";
+    characterImage.src = "imgs/drakantos/characters/" + character.NAME.toUpperCase() + ".PNG";
     characterName.textContent = character.NAME;
 
     build.character = character.NAME;
@@ -209,7 +192,7 @@ function setOrb(orb, skillID, orbID) {
     var orbDiv = document.getElementById('skill-'+skillID);
     var orbImage = orbDiv.getElementsByClassName('skill-image')[0];
     
-    orbImage.src = "imgs/drakantos/orbs/"+build.character + skillID + "_" + orbID + ".png";
+    orbImage.src = "imgs/drakantos/orbs/"+build.character + skillID + "_" + orbID + ".PNG";
 
     build.orbs[skillID] = orbID   ;
     setLink();
@@ -266,7 +249,7 @@ function setModalEvents() {
             const characterName = document.getElementsByClassName('character-name')[0].textContent;
             const character = Object.values(data.CHARACTERS).find(char => char.NAME === characterName);
             if (character) {
-                const orbsOptions = document.getElementsByClassName('orbs-options')[0];
+                const orbsOptions = document.getElementsByClassName('orb-options')[0];
                 orbsOptions.innerHTML = '';
                 loadOrbs(character, index);
                 selectOrb();
@@ -293,10 +276,9 @@ function setModalEvents() {
 };
 
 function setLink() {
-    var code = 'https://kaaize.github.io/Crafter/builder.html?code='+
+    var code = `${window.location.origin+window.location.pathname}?code=`+
     `${build.character}-${build.artifacts[0]}-${build.artifacts[1]}-${build.trophies[0]}-${build.trophies[1]}` +
     `-${build.orbs[0]}-${build.orbs[1]}-${build.orbs[2]}-${build.orbs[3]}-${build.orbs[4]}-${build.orbs[5]}`;
-    console.log(code)
 
     var linkInput = document.getElementById('link-input');
     linkInput.value = code;
@@ -305,7 +287,7 @@ function setLink() {
 function loadBuild(codigo) {
     var codList = codigo.split("-");
 
-    var name = codList[0];
+    var name = codList[0].toUpperCase();
     var artifact1 = codList[1];
     var artifact2 = codList[2];
     var trophy1 = codList[3];
@@ -331,17 +313,34 @@ function loadBuild(codigo) {
     setLink();
 };
 
+function loadParamQuery() {
+    var query = location.search.slice(1);
+    var partes = query.split('&');
+    var dataQuery = {};
+
+    partes.forEach(function (parte) {
+        var chaveValor = parte.split('=');
+        var chave = chaveValor[0];
+        var valor = chaveValor[1];
+        dataQuery[chave] = valor;
+    });
+
+    loadBuild(dataQuery.code) 
+};
+
+
 function main() {
     loadArtifacts();    
     loadTrophies();
     loadCharacters()
-    loadParamQuery();
-    setModalEvents();  
-    
-    loadBuild('KORZ-0-0-0-0-0-0-0-0-0-0');
+    setModalEvents();      
+
     copyButton.addEventListener("click", () =>{
         navigator.clipboard.writeText(linkInput.value)
     });
+
+    loadBuild('KORZ-0-0-0-0-0-0-0-0-0-0');    
+    loadParamQuery();
 }
 
 loadInfo();    
