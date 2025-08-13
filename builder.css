@@ -124,12 +124,27 @@ body {
     height: auto;
 }
 
+.modal-window-character {
+    background-color: #000000;
+    margin: 5% auto;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 1150px;
+    height: 80%;
+}
+
 .modal-content {
     overflow-y: auto; 
     flex-direction: column;  
 }
 
-.modal-content, .artifact-modal-content, .trophy-modal-content, .orb-modal-content {
+.modal-content {
+    display: flex;
+    height: 100%;
+}
+
+.artifact-modal-content, .trophy-modal-content, .orb-modal-content {
     display: flex;
     height: 400px;
 }
