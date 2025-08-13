@@ -17,89 +17,163 @@
             <div class="artifacts-container">
                 <h1>Artefatos</h1>
                 <div id="artifact-slot1" class="artifact-slot" data-artifact-slot="0">
-                    <img src="imgs/drakantos/artifacts/artifact.png" alt="Heart of Depth" class="artifact-image">
-                    <p class="artifact-name">Heart of Depth</p>
+                    <img src="imgs/drakantos/artifacts/artifact.png" alt="Heart of Depth" class="artifact-slot-image"
+                        data-artifact-slot="1">
+                    <p class="artifact-slot-name">Heart of Depth</p>
                 </div>
                 <div id="artifact-slot2" class="artifact-slot" data-artifact-slot="1">
-                    <img src="imgs/drakantos/artifacts/artifact.png" alt="Blizzard Strayer" class="artifact-image">
-                    <p class="artifact-name">Blizzard Strayer</p>
+                    <img src="imgs/drakantos/artifacts/artifact.png" alt="Blizzard Strayer" class="artifact-slot-image"
+                        data-artifact-slot="1">
+                    <p class="artifact-slot-name">Blizzard Strayer</p>
                 </div>
             </div>
             <div class="character-container">
-                <img src="imgs/drakantos/characters/korz.png" alt="Drakantos Image" class="character-image">
-                <p class="character-name">NOME DO PERSONAGEM</p>
+                <img src="imgs/drakantos/characters/korz.png" alt="Drakantos Image" class="character-slot-image">
+                <p class="character-slot-name">NOME DO PERSONAGEM</p>
 
             </div>
             <div class="trophies-container">
                 <h1>Troféus</h1>
                 <div id="trophy-slot1" class="trophy-slot" data-trophy-slot="0">
-                    <img src="imgs/drakantos/trophies/trophy.png" alt="Heart of Depth" class="trophy-image">
-                    <p class="trophy-name">Heart of Depth</p>
+                    <img src="imgs/drakantos/trophies/trophy.png" alt="Heart of Depth" class="trophy-slot-image"
+                        data-trophy-slot="0">
+                    <p class="trophy-slot-name">Heart of Depth</p>
                 </div>
                 <div id="trophy-slot2" class="trophy-slot" data-trophy-slot="1">
-                    <img src="imgs/drakantos/trophies/trophy.png" alt="Blizzard Strayer" class="trophy-image">
-                    <p class="trophy-name">Blizzard Strayer</p>
+                    <img src="imgs/drakantos/trophies/trophy.png" alt="Blizzard Strayer" class="trophy-slot-image"
+                        data-trophy-slot="0">
+                    <p class="trophy-slot-name">Blizzard Strayer</p>
                 </div>
             </div>
         </div>
         <h1>Habilidades</h1>
         <div class="skills-container">
             <div id="skill-0" class="skill-slot" data-skill-slot="0">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 1" class="skill-image">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 1" class="skill-slot-image" data-skill-slot="0">
             </div>
             <div id="skill-1" class="skill-slot" data-skill-slot="1">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 2" class="skill-image">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 2" class="skill-slot-image" data-skill-slot="0">
             </div>
             <div id="skill-2" class="skill-slot" data-skill-slot="2">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 3" class="skill-image">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 3" class="skill-slot-image" data-skill-slot="0">
             </div>
             <div id="skill-3" class="skill-slot" data-skill-slot="3">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 4" class="skill-image">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 4" class="skill-slot-image" data-skill-slot="0">
             </div>
             <div id="skill-4" class="skill-slot" data-skill-slot="4">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 5" class="skill-image">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 5" class="skill-slot-image" data-skill-slot="0">
             </div>
             <div id="skill-5" class="skill-slot" data-skill-slot="5">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 6" class="skill-image">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 6" class="skill-slot-image" data-skill-slot="0">
             </div>
         </div>
 
-    <div class="link-container">
-        <input type="text" id="link-input" value="AA-BB-CCC-DDD-EEE-FFF-000-001-002-003-004-005" readonly>
-        <button id="copy-button">Copy Código</button>
+        <div class="link-container">
+            <input type="text" id="link-input" value="AA-BB-CCC-DDD-EEE-FFF-000-001-002-003-004-005" readonly>
+            <button id="copy-button">Copy Código</button>
+        </div>
     </div>
-    </div>  
 
     <div id="artifact-modal" class="modal">
-        <div class="modal-content">
-            <h2>Selecione um Artefato</h2>
-            <div class="artifact-options">
+        <div class="modal-window">
+            <div class="artifact-modal-content">
+                <div class="artifact-choose-div">
+                    <h2>Selecione um Artefato</h2>
+                    <div class="artifact-options">
+                    </div>
+                </div>
+                <div class="artifact-preview">
+                    <div class="artifact-name">
+                        <h1>Nome do Arteafto</h1>
+                    </div>
+                    <div class="artifact-description">
+                        <span>Descrição do artefato.</span>
+                    </div>
+                    <div class="artifact-image">
+                        <img src="imgs/drakantos/artifacts/preview/NULL.PNG">
+                    </div>
+                </div>
+            </div>
+            <div class="artifact-modal-bottom">
+                <div class="ok-button">
+                    <button id="artifact-ok-button">Selecionar</button>
+                </div>
+                <div class="cancel-button">
+                    <button id="artifact-cancel-button">Fechar</button>
+                </div>                
             </div>
         </div>
     </div>
     <div id="trophy-modal" class="modal">
-        <div class="modal-content">
-            <h2>Selecione um Troféu</h2>
-            <div class="trophy-options">
+        <div class="modal-window">
+            <div class="trophy-modal-content">
+                <div class="trophy-choose-div">
+                    <h2>Selecione um Artefato</h2>
+                    <div class="trophy-options">
+                    </div>
+                </div>
+                <div class="trophy-preview">
+                    <div class="trophy-name">
+                        <h1>Nome do Arteafto</h1>
+                    </div>
+                    <div class="trophy-description">
+                        <span>Descrição do artefato.</span>
+                    </div>
+                    <div class="trophy-image">
+                        <img src="imgs/drakantos/trophies/preview/NULL.PNG">
+                    </div>
+                </div>
+            </div>
+            <div class="trophy-modal-bottom">
+                <div class="ok-button">
+                    <button id="trophy-ok-button">Selecionar</button>
+                </div>
+                <div class="cancel-button">
+                    <button id="trophy-cancel-button">Fechar</button>
+                </div>                
             </div>
         </div>
     </div>    
+    <div id="orb-modal" class="modal">
+        <div class="modal-window">
+            <div class="orb-modal-content">
+                <div class="orb-choose-div">
+                    <h2>Selecione um Artefato</h2>
+                    <div class="orb-options">
+                    </div>
+                </div>
+                <div class="orb-preview">
+                    <div class="orb-name">
+                        <h1>Nome do Arteafto</h1>
+                    </div>
+                    <div class="orb-description">
+                        <span>Descrição do artefato.</span>
+                    </div>
+                    <div class="orb-image">
+                        <img src="imgs/drakantos/orbs//NULL_PREVIEW.PNG">
+                    </div>
+                </div>
+            </div>
+            <div class="orb-modal-bottom">
+                <div class="ok-button">
+                    <button id="orb-ok-button">Selecionar</button>
+                </div>
+                <div class="cancel-button">
+                    <button id="orb-cancel-button">Fechar</button>
+                </div>                
+            </div>
+        </div>
+    </div>   
+    
     <div id="character-modal" class="modal">
         <div class="modal-content">
             <h2>Selecione um Personagem</h2>
             <div class="character-options">
             </div>
         </div>
-    </div>        
-    <div id="orbs-modal" class="modal">
-        <div class="modal-content">
-            <h2>Selecione um Orb</h2>
-            <div class="orb-options">
-            </div>
-        </div>
-    </div>        
+    </div>
 
-    <script src="builder.js"></script>      
+    <script src="builder.js"></script>
 </body>
 
 </html>

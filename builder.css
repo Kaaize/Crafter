@@ -4,18 +4,18 @@ body {
     justify-content: center;
     margin: 0;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #000000;
     flex-direction: row;
     display: flex;
 }
 
 .builder-container {
     text-align: center;
-    color: rebeccapurple;
+    color: rgb(255, 255, 255);
     border-style: solid;
     width: 70%;
     height: 100%;
-    background-color: rgb(208, 212, 182);
+    background-color: rgb(0, 0, 0);
 }
 
 .mid-div {
@@ -23,27 +23,29 @@ body {
     justify-content: center;
 }
 
-.character-name {
+.character-slot-name {
     font-size: 24px;
     font-weight: bold;
     margin-top: 20px;
-    color: #333;
 }
 
 .character-container {
-    cursor: pointer;
-    margin: 10px;
-    width: 500px;
+    width: 400px;
+    margin-left: 90px;
+    margin-right: 90px;
     height: 500px;
     text-align: center;
 }
 
-.character-image {
+.character-slot-image {
     margin-top: 0px;
     max-width: 450px;
     max-height: 450px;
 }
 
+.artifact-slot-image, .trophy-slot-image, .skill-slot-image, .character-slot-image {
+    cursor: pointer;
+}
 
 .skills-container {
     display: flex;
@@ -100,24 +102,43 @@ body {
     z-index: 1;
     left: 0;
     top: 0;
+    align-content: center;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
+    background-color: rgba(2, 0, 0, 0.99);
+    color: white;
 }
 
 .modal h2 {
     text-align: center;    
 }
 
-.modal-content {
-    background-color: #fefefe;
+.modal-window {
+    background-color: #000000;
     margin: 5% auto;
+    margin-top: 10px;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 1150px;
+    height: auto;
+}
+
+.artifact-modal-content, .trophy-modal-content, .orb-modal-content {
+    display: flex;
+    height: 400px;
+}
+
+.artifact-modal-bottom, .trophy-modal-bottom, .orb-modal-bottom {
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.artifact-modal-bottom button, .trophy-modal-bottom button, .orb-modal-bottom button {
+    height: 30px;
 }
 
 .artifact-options, .trophy-options, .character-options, .orb-options {
@@ -128,12 +149,51 @@ body {
 .artifact-option, .trophy-option, .character-option, .orb-option {
     margin: 10px;
     text-align: center;
-    cursor: pointer;
+    color: white;
+    width: 70px;
+    height: 70px;
+}
+
+.artifact-choose-div, .trophy-choose-div, .orb-choose-div {
+    width: 100%;
+    overflow-y: auto;
+    border-right-style: solid;
+}
+
+.artifact-preview, .trophy-preview, .orb-preview {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.artifact-name, .trophy-name {
+    height: 10%;
+}
+
+.artifact-description, .trophy-description, .orb-description {
+    height: 30%;
+    overflow-y: auto;
+}
+
+.artifact-image, .trophy-image, .orb-image {
+    height: 45%;
+    padding: 5%;
+    align-content: end;
+}
+
+.orb-image {
+    min-width: 64px;
+    min-height: 64px;
+}
+
+.artifact-option img, .trophy-option img, .character-option img, .orb-option img{
+    cursor: pointer;    
 }
 
 .character-option {
-    width: 600px;
-    height: 600px;
+    width: 150px;
+    height: 150px;
+    font-size: 100%;
 }
 
 .artifact-name, .trophy-name, .character-name, .orb-name {

@@ -1,6 +1,6 @@
 {
-    "CHARACTERS": {
-        "KORZ": {
+    "CHARACTERS": [
+        {
             "NAME": "Korz",
             "SKILLS": {
                 "SKILL1": [
@@ -89,7 +89,7 @@
                 ]
             }
         },
-        "ARRYN": {
+        {
             "NAME": "Arryn",
             "SKILLS": {
                 "SKILL1": [
@@ -121,9 +121,21 @@
                     }
                 ]
             }
-        }
-    },
-
+        },
+        {"NAME": "Byron"},
+        {"NAME": "Faendar"},
+        {"NAME": "Iris"},
+        {"NAME": "Liam"},
+        {"NAME": "Marly"},
+        {"NAME": "Ojore"},
+        {"NAME": "Orbryn"},
+        {"NAME": "Ozul"},
+        {"NAME": "Reya"},
+        {"NAME": "Thomas"},
+        {"NAME": "Yuki"},
+        {"NAME": "Yura"},
+        {"NAME": "Zeugladius"}        
+    ],
     "ARTIFACTS": [
         {
             "NAME": "Campfire",
@@ -139,7 +151,7 @@
             "NAME": "Shield of Valor",
             "DESCRIPTION": "Receive a shield that absorbs 400 damage for 10 seconds.",
             "CHARGES": 4
-        }        
+        }                                        
     ],
 
     "TROPHIES": [
