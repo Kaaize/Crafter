@@ -447,6 +447,10 @@ function selectOrb() {
 };
 
 function artifactSlotClick(event) {
+    if (build.character == null) {
+        return
+    };
+        
     loadArtifacts();
     
     modalArtifact.style.display = "block";
@@ -455,6 +459,10 @@ function artifactSlotClick(event) {
 };
 
 function trophySlotClick(event) {
+    if (build.character == null) {
+        return
+    };
+
     loadTrophies();
 
     modalTrophy.style.display = "block";
