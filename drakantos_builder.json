@@ -2,130 +2,39 @@
     "CHARACTERS": [
         {
             "NAME": "Korz",
-            "SKILLS": {
-                "SKILL1": [
-                    {
-                        "NAME": "Axe Slash",
-                        "DESCRIPTION": "Deals damage to a single target.",
-                        "POWER": 0.1,
-                        "COOLDOWN": 2
-                    },
-                    {
-                        "NAME": "Axe Slash",
-                        "DESCRIPTION": "Stuns the target for 2 seconds. casting time 25% faster.",
-                        "POWER": 0.1,
-                        "COOLDOWN": 1
-                    }
-                ],
-                "SKILL2": [
-                    {
-                        "NAME": "Brute Force",
-                        "DESCRIPTION": "Deals area damage around Korz.",
-                        "POWER": 0.2,
-                        "COOLDOWN": 6
-                    },
-                    {
-                        "NAME": "Brute Force",
-                        "DESCRIPTION": "Deals area damage around Korz. Hold to increse damage up to 50%.",
-                        "POWER": 0.2,
-                        "COOLDOWN": 8
-                    }
-                ],
-                "SKILL3": [
-                    {
-                        "NAME": "War Cry",
-                        "DESCRIPTION": "Increases Korz's attack speed by 20% for 5 seconds.",
-                        "POWER": 0,
-                        "COOLDOWN": 10
-                    },
-                    {
-                        "NAME": "War Cry",
-                        "DESCRIPTION": "Increases Korz's attack speed by 30% for 5 seconds. Allies within range also receive the buff.",
-                        "POWER": 0,
-                        "COOLDOWN": 12
-                    }
-                ],
-                "SKILL4": [
-                    {
-                        "NAME": "Earth Shatter",
-                        "DESCRIPTION": "Deals massive damage to all enemies in a large area.",
-                        "POWER": 0.5,
-                        "COOLDOWN": 10
-                    },
-                    {
-                        "NAME": "Earth Shatter",
-                        "DESCRIPTION": "Deals massive damage to all enemies in a large area and stuns them for 2 seconds.",
-                        "POWER": 0.5,
-                        "COOLDOWN": 25
-                    }
-                ],
-                "SKILL5": [
-                    {
-                        "NAME": "Berserker Rage",
-                        "DESCRIPTION": "Korz enters a berserk state, increasing his damage by 50% and reducing incoming damage by 20% for 10 seconds.",
-                        "POWER": 0,
-                        "COOLDOWN": 30
-                    },
-                    {
-                        "NAME": "Berserker Rage",
-                        "DESCRIPTION": "Korz enters a berserk state, increasing his damage by 70% and reducing incoming damage by 30% for 10 seconds. Additionally, Korz heals for 10% of his max health over the duration.",
-                        "POWER": 0,
-                        "COOLDOWN": 40
-                    }
-                ],
-                "SKILL6": [
-                    {
-                        "NAME": "Titan's Wrath",
-                        "DESCRIPTION": "Korz channels the power of the titans, greatly increasing his size and strength for 15 seconds. During this time, his basic attacks deal area damage and have a chance to knock back enemies.",
-                        "POWER": 0,
-                        "COOLDOWN": 60
-                    },
-                    {
-                        "NAME": "Titan's Wrath",
-                        "DESCRIPTION": "Korz channels the power of the titans, greatly increasing his size and strength for 15 seconds. During this time, his basic attacks deal area damage, have a chance to knock back enemies, and reduce their armor by 20% for 5 seconds.",
-                        "POWER": 0,
-                        "COOLDOWN": 75
-                    }
-                ]
-            }
+            "SKILLS": []
         },
         {
             "NAME": "Arryn",
-            "SKILLS": {
-                "SKILL1": [
-                    {
-                        "NAME": "Arrow Shot",
-                        "DESCRIPTION": "Fires an arrow at a single target, dealing damage.",
-                        "POWER": 0.1,
-                        "COOLDOWN": 2
-                    },
-                    {
-                        "NAME": "Arrow Shot",
-                        "DESCRIPTION": "Fires an arrow that pierces through enemies, dealing damage to all in its path.",
-                        "POWER": 0.1,
-                        "COOLDOWN": 1
-                    }
-                ],
-                "SKILL2": [
-                    {
-                        "NAME": "Rapid Fire",
-                        "DESCRIPTION": "Increases Arryn's attack speed for a short duration.",
-                        "POWER": 0,
-                        "COOLDOWN": 6
-                    },
-                    {
-                        "NAME": "Rapid Fire",
-                        "DESCRIPTION": "Increases Arryn's attack speed and critical hit chance for a short duration.",
-                        "POWER": 0,
-                        "COOLDOWN": 8
-                    }
-                ]
-            }
+            "SKILLS": []
         },
         {"NAME": "Byron"},
         {"NAME": "Faendar"},
         {"NAME": "Iris"},
-        {"NAME": "Liam"},
+        {
+            "NAME": "Liam",
+            "SKILLS": [
+                [
+                    {
+                        "NAME": "Block",
+                        "DESCRIPTION": "Liam wields his massive sword defensively, using it to block incoming attacks with a %s damage reduction.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["100%", 0]                           
+                        ]
+                    },
+                    {
+                        "NAME": "Block",
+                        "DESCRIPTION": "Liam wields his massive sword defensively, using it to block incoming attacks with a %s damage reduction. It has %s charges, but the cooldown is higher",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["2", 0]
+                        ]
+                    }
+                ]
+            ]                
+        },
         {"NAME": "Marly"},
         {"NAME": "Ojore"},
         {"NAME": "Orbryn"},
@@ -158,7 +67,7 @@
         {
             "NAME": "Summon Trophy",
             "DESCRIPTION": "Increase the damage from summoned creatures by 10%.",
-            "ALLOWED_CHARACTERS": [0]
+            "ALLOWED_CHARACTERS": [5]
         },
         {
             "NAME": "Celerity Trophy",

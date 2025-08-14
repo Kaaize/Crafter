@@ -33,6 +33,25 @@ async function loadInfo() {
     main();
 };
 
+function formatPlaceHolder(text, format) {
+    switch (format) {
+        case 0: return `<span class="white-highlight">${text}</span>`;
+    }
+};
+
+function formatAbilityDescription(ability) {
+  let description = ability.DESCRIPTION;
+  const values = ability.VALUES;
+
+  let i = 0;
+  while (description.includes('%s') && i < values.length) {
+    description = description.replace('%s', formatPlaceHolder(values[i][0], values[i][1]));
+    i++;
+  }
+  
+  return description;
+}
+
 function isItemCharacterAllowed(item, characterID) {
     if (!item) {
         return false;
@@ -96,7 +115,7 @@ function filterOrbs(event) {
     if (!character) {
         return;
     }
-    const slot = character.SKILLS['SKILL' + (parseInt(currentSkillSlotID)+1)];
+    const slot = character.SKILLS[currentSkillSlotID];
     if (!slot) {
         return;
     }
@@ -202,14 +221,7 @@ function loadOrbs(characterID, skillID) {
     var orbs = null;
     var character = data.CHARACTERS[characterID];
 
-    switch (parseInt(skillID)) {
-        case 0: orbs = character.SKILLS.SKILL1; break;
-        case 1: orbs = character.SKILLS.SKILL2; break;
-        case 2: orbs = character.SKILLS.SKILL3; break;
-        case 3: orbs = character.SKILLS.SKILL4; break;
-        case 4: orbs = character.SKILLS.SKILL5; break;
-        case 5: orbs = character.SKILLS.SKILL6; break;
-    };
+    orbs = character.SKILLS[skillID]
     
     orbs.forEach((orb, index) => {
         var div = document.createElement('div');
@@ -306,7 +318,7 @@ function updateOrb() {
         var orbImage = orbDiv.getElementsByClassName('skill-slot-image')[0];
 
         if (character == null || build.orbs[skillID] == null || 
-            data.CHARACTERS[build.character].SKILLS["SKILL" + (parseInt(skillID)+1)] == null) {
+            data.CHARACTERS[build.character].SKILLS[skillID] == null) {
             orbImage.src = "imgs/drakantos/orbs/NULL.PNG";        
         }
         else {
@@ -403,7 +415,7 @@ function orbClick(skillID, orbID, event) {
         return
     };
 
-    slot = character.SKILLS['SKILL' + (parseInt(skillID) + 1)];
+    slot = character.SKILLS[skillID];
     if (!slot) {
         return
     }
@@ -417,7 +429,7 @@ function orbClick(skillID, orbID, event) {
     const orb = slot[orbID];
     orbName.textContent = orb.NAME;
     orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${orbID}.PNG`;
-    orbDesc.textContent = orb.DESCRIPTION;
+    orbDesc.innerHTML = formatAbilityDescription(orb);
 
     const orbDiv = event.currentTarget;
 

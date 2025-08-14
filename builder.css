@@ -1,21 +1,23 @@
 body {
-
+    background-image: url("imgs/drakantos/bg.png");
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 20px;
-    background-color: #000000;
     flex-direction: row;
     display: flex;
+    margin: 0px;
+    padding: 0px;
 }
 
 .builder-container {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     color: rgb(255, 255, 255);
-    border-style: solid;
-    width: 70%;
-    height: 100%;
-    background-color: rgb(0, 0, 0);
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000008a;
 }
 
 .mid-div {
@@ -109,7 +111,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(2, 0, 0, 0.99);
+    background-color: rgba(2, 0, 0, 0.1);
     color: white;
 }
 
@@ -118,7 +120,7 @@ body {
 }
 
 .modal-window {
-    background-color: #000000;
+    background-color: rgba(2, 0, 0, 0.89);
     margin: 5% auto;
     margin-top: 10px;
     padding: 0px;
@@ -160,7 +162,8 @@ body {
     padding: 15px;
     align-items: center;
     border-top-style: solid;
-    border-top-color: white;
+    border-width: 1px;
+    border-color: white;
 }
 
 .artifact-modal-bottom button,
@@ -194,6 +197,7 @@ body {
     width: 100%;
     overflow-y: auto;
     border-right-style: solid;
+    border-width: 1px;
     padding: 10px;
 }
 
@@ -203,26 +207,50 @@ body {
     justify-content: center;
     text-align: center;
     width: 100%;
-    padding: 10px;
 }
 
-.artifact-name,
-.trophy-name {
-    height: 10%;
+.artifact-preview-top,
+.trophy-preview-top,
+.orb-preview-top {
+    padding: 10px;
+    display: flex;
+    font-size: 10px;
+    font-weight: bold;
+    height: 10px;
+    justify-content: space-between;    
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+.artifact-name, .trophy-name, .orb-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.artifact-charge, .orb-cooldown {
+    font-size: 16px;
+    color: rgb(200, 204, 167);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .artifact-description,
 .trophy-description,
 .orb-description {
+    padding: 10px;
+    display: flex;
     height: 30%;
     overflow-y: auto;
+    align-content: left;
 }
 
 .artifact-image,
 .trophy-image,
 .orb-image {
     height: 45%;
-    padding: 5%;
+    padding: 5% 5% 5% 5%;    
     align-content: end;
 }
 
@@ -306,14 +334,6 @@ body {
     font-size: 100%;
 }
 
-.artifact-name,
-.trophy-name,
-.character-name,
-.orb-name {
-    font-weight: bold;
-    overflow-wrap: break-word;
-}
-
 #copy-button {
     cursor: pointer;
     background-color: blue;
@@ -334,4 +354,8 @@ body {
 
 .selected {
     opacity: .2;
+}
+
+.white-highlight {
+    color: red;
 }
