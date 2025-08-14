@@ -43,7 +43,10 @@ body {
     max-height: 450px;
 }
 
-.artifact-slot-image, .trophy-slot-image, .skill-slot-image, .character-slot-image {
+.artifact-slot-image,
+.trophy-slot-image,
+.skill-slot-image,
+.character-slot-image {
     cursor: pointer;
 }
 
@@ -67,7 +70,7 @@ body {
     display: flex;
 }
 
-#skill-0 img{
+#skill-0 img {
     width: 32px;
     height: 32px;
 }
@@ -79,7 +82,7 @@ body {
 
 #skill-3 img {
     width: 96px;
-    height: 96px;    
+    height: 96px;
     border-radius: 50px;
 }
 
@@ -111,14 +114,14 @@ body {
 }
 
 .modal h2 {
-    text-align: center;    
+    text-align: center;
 }
 
 .modal-window {
     background-color: #000000;
     margin: 5% auto;
     margin-top: 10px;
-    padding: 20px;
+    padding: 0px;
     border: 1px solid #888;
     width: 1150px;
     height: auto;
@@ -135,38 +138,49 @@ body {
 }
 
 .modal-content {
-    overflow-y: auto; 
-    flex-direction: column;  
-}
-
-.modal-content {
+    overflow-y: auto;
+    flex-direction: column;
     display: flex;
     height: 100%;
 }
 
-.artifact-modal-content, .trophy-modal-content, .orb-modal-content {
+.artifact-modal-content,
+.trophy-modal-content,
+.orb-modal-content {
     display: flex;
     height: 400px;
 }
 
-.artifact-modal-bottom, .trophy-modal-bottom, .orb-modal-bottom {
+.artifact-modal-bottom,
+.trophy-modal-bottom,
+.orb-modal-bottom {
     display: flex;
     height: 30px;
     justify-content: space-between;
-    margin-top: 15px;
+    padding: 15px;
     align-items: center;
+    border-top-style: solid;
+    border-top-color: white;
 }
 
-.artifact-modal-bottom button, .trophy-modal-bottom button, .orb-modal-bottom button {
+.artifact-modal-bottom button,
+.trophy-modal-bottom button,
+.orb-modal-bottom button {
     height: 30px;
 }
 
-.artifact-options, .trophy-options, .character-options, .orb-options {
+.artifact-options,
+.trophy-options,
+.character-options,
+.orb-options {
     display: flex;
     flex-wrap: wrap;
 }
 
-.artifact-option, .trophy-option, .character-option, .orb-option {
+.artifact-option,
+.trophy-option,
+.character-option,
+.orb-option {
     margin: 10px;
     text-align: center;
     color: white;
@@ -174,31 +188,104 @@ body {
     height: 70px;
 }
 
-.artifact-choose-div, .trophy-choose-div, .orb-choose-div {
+.artifact-choose-div,
+.trophy-choose-div,
+.orb-choose-div {
     width: 100%;
     overflow-y: auto;
     border-right-style: solid;
+    padding: 10px;
 }
 
-.artifact-preview, .trophy-preview, .orb-preview {
+.artifact-preview,
+.trophy-preview,
+.orb-preview {
     justify-content: center;
     text-align: center;
     width: 100%;
+    padding: 10px;
 }
 
-.artifact-name, .trophy-name {
+.artifact-name,
+.trophy-name {
     height: 10%;
 }
 
-.artifact-description, .trophy-description, .orb-description {
+.artifact-description,
+.trophy-description,
+.orb-description {
     height: 30%;
     overflow-y: auto;
 }
 
-.artifact-image, .trophy-image, .orb-image {
+.artifact-image,
+.trophy-image,
+.orb-image {
     height: 45%;
     padding: 5%;
     align-content: end;
+}
+
+.artifact-search-bar,
+.trophy-search-bar,
+.orb-search-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.artifact-search-title,
+.trophy-search-title,
+.orb-search-title {
+    font-size: 32px;
+    padding-right: 32px;
+}
+
+.artifact-search-input,
+.trophy-search-input,
+.orb-search-input {
+    display: flex;
+    flex-grow: 1;
+    width: auto;
+}
+
+.artifact-search-input input, .trophy-search-input input, .orb-search-input input {
+    display: flex;
+    background-image: url('imgs/search.png');
+    background-position: 2% 50%;
+    background-repeat: no-repeat;
+    background-color: #dddddd;
+    border-style: none;
+    text-align: center;
+    padding: 5px 5px 5px 20px;
+    margin: 0px 10px 0px 10px;
+    flex-grow: 1;
+}
+
+.ok-button button {
+    cursor: pointer;
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cancel-button button {
+    cursor: pointer;
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .orb-image {
@@ -206,8 +293,11 @@ body {
     min-height: 64px;
 }
 
-.artifact-option img, .trophy-option img, .character-option img, .orb-option img{
-    cursor: pointer;    
+.artifact-option img,
+.trophy-option img,
+.character-option img,
+.orb-option img {
+    cursor: pointer;
 }
 
 .character-option {
@@ -216,7 +306,32 @@ body {
     font-size: 100%;
 }
 
-.artifact-name, .trophy-name, .character-name, .orb-name {
+.artifact-name,
+.trophy-name,
+.character-name,
+.orb-name {
     font-weight: bold;
     overflow-wrap: break-word;
+}
+
+#copy-button {
+    cursor: pointer;
+    background-color: blue;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.selected {
+    opacity: .2;
 }

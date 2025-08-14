@@ -157,7 +157,8 @@
     "TROPHIES": [
         {
             "NAME": "Summon Trophy",
-            "DESCRIPTION": "Increase the damage from summoned creatures by 10%."
+            "DESCRIPTION": "Increase the damage from summoned creatures by 10%.",
+            "ALLOWED_CHARACTERS": [0]
         },
         {
             "NAME": "Celerity Trophy",
