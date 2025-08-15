@@ -223,6 +223,10 @@ function loadOrbs(characterID, skillID) {
     var orbs = null;
     var character = data.CHARACTERS[characterID];
 
+    if (character.SKILLS == null) {
+        return
+    }
+
     orbs = character.SKILLS[skillID]
     
     orbs.forEach((orb, index) => {
@@ -239,6 +243,10 @@ function loadOrbs(characterID, skillID) {
         img.addEventListener("click", (event) => {
             orbClick(skillID, index, event)
         });
+
+        if (index == build.orbs[currentSkillSlotID]) {
+            div.classList.add('selected')
+        }
 
         const orbsOptions = document.getElementsByClassName('orb-options')[0];
         orbsOptions.appendChild(div);
@@ -320,7 +328,7 @@ function updateOrb() {
         var orbImage = orbDiv.getElementsByClassName('skill-slot-image')[0];
 
         if (character == null || build.orbs[skillID] == null || 
-            data.CHARACTERS[build.character].SKILLS[skillID] == null) {
+            data.CHARACTERS[build.character].SKILLS == null || data.CHARACTERS[build.character].SKILLS[skillID] == null) {
             orbImage.src = "imgs/drakantos/orbs/NULL.PNG";        
         }
         else {
@@ -397,8 +405,11 @@ function trophyClick(trophyID, event) {
 };
 
 function setCharacter(characterID) {
-    build.character = characterID;
-    updateBuild();
+    if (build.character != characterID) {
+        build.character = characterID;
+        build.orbs = [0, 0, 0, 0, 0, 0]
+        updateBuild();
+    };
 };
 
 function characterOptionClick(character) {
@@ -411,7 +422,7 @@ function setOrb(skillID, orbID) {
     updateBuild();
 };
 
-function orbClick(skillID, orbID, event) {
+function updateOrbPreview(skillID, orbID) {
     const character = data.CHARACTERS[build.character];
     if (!character) {
         return
@@ -439,8 +450,10 @@ function orbClick(skillID, orbID, event) {
     else if (orb.ENERGY) {
         orbCooldown.textContent = 'Energy: ' + orb.ENERGY;
     }
-    
-    const orbDiv = event.currentTarget;
+};
+
+function orbClick(skillID, orbID, event) {
+    const orbDiv = event.currentTarget;    
 
     selectedList = document.getElementsByClassName('selected');
     if (selectedList) {
@@ -449,6 +462,8 @@ function orbClick(skillID, orbID, event) {
        };
     };
     orbDiv.classList.add('selected');
+
+    updateOrbPreview(skillID, orbID);
 };
 
 function selectArtifact() {
@@ -511,6 +526,7 @@ function skillSlotClick(event) {
     const orbsOptions = document.getElementsByClassName('orb-options')[0];
     orbsOptions.innerHTML = '';
     loadOrbs(build.character, currentSkillSlotID);
+    updateOrbPreview(currentSkillSlotID, build.orbs[currentSkillSlotID]);
     selectOrb();
 };
 
