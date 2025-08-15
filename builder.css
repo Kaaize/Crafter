@@ -56,6 +56,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-right: 64px;
 }
 
 .skills-container h1 {
@@ -112,7 +113,7 @@ body {
     height: 100%;
     overflow: auto;
     background-color: rgba(2, 0, 0, 0.1);
-    color: white;
+    color: rgb(167, 167, 167);
 }
 
 .modal h2 {
@@ -130,12 +131,12 @@ body {
 }
 
 .modal-window-character {
-    background-color: #000000;
+    background-color: rgba(2, 0, 0, 0.89);
     margin: 5% auto;
     margin-top: 10px;
     padding: 20px;
     border: 1px solid #888;
-    width: 1150px;
+    width: 73vw;
     height: 80%;
 }
 
@@ -187,8 +188,6 @@ body {
     margin: 10px;
     text-align: center;
     color: white;
-    width: 70px;
-    height: 70px;
 }
 
 .artifact-choose-div,
@@ -324,7 +323,7 @@ body {
 .artifact-option img,
 .trophy-option img,
 .character-option img,
-.orb-option img {
+.orb-option img {    
     cursor: pointer;
 }
 
@@ -357,5 +356,9 @@ body {
 }
 
 .white-highlight {
-    color: red;
+    color: white;
+}
+
+.cyan-highlight {
+    color: cyan;
 }

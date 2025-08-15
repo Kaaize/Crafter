@@ -1,17 +1,6 @@
 {
     "CHARACTERS": [
         {
-            "NAME": "Korz",
-            "SKILLS": []
-        },
-        {
-            "NAME": "Arryn",
-            "SKILLS": []
-        },
-        {"NAME": "Byron"},
-        {"NAME": "Faendar"},
-        {"NAME": "Iris"},
-        {
             "NAME": "Liam",
             "SKILLS": [
                 [
@@ -20,7 +9,7 @@
                         "DESCRIPTION": "Liam wields his massive sword defensively, using it to block incoming attacks with a %s damage reduction.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["100%", 0]                           
+                            ["100%", 0]
                         ]
                     },
                     {
@@ -31,19 +20,235 @@
                             ["100%", 0],
                             ["2", 0]
                         ]
+                    },
+                    {
+                        "NAME": "Block",
+                        "DESCRIPTION": "Liam wields his massive sword defensively, using it to block incoming attacks with a %s damage reduction while also receiving %s movement speed bonus",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["40", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Block",
+                        "DESCRIPTION": "Liam wields his massive sword defensively, using it to block incoming attacks with a %s damage reduction. If a block is performed with perfect timing, Liam will also gain %s.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["energy", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Block",
+                        "DESCRIPTION": "Liam wields his massive sword defensively, using it to block incoming attacks with a %s damage reduction. If a block is performed with perfect timing, Liam will also deal %s damage to enemies nearby.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["10", 0]
+                        ]
+                    }                                        
+                ],
+
+                [
+                    {
+                        "NAME": "Giant Slash",
+                        "DESCRIPTION": "Liam uses his giant Sword to slash his target, dealing %s damage.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 0]
+                        ]
+                    },                    
+                    {
+                        "NAME": "Giant Slash",
+                        "DESCRIPTION": "Liam uses his Giant Sword to slash his target, dealing %s damage, with an increseate cast speed of %s.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 0],
+                            ["10%", 0]
+                        ]
+                    },                
+                    {
+                        "NAME": "Giant Slash",
+                        "DESCRIPTION": "Liam uses his Giant Sword to slash his target, dealing %s damage, with an increseate cast speed of %s.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 0],
+                            ["25%", 0]
+                        ]
                     }
-                ]
-            ]                
+                ],
+
+                [
+                    {
+                        "NAME": "Giant Smash",
+                        "DESCRIPTION": "Gathering immense strength, Liam smashes the ground with his sword, dealing %s damage to all enemies in the area.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 0]
+                        ]
+                    },                    
+                    {
+                        "NAME": "Giant Smash",
+                        "DESCRIPTION": "Gathering immense strength, Liam smashes the ground with his sword, dealing %s damage to all enemies in the area. %s to increase the damage, reaching its peak of %s in %s, %s enemies.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 0],
+                            ["HOLD", 1],
+                            ["35", 0],
+                            ["2 seconds", 0],
+                            ["knocking back", 0]
+                        ]
+                    },                
+                    {
+                        "NAME": "Giant Smash",
+                        "DESCRIPTION": "Gathering immense strength, Liam smashes the ground with his sword, dealing %s damage to all enemies in the area. %s to increase the damage, reaching its peak of %s in %s, %s enemies.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 0],
+                            ["HOLD", 1],
+                            ["35", 0],
+                            ["1.2 seconds", 0],
+                            ["knocking back", 0]
+                        ]
+                    }
+                ],
+
+                [
+                    {
+                        "NAME": "Warrior's Cry",
+                        "DESCRIPTION": "Liam shouts with all his might, %s all enemies within a vast area for %s. During this fearsome battle cry, he benefits from %s damage reduction. Afterward, Liam maintains a formidable %s damage reduction for %s.",
+                        "ENERGY": 6,
+                        "VALUES": [
+                            ["taunting", 0],
+                            ["8 seconds", 0],
+                            ["100%", 0],
+                            ["50%", 0],
+                            ["20 seconds", 0]
+                        ]
+                    }
+                ],
+
+                [
+                    {
+                        "NAME": "Heroic Strike",
+                        "DESCRIPTION": "Liam jumps %s foward and fiercely plunges his sword into the ground, dealing %s damage to all enemies in the area, reducing their movement speed by %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["3 meters", 0],
+                            ["35", 0],
+                            ["60", 0],
+                            ["4 seonds", 0]
+                        ]
+                    },                    
+                    {
+                        "NAME": "Heroic Strike",
+                        "DESCRIPTION": "Liam jumps %s foward and fiercely plunges his sword into the ground, dealing %s damage to all enemies in the area, %s them and reducing their movement speed by %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["3 meters", 0],
+                            ["35", 0],
+                            ["pulling", 0],
+                            ["60", 0],
+                            ["4 seonds", 0]
+                        ]
+                    },               
+                    {
+                        "NAME": "Heroic Strike",
+                        "DESCRIPTION": "Liam jumps %s foward and fiercely plunges his sword into the ground, dealing %s damage to all enemies in the area, reducing their movement speed by %s for %s. On %s Liam will jump %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["3 meters", 0],
+                            ["35", 0],
+                            ["80", 0],
+                            ["4 seconds", 0],
+                            ["HOLD", 1],
+                            ["5 meters", 0]
+                        ]
+                    }
+                ], 
+
+                [
+                    {
+                        "NAME": "Earth Shatter",
+                        "DESCRIPTION": "Liam pulls his Giant Sword from the ground, causing the earth to fracture progressively, dealing %s damage to enemies, reducing their movement speed by %s for %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["40", 0],
+                            ["80", 0],
+                            ["2 seconds", 0]
+                        ]
+                    },                    
+                    {
+                        "NAME": "Earth Shatter",
+                        "DESCRIPTION": "Liam pulls his Giant Sword from the ground, causing the earth to fracture progressively, dealing %s damage to enemies, %s and %s them for %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["40", 0],
+                            ["pulling away", 0],
+                            ["stunning", 0],
+                            ["2 seconds", 0]
+                        ]
+                    },                
+                    {
+                        "NAME": "Earth Shatter",
+                        "DESCRIPTION": "Liam pulls his Giant Sword from the ground, causing the earth to fracture %s, Enemies at the center take %s damage, while those on the edges take %s and have their movement speed reduced by %s for %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["instantly", 0],
+                            ["45", 0],
+                            ["30", 0],
+                            ["80", 0],
+                            ["2 seconds", 0]
+                        ]
+                    }
+                ]                                                   
+            ]
         },
-        {"NAME": "Marly"},
-        {"NAME": "Ojore"},
-        {"NAME": "Orbryn"},
-        {"NAME": "Ozul"},
-        {"NAME": "Reya"},
-        {"NAME": "Thomas"},
-        {"NAME": "Yuki"},
-        {"NAME": "Yura"},
-        {"NAME": "Zeugladius"}        
+        {
+            "NAME": "Korz",
+            "SKILLS": []
+        },
+        {
+            "NAME": "Arryn",
+            "SKILLS": []
+        },
+        {
+            "NAME": "Byron"
+        },
+        {
+            "NAME": "Faendar"
+        },
+        {
+            "NAME": "Iris"
+        },
+        {
+            "NAME": "Marly"
+        },
+        {
+            "NAME": "Ojore"
+        },
+        {
+            "NAME": "Orbryn"
+        },
+        {
+            "NAME": "Ozul"
+        },
+        {
+            "NAME": "Reya"
+        },
+        {
+            "NAME": "Thomas"
+        },
+        {
+            "NAME": "Yuki"
+        },
+        {
+            "NAME": "Yura"
+        },
+        {
+            "NAME": "Zeugladius"
+        }
     ],
     "ARTIFACTS": [
         {
@@ -60,14 +265,15 @@
             "NAME": "Shield of Valor",
             "DESCRIPTION": "Receive a shield that absorbs 400 damage for 10 seconds.",
             "CHARGES": 4
-        }                                        
+        }
     ],
-
     "TROPHIES": [
         {
             "NAME": "Summon Trophy",
             "DESCRIPTION": "Increase the damage from summoned creatures by 10%.",
-            "ALLOWED_CHARACTERS": [5]
+            "ALLOWED_CHARACTERS": [
+                5
+            ]
         },
         {
             "NAME": "Celerity Trophy",

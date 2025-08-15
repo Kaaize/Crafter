@@ -36,6 +36,8 @@ async function loadInfo() {
 function formatPlaceHolder(text, format) {
     switch (format) {
         case 0: return `<span class="white-highlight">${text}</span>`;
+        case 1: return `<span class="cyan-highlight">${text}</span>`;
+        default: return text;
     }
 };
 
@@ -248,7 +250,7 @@ function updateCharacter() {
     var characterImage = characterSlot.getElementsByClassName('character-slot-image')[0];
 
     if (build.character == null || data.CHARACTERS[build.character] == null) { 
-        characterName.textContent = 'SELECIONE O PERSONAGEM';
+        characterName.textContent = 'SELECT THE CHARACTER';
         characterImage.src = 'imgs/drakantos/characters/NULL.PNG';
     }
     else {
@@ -264,7 +266,7 @@ function updateArtifact() {
     var artifact2Image = artifactSlots[1].getElementsByClassName('artifact-slot-image')[0];
 
     if (build.artifacts[0] == null || data.ARTIFACTS[build.artifacts[0]] == null) {
-        artifact1Name.textContent = 'Selecione o Artefato';
+        artifact1Name.textContent = 'Select the artifact';
         artifact1Image.src = 'imgs/drakantos/artifacts/NULL.PNG';
     }
     else {
@@ -273,7 +275,7 @@ function updateArtifact() {
     };
 
     if (build.artifacts[1] == null || data.ARTIFACTS[build.artifacts[1]] == null) {
-        artifact2Name.textContent = 'Selecione o Artefato';
+        artifact2Name.textContent = 'Select the artifact';
         artifact2Image.src = 'imgs/drakantos/artifacts/NULL.PNG';
     }
     else {
@@ -289,7 +291,7 @@ function updateTrophy() {
     var trophy2Image = trophySlots[1].getElementsByClassName('trophy-slot-image')[0];
 
     if (build.trophies[0] == null || data.TROPHIES[build.trophies[0]] == null) {
-        trophy1Name.textContent = 'Selecione o Troféu';
+        trophy1Name.textContent = 'Select the trophy';
         trophy1Image.src = `imgs/drakantos/trophies/NULL.PNG`;
     }
     else {
@@ -298,7 +300,7 @@ function updateTrophy() {
     };
 
     if (build.trophies[1] == null || data.TROPHIES[build.trophies[1]] == null) {
-        trophy2Name.textContent = 'Selecione o Troféu';
+        trophy2Name.textContent = 'Select the trophy';
         trophy2Image.src = `imgs/drakantos/trophies/NULL.PNG`;
     }
     else {
@@ -425,12 +427,19 @@ function orbClick(skillID, orbID, event) {
     const orbName = document.getElementById('orb-name');
     const orbImage = document.getElementById('orb-image');
     const orbDesc = document.getElementById('orb-description');
+    const orbCooldown = document.getElementById('orb-cooldown');
 
     const orb = slot[orbID];
     orbName.textContent = orb.NAME;
     orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${orbID}.PNG`;
     orbDesc.innerHTML = formatAbilityDescription(orb);
-
+    if (orb.COOLDOWN) {
+        orbCooldown.textContent = 'Cooldown: ' + orb.COOLDOWN;
+    }
+    else if (orb.ENERGY) {
+        orbCooldown.textContent = 'Energy: ' + orb.ENERGY;
+    }
+    
     const orbDiv = event.currentTarget;
 
     selectedList = document.getElementsByClassName('selected');
