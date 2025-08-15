@@ -166,6 +166,10 @@ function loadArtifacts() {
             artifactClick(artifact.index, event)
         });
 
+        if (artifact.index == build.artifacts[currentArtifactSlotID]) {
+            div.classList.add('selected')
+        }      
+
         artifactOptions.appendChild(div);
     });
 }
@@ -189,6 +193,10 @@ function loadTrophies() {
         img.addEventListener("click", (event) => {
             trophyClick(trophy.index, event)  
         });
+
+        if (trophy.index == build.trophies[currentTrophySlotID]) {
+            div.classList.add('selected')
+        }        
         
         trophyOptions.appendChild(div);
     });
@@ -227,6 +235,9 @@ function loadOrbs(characterID, skillID) {
         return
     }
 
+    const orbsOptions = document.getElementsByClassName('orb-options')[0];
+    orbsOptions.innerHTML = '';
+
     orbs = character.SKILLS[skillID]
     
     orbs.forEach((orb, index) => {
@@ -248,7 +259,6 @@ function loadOrbs(characterID, skillID) {
             div.classList.add('selected')
         }
 
-        const orbsOptions = document.getElementsByClassName('orb-options')[0];
         orbsOptions.appendChild(div);
     });
 };
@@ -353,6 +363,25 @@ function setArtifact(slot, artifactID) {
     updateBuild();
 };
 
+function updateArtifactPreview(artifactID) {
+    const artifactName = document.getElementById('artifact-name');
+    const artifactImage = document.getElementById('artifact-image');
+    const artifactDesc = document.getElementById('artifact-description');
+    
+    const artifact = data.ARTIFACTS[artifactID];
+
+    if (artifact) {
+        artifactName.textContent = artifact.NAME;
+        artifactImage.src = `imgs/drakantos/artifacts/preview/${artifactID}.PNG`;
+        artifactDesc.textContent = artifact.DESCRIPTION;
+    }
+    else {
+        artifactName.textContent = '';
+        artifactImage.src = 'imgs/drakantos/artifacts/preview/NULL.PNG';
+        artifactDesc.textContent = '';
+    }
+}
+
 function artifactClick(artifactID, event) {
     currentSelectedArtifact = artifactID;
 
@@ -381,19 +410,29 @@ function setTrophy(slot, trophyID) {
     updateBuild();
 };
 
-function trophyClick(trophyID, event) {
-    currentSelectedTrophy = trophyID;
-
+function updateTrophyPreview(trophyID) {
     const trophyName = document.getElementById('trophy-name');
     const trophyImage = document.getElementById('trophy-image');
     const trophyDesc = document.getElementById('trophy-description');
-
+    
     const trophy = data.TROPHIES[trophyID];
-    trophyName.textContent = trophy.NAME;
-    trophyImage.src = `imgs/drakantos/trophies/preview/${trophyID}.PNG`;
-    trophyDesc.textContent = trophy.DESCRIPTION;
 
+    if (trophy) {
+        trophyName.textContent = trophy.NAME;
+        trophyImage.src = `imgs/drakantos/trophies/preview/${trophyID}.PNG`;
+        trophyDesc.textContent = trophy.DESCRIPTION;
+    }
+    else {
+        trophyName.textContent = '';
+        trophyImage.src = 'imgs/drakantos/trophies/preview/NULL.PNG';
+        trophyDesc.textContent = '';
+    }
+};
+
+function trophyClick(trophyID, event) {
     const trophyDiv = event.currentTarget;
+
+    currentSelectedTrophy = trophyID;
 
     selectedList = document.getElementsByClassName('selected');
     if (selectedList) {
@@ -402,6 +441,8 @@ function trophyClick(trophyID, event) {
        };
     };
     trophyDiv.classList.add('selected');
+
+    updateTrophyPreview(trophyID);
 };
 
 function setCharacter(characterID) {
@@ -466,11 +507,17 @@ function orbClick(skillID, orbID, event) {
     updateOrbPreview(skillID, orbID);
 };
 
-function selectArtifact() {
-    modalArtifact.style.display = "block";
+function selectArtifact() {    
+    loadArtifacts();    
+    updateArtifactPreview(build.artifacts[currentArtifactSlotID]);
+
+    modalArtifact.style.display = "block";    
 };
 
-function selectTrophy(slot) {
+function selectTrophy() {
+    loadTrophies();
+    updateTrophyPreview(build.trophies[currentTrophySlotID])
+
     modalTrophy.style.display = "block";
 };
 
@@ -479,6 +526,9 @@ function selectCharacter() {
 }
 
 function selectOrb() {
+    loadOrbs(build.character, currentSkillSlotID);
+    updateOrbPreview(currentSkillSlotID, build.orbs[currentSkillSlotID]);
+
     modalOrb.style.display = "block";
 };
 
@@ -487,11 +537,9 @@ function artifactSlotClick(event) {
         return
     };
         
-    loadArtifacts();
-    
-    modalArtifact.style.display = "block";
-
     currentArtifactSlotID = event.target.parentElement.getAttribute('data-artifact-slot');
+
+    selectArtifact();
 };
 
 function trophySlotClick(event) {
@@ -499,11 +547,9 @@ function trophySlotClick(event) {
         return
     };
 
-    loadTrophies();
-
-    modalTrophy.style.display = "block";
-
     currentTrophySlotID = event.target.parentElement.getAttribute('data-trophy-slot');
+
+    selectTrophy();
 };
 
 function characterSlotClick(event) {
@@ -523,10 +569,6 @@ function skillSlotClick(event) {
 
     currentSkillSlotID = event.target.parentElement.getAttribute('data-skill-slot');
 
-    const orbsOptions = document.getElementsByClassName('orb-options')[0];
-    orbsOptions.innerHTML = '';
-    loadOrbs(build.character, currentSkillSlotID);
-    updateOrbPreview(currentSkillSlotID, build.orbs[currentSkillSlotID]);
     selectOrb();
 };
 
