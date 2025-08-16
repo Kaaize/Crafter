@@ -580,7 +580,7 @@ function updateArtifactTooltip(artifactID) {
         name.textContent = artifact.NAME;
         image.src = `imgs/drakantos/artifacts/preview/${artifactID}.GIF`;
         description.textContent = artifact.DESCRIPTION;
-        charge.textContent = 'CHARGES: ' + artifact.CHARGES;
+        charge.textContent = 'Charges: ' + artifact.CHARGES;
     };
 };
 
