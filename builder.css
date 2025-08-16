@@ -519,4 +519,37 @@ body {
         font-size: 10px;
         align-items: center;
     }
+
+    .modal-window {
+        width: 100vw;
+        margin: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .artifact-modal-content {
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .artifact-choose-div {
+        display: flex;
+        flex-direction: column;
+        min-height: 30vh;
+    }
+
+    .artifact-options {
+        height: 30vh;
+    }
+
+    .artifact-preview {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .artifact-preview img {
+        width: 90vw;
+    }
 }
