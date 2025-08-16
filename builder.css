@@ -1,11 +1,14 @@
+.html {
+    height: 100vh;
+}
+
 body {
     background-image: url("imgs/drakantos/bg.png");
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
     display: flex;
+    flex-direction: column;
     margin: 0px;
     padding: 0px;
+    height: 100vh;
 }
 
 .builder-container {
@@ -16,7 +19,7 @@ body {
     text-align: center;
     color: rgb(255, 255, 255);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background-color: #0000008a;
 }
 
@@ -54,8 +57,14 @@ body {
 
 .skills-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.skill-slots {
+    display: flex;
+    flex-direction: row;
     padding-right: 64px;
 }
 
@@ -221,10 +230,23 @@ body {
     border-width: 1px;
 }
 
+.tooltip-preview-top {
+    height: 20px;
+    padding: 3px;
+}
+
+.tooltip-orb-preview {
+    padding-left: 10px;
+    display: flex;
+    flex-grow: 2;
+}
+
 .artifact-name, .trophy-name, .orb-name, .tooltip-name {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    padding-left: 5px;
 }
 
 .artifact-charge, .orb-cooldown, .tooltip-cooldown, .tooltip-charge {
@@ -267,15 +289,25 @@ body {
 .trophy-search-bar,
 .orb-search-bar {
     display: flex;
+    
     justify-content: space-between;
     padding: 10px;
 }
 
-.artifact-search-title p,
+.artifact-search-title,
 .trophy-search-title,
 .orb-search-title {
     font-size: 20px;
     padding-right: 16px;
+    display: flex;    
+    align-items: center;
+}
+
+.artifact-search-title p,
+.trophy-search-title p,
+.orb-search-title p{
+    margin-block-start: 0px;
+    margin-block-end: 0px;
 }
 
 .artifact-search-input,
@@ -384,4 +416,96 @@ body {
     position: absolute;
     width: 25vw;
     min-height: 35vh;
+}
+
+
+@media screen and (max-width: 600px) {
+    .mid-div {
+        display: flex;
+        flex-direction: column;
+    }    
+
+    .builder-container {
+        display: flex;
+    }
+
+    #title {
+        margin: 0px;
+    }
+    
+    .artifacts-container, .trophies-container, .skills-container {
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+    }
+
+    .artifacts-container, .trophies-container {
+        order: 3;
+    }
+
+    .artifacts-container h1, .trophies-container h1, .skills-container h1 {
+        margin: 10px 3px 3px 3px;
+    }
+
+    .artifact-slots, .trophy-slots {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .skill-slots {
+        padding-right: 48px;
+    }
+
+    .skill-slot {
+        margin: 5px;
+        text-align: center;
+        width: 48px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    .skill-slot img {
+        width: 48px;
+        height: 48px;
+    }
+
+    #skill-0 img {
+        width: 24px;
+        height: 24px;
+    }
+
+    #skill-3 {
+        width: 72px;
+        height: 72px;
+    }
+
+    #skill-3 img {
+        width: 72px;
+        height: 72px;
+        border-radius: 50px;
+    }    
+
+    .character-container {
+        margin: 0px;
+        height: auto;
+    }
+
+    .character-slot-image {
+        width: 40vw;
+    }
+
+    .link-container {
+        display: flex;
+        height: 35px;
+    }
+
+    #copy-button {
+        padding: 1px 10px 1px 10px;
+        display: flex;
+        font-size: 10px;
+        align-items: center;
+    }
 }

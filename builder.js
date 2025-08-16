@@ -342,7 +342,7 @@ function updateOrb() {
             orbImage.src = "imgs/drakantos/orbs/NULL.PNG";        
         }
         else {
-            orbImage.src = "imgs/drakantos/orbs/"+data.CHARACTERS[build.character].NAME.toUpperCase() + "/" + skillID + "_" + orbID + ".PNG";        
+            orbImage.src = "imgs/drakantos/orbs/"+data.CHARACTERS[build.character].NAME.toUpperCase() + "/S_" + skillID + ".PNG";        
         };
 
         
@@ -573,7 +573,10 @@ function updateArtifactTooltip(artifactID) {
     const image = document.getElementById('tooltip-image');
     const description = document.getElementById('tooltip-description');
     const charge = document.getElementById('tooltip-charge');
-    
+    const orbImage = document.getElementById('tooltip-orb-preview');
+
+    orbImage.style.display = 'none';    
+        
     const artifact = data.ARTIFACTS[artifactID];
 
     if (artifact) {
@@ -589,7 +592,10 @@ function updateTrophyTooltip(trophyID) {
     const image = document.getElementById('tooltip-image');
     const description = document.getElementById('tooltip-description');
     const charge = document.getElementById('tooltip-charge');
-    
+    const orbImage = document.getElementById('tooltip-orb-preview');
+
+    orbImage.style.display = 'none';    
+
     const trophy = data.TROPHIES[trophyID];
 
     if (trophy) {
@@ -605,7 +611,7 @@ function updateOrbTooltip(slotID, skillID) {
     const image = document.getElementById('tooltip-image');
     const description = document.getElementById('tooltip-description');
     const cooldown = document.getElementById('tooltip-charge');
-
+    const orbImage = document.getElementById('tooltip-orb-preview');
 
     const character = data.CHARACTERS[build.character];
 
@@ -621,6 +627,13 @@ function updateOrbTooltip(slotID, skillID) {
     if (orb) {
         name.textContent = orb.NAME;
         image.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${slotID}_${skillID}.GIF`;
+        if (skillID == 0) {
+            orbImage.style.display = 'none';
+        }
+        else {
+            orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/${slotID}_${skillID}.PNG`;
+            orbImage.style.display = 'flex';
+        }
         description.innerHTML = formatAbilityDescription(orb);
         if (orb.COOLDOWN) {
             cooldown.textContent = 'Cooldown: ' + orb.COOLDOWN;
