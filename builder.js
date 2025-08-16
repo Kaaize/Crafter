@@ -609,8 +609,6 @@ function updateOrbTooltip(slotID, skillID) {
 
     const character = data.CHARACTERS[build.character];
 
-    console.log(character.SKILLS[slotID][skillID])
-
     if (!character ||
         !character.SKILLS || 
         !character.SKILLS[slotID] || 
@@ -720,9 +718,10 @@ function setModalEvents() {
             
             const tooltip = document.getElementById('tooltip');
             const rect = skill.getBoundingClientRect();
-            tooltip.style.top  = `${rect.top + window.scrollY - 330}px`;
-            tooltip.style.left  = `${rect.left + window.scrollX}px`;
             updateOrbTooltip(index, build.orbs[index]);
+            const tooltipHeight = tooltip.getBoundingClientRect().height;
+            tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
+            tooltip.style.left  = `${rect.left + window.scrollX}px`;
             tooltip.style.visibility = 'visible';
         });
         skill.addEventListener('mouseleave', () => {
