@@ -589,7 +589,7 @@ body {
     .artifact-choose-div {
         display: flex;
         flex-direction: column;
-        height: 150px;
+        height: 20vh;
     }
 
     .artifact-search-title {
@@ -618,6 +618,7 @@ body {
     .artifact-preview {
         display: flex;
         flex-direction: column;
+        height: 40vh;
     }
 
     .artifact-preview-top {
