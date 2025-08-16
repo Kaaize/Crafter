@@ -18,7 +18,7 @@
                 <h1>Artifacts</h1>
                 <div id="artifact-slot1" class="artifact-slot" data-artifact-slot="0">
                     <img src="imgs/drakantos/artifacts/artifact.png" alt="Artifact1" class="artifact-slot-image"
-                        data-artifact-slot="1">
+                        data-artifact-slot="0">
                     <p class="artifact-slot-name">Select the artifact</p>
                 </div>
                 <div id="artifact-slot2" class="artifact-slot" data-artifact-slot="1">
@@ -41,7 +41,7 @@
                 </div>
                 <div id="trophy-slot2" class="trophy-slot" data-trophy-slot="1">
                     <img src="imgs/drakantos/trophies/trophy.png" alt="Trophy2" class="trophy-slot-image"
-                        data-trophy-slot="0">
+                        data-trophy-slot="1">
                     <p class="trophy-slot-name">Select the trophy</p>
                 </div>
             </div>
@@ -52,19 +52,19 @@
                 <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 1" class="skill-slot-image" data-skill-slot="0">
             </div>
             <div id="skill-1" class="skill-slot" data-skill-slot="1">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 2" class="skill-slot-image" data-skill-slot="0">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 2" class="skill-slot-image" data-skill-slot="1">
             </div>
             <div id="skill-2" class="skill-slot" data-skill-slot="2">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 3" class="skill-slot-image" data-skill-slot="0">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 3" class="skill-slot-image" data-skill-slot="2">
             </div>
             <div id="skill-3" class="skill-slot" data-skill-slot="3">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 4" class="skill-slot-image" data-skill-slot="0">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 4" class="skill-slot-image" data-skill-slot="3">
             </div>
             <div id="skill-4" class="skill-slot" data-skill-slot="4">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 5" class="skill-slot-image" data-skill-slot="0">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 5" class="skill-slot-image" data-skill-slot="4">
             </div>
             <div id="skill-5" class="skill-slot" data-skill-slot="5">
-                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 6" class="skill-slot-image" data-skill-slot="0">
+                <img src="imgs/drakantos/orbs/ORB0_0.png" alt="Skill 6" class="skill-slot-image" data-skill-slot="5">
             </div>
         </div>
 
@@ -79,8 +79,8 @@
             <div class="artifact-modal-content">
                 <div class="artifact-choose-div">
                     <div class="artifact-search-bar">
-                        <div>
-                            <span class="artifact-search-title">Artifacts</span>
+                        <div class="artifact-search-title">
+                            <p>Artifacts</p>
                         </div>
                         <div class="artifact-search-input">
                             <input id="search-artifact-input" placeholder="Search">
@@ -95,7 +95,7 @@
                             <h1 id="artifact-name">Artifact name</h1>
                         </div>
                         <div class="artifact-charge">
-                            <p>Charges: 0</p>
+                            <p id="artifact-charge">Charges: 0</p>
                         </div>
                     </div>                    
                     <div class="artifact-image">
@@ -183,7 +183,7 @@
                         <img id="orb-image" src="imgs/drakantos/orbs//NULL_PREVIEW.PNG">
                     </div>
                     <div class="orb-description">
-                        <span id="orb-description">Descrição do orb.</span>
+                        <p id="orb-description">Descrição do orb.</p>
                     </div>
                 </div>
             </div>
@@ -209,6 +209,22 @@
             </div>
         </div>
     </div>
+    <div id="tooltip" class="tooltip-preview">
+        <div class="tooltip-preview-top">                    
+            <div class="tooltip-name">
+                <h1 id="tooltip-name">Name</h1>
+            </div>  
+            <div class="tooltip-charge">
+                <p id="tooltip-charge">Charges: 0</p>
+            </div>            
+        </div>                    
+        <div class="tooltip-image">
+            <img id="tooltip-image" src="imgs/drakantos/trophies/preview/NULL.PNG">
+        </div>
+        <div class="tooltip-description">
+            <p id="tooltip-description">Description.</p>
+        </div>
+    </div>    
 
     <script src="builder.js"></script>
 </body>

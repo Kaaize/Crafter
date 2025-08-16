@@ -121,7 +121,7 @@ body {
 }
 
 .modal-window {
-    background-color: rgba(2, 0, 0, 0.89);
+    background-color: rgba(2, 0, 0, 0.9);
     margin: 5% auto;
     margin-top: 10px;
     padding: 0px;
@@ -202,15 +202,15 @@ body {
 
 .artifact-preview,
 .trophy-preview,
-.orb-preview {
-    justify-content: center;
-    text-align: center;
+.orb-preview,
+.tooltip-preview {
     width: 100%;
 }
 
 .artifact-preview-top,
 .trophy-preview-top,
-.orb-preview-top {
+.orb-preview-top,
+.tooltip-preview-top {
     padding: 10px;
     display: flex;
     font-size: 10px;
@@ -221,13 +221,13 @@ body {
     border-width: 1px;
 }
 
-.artifact-name, .trophy-name, .orb-name {
+.artifact-name, .trophy-name, .orb-name, .tooltip-name {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.artifact-charge, .orb-cooldown {
+.artifact-charge, .orb-cooldown, .tooltip-cooldown, .tooltip-charge {
     font-size: 16px;
     color: rgb(200, 204, 167);
     display: flex;
@@ -237,20 +237,30 @@ body {
 
 .artifact-description,
 .trophy-description,
-.orb-description {
+.orb-description,
+.tooltip-description {
     padding: 10px;
     display: flex;
-    height: 30%;
+    min-height: 30px;
     overflow-y: auto;
-    align-content: left;
+    align-content: start;
 }
 
 .artifact-image,
 .trophy-image,
-.orb-image {
-    height: 45%;
-    padding: 5% 5% 5% 5%;    
-    align-content: end;
+.orb-image,
+.tooltip-image {
+    min-height: 200px;
+    padding: 5px 5px 5px 5px;    
+    text-align: center;
+}
+
+.artifact-image img,
+.trophy-image img,
+.orb-image img,
+.tooltip-image img {
+    height: 200px;
+    width: 420px;
 }
 
 .artifact-search-bar,
@@ -261,11 +271,11 @@ body {
     padding: 10px;
 }
 
-.artifact-search-title,
+.artifact-search-title p,
 .trophy-search-title,
 .orb-search-title {
-    font-size: 32px;
-    padding-right: 32px;
+    font-size: 20px;
+    padding-right: 16px;
 }
 
 .artifact-search-input,
@@ -274,6 +284,8 @@ body {
     display: flex;
     flex-grow: 1;
     width: auto;
+    align-content: center; 
+    flex-wrap: wrap;    
 }
 
 .artifact-search-input input, .trophy-search-input input, .orb-search-input input {
@@ -287,6 +299,8 @@ body {
     padding: 5px 5px 5px 20px;
     margin: 0px 10px 0px 10px;
     flex-grow: 1;
+    height: 20px;;
+
 }
 
 .ok-button button {
@@ -361,4 +375,13 @@ body {
 
 .cyan-highlight {
     color: cyan;
+}
+
+.tooltip-preview {
+    visibility: hidden;
+    background-color: rgba(2, 0, 0, 0.9);
+    color: rgb(167, 167, 167);
+    position: absolute;
+    width: 25vw;
+    min-height: 35vh;
 }

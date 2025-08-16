@@ -246,7 +246,7 @@ function loadOrbs(characterID, skillID) {
 
         var img = document.createElement('img');
         img.src = "imgs/drakantos/orbs/"+character.NAME.toUpperCase() + "/" + skillID + "_" + index + ".PNG";
-        img.className = 'orb-image';
+        img.className = 'orb-option-image';
 
         div.setAttribute('data-id', index)
         div.appendChild(img);
@@ -367,32 +367,26 @@ function updateArtifactPreview(artifactID) {
     const artifactName = document.getElementById('artifact-name');
     const artifactImage = document.getElementById('artifact-image');
     const artifactDesc = document.getElementById('artifact-description');
+    const artifactCharge = document.getElementById('artifact-charge');
     
     const artifact = data.ARTIFACTS[artifactID];
 
     if (artifact) {
         artifactName.textContent = artifact.NAME;
-        artifactImage.src = `imgs/drakantos/artifacts/preview/${artifactID}.PNG`;
-        artifactDesc.textContent = artifact.DESCRIPTION;
+        artifactImage.src = `imgs/drakantos/artifacts/preview/${artifactID}.GIF`;
+        artifactDesc.innerHTML = artifact.DESCRIPTION;
+        artifactCharge.textContent = 'Charges: ' + artifact.CHARGES;
     }
     else {
         artifactName.textContent = '';
-        artifactImage.src = 'imgs/drakantos/artifacts/preview/NULL.PNG';
+        artifactImage.src = 'imgs/drakantos/artifacts/preview/NULL.GIF';
         artifactDesc.textContent = '';
+        artifactCharge.textContent = '';
     }
 }
 
 function artifactClick(artifactID, event) {
     currentSelectedArtifact = artifactID;
-
-    const artifactName = document.getElementById('artifact-name');
-    const artifactImage = document.getElementById('artifact-image');
-    const artifactDesc = document.getElementById('artifact-description');
-
-    const artifact = data.ARTIFACTS[artifactID];
-    artifactName.textContent = artifact.NAME;
-    artifactImage.src = `imgs/drakantos/artifacts/preview/${artifactID}.PNG`;
-    artifactDesc.textContent = artifact.DESCRIPTION;
 
     const artifactDiv = event.currentTarget;
 
@@ -403,6 +397,8 @@ function artifactClick(artifactID, event) {
        };
     };
     artifactDiv.classList.add('selected');
+
+    updateArtifactPreview(artifactID)
 };
 
 function setTrophy(slot, trophyID) {
@@ -483,7 +479,7 @@ function updateOrbPreview(skillID, orbID) {
 
     const orb = slot[orbID];
     orbName.textContent = orb.NAME;
-    orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${orbID}.PNG`;
+    orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${skillID}${orbID}.GIF`;
     orbDesc.innerHTML = formatAbilityDescription(orb);
     if (orb.COOLDOWN) {
         orbCooldown.textContent = 'Cooldown: ' + orb.COOLDOWN;
@@ -572,10 +568,92 @@ function skillSlotClick(event) {
     selectOrb();
 };
 
+function updateArtifactTooltip(artifactID) {
+    const name = document.getElementById('tooltip-name');
+    const image = document.getElementById('tooltip-image');
+    const description = document.getElementById('tooltip-description');
+    const charge = document.getElementById('tooltip-charge');
+    
+    const artifact = data.ARTIFACTS[artifactID];
+
+    if (artifact) {
+        name.textContent = artifact.NAME;
+        image.src = `imgs/drakantos/artifacts/preview/${artifactID}.GIF`;
+        description.textContent = artifact.DESCRIPTION;
+        charge.textContent = 'CHARGES: ' + artifact.CHARGES;
+    };
+};
+
+function updateTrophyTooltip(trophyID) {
+    const name = document.getElementById('tooltip-name');
+    const image = document.getElementById('tooltip-image');
+    const description = document.getElementById('tooltip-description');
+    const charge = document.getElementById('tooltip-charge');
+    
+    const trophy = data.TROPHIES[trophyID];
+
+    if (trophy) {
+        name.textContent = trophy.NAME;
+        image.src = `imgs/drakantos/trophies/preview/${trophyID}.GIF`;
+        description.textContent = trophy.DESCRIPTION;
+        charge.textContent = '';
+    };
+};
+
+function updateOrbTooltip(slotID, skillID) {
+    const name = document.getElementById('tooltip-name');
+    const image = document.getElementById('tooltip-image');
+    const description = document.getElementById('tooltip-description');
+    const cooldown = document.getElementById('tooltip-charge');
+
+
+    const character = data.CHARACTERS[build.character];
+
+    console.log(character.SKILLS[slotID][skillID])
+
+    if (!character ||
+        !character.SKILLS || 
+        !character.SKILLS[slotID] || 
+        !character.SKILLS[slotID][skillID]) {
+        return
+    };
+
+    const orb = character.SKILLS[slotID][skillID];
+
+    if (orb) {
+        name.textContent = orb.NAME;
+        image.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${slotID}_${skillID}.GIF`;
+        description.innerHTML = formatAbilityDescription(orb);
+        if (orb.COOLDOWN) {
+            cooldown.textContent = 'Cooldown: ' + orb.COOLDOWN;
+        }
+        else if (orb.ENERGY) {
+            cooldown.textContent = 'Energy: ' + orb.ENERGY;
+        };
+    };
+};
+
 function setModalEvents() {
     const artifacts = document.querySelectorAll(".artifact-slot-image");
     artifacts.forEach(artifact => {
         artifact.addEventListener("click", artifactSlotClick);
+        artifact.addEventListener('mouseenter', () => {
+            const slotID = artifact.getAttribute('data-artifact-slot');
+
+            if (!data.ARTIFACTS[build.artifacts[slotID]]) {
+                return
+            };
+            
+            const tooltip = document.getElementById('tooltip');
+            const rect = artifact.getBoundingClientRect();
+            tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
+            tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            updateArtifactTooltip(build.artifacts[slotID]);
+            tooltip.style.visibility = 'visible';
+        });
+        artifact.addEventListener('mouseleave', () => {
+            tooltip.style.visibility = 'hidden';
+        });
     });
     
     const artifactOkButton = document.getElementById('artifact-ok-button');    
@@ -593,7 +671,24 @@ function setModalEvents() {
     
     const trophies = document.querySelectorAll(".trophy-slot-image");
     trophies.forEach(trophy => {
-        trophy.addEventListener("click", trophySlotClick)
+        trophy.addEventListener("click", trophySlotClick);
+        trophy.addEventListener('mouseenter', () => {
+            const slotID = trophy.getAttribute('data-trophy-slot');
+
+            if (!data.TROPHIES[build.trophies[slotID]]) {
+                return
+            };
+            
+            const tooltip = document.getElementById('tooltip');
+            const rect = trophy.getBoundingClientRect();
+            tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
+            tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            updateTrophyTooltip(build.trophies[slotID]);
+            tooltip.style.visibility = 'visible';
+        });
+        trophy.addEventListener('mouseleave', () => {
+            tooltip.style.visibility = 'hidden';
+        });        
     });
 
     const trophyOkButton = document.getElementById('trophy-ok-button');
@@ -615,6 +710,24 @@ function setModalEvents() {
     const skills = document.querySelectorAll(".skill-slot-image");
     skills.forEach((skill, index) => {
         skill.addEventListener("click", skillSlotClick);
+        skill.addEventListener('mouseenter', () => {
+            if (!data.CHARACTERS[build.character] ||
+                !data.CHARACTERS[build.character].SKILLS || 
+                !data.CHARACTERS[build.character].SKILLS[index] || 
+                !data.CHARACTERS[build.character].SKILLS[index][build.orbs[index]]) {
+                return
+            };
+            
+            const tooltip = document.getElementById('tooltip');
+            const rect = skill.getBoundingClientRect();
+            tooltip.style.top  = `${rect.top + window.scrollY - 330}px`;
+            tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            updateOrbTooltip(index, build.orbs[index]);
+            tooltip.style.visibility = 'visible';
+        });
+        skill.addEventListener('mouseleave', () => {
+            tooltip.style.visibility = 'hidden';
+        });        
     });
 
     const orbOkButton = document.getElementById('orb-ok-button');
