@@ -37,6 +37,7 @@ function formatPlaceHolder(text, format) {
     switch (format) {
         case 0: return `<span class="white-highlight">${text}</span>`;
         case 1: return `<span class="cyan-highlight">${text}</span>`;
+        case 2: return `<span class="damage-highlight">${text}</span>`;
         default: return text;
     }
 };

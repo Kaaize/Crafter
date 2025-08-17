@@ -45,7 +45,7 @@
                         "COOLDOWN": 6,
                         "VALUES": [
                             ["100%", 0],
-                            ["10", 0]
+                            ["10", 2]
                         ]
                     }                                        
                 ],
@@ -56,7 +56,7 @@
                         "DESCRIPTION": "Liam uses his giant Sword to slash his target, dealing %s damage.",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 0]
+                            ["10", 2]
                         ]
                     },                    
                     {
@@ -64,7 +64,7 @@
                         "DESCRIPTION": "Liam uses his Giant Sword to slash his target, dealing %s damage, with an increseate cast speed of %s.",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 0],
+                            ["10", 2],
                             ["10%", 0]
                         ]
                     },                
@@ -73,7 +73,7 @@
                         "DESCRIPTION": "Liam uses his Giant Sword to slash his target, dealing %s damage, with an increseate cast speed of %s.",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 0],
+                            ["10", 2],
                             ["25%", 0]
                         ]
                     }
@@ -85,7 +85,7 @@
                         "DESCRIPTION": "Gathering immense strength, Liam smashes the ground with his sword, dealing %s damage to all enemies in the area.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["20", 0]
+                            ["20", 2]
                         ]
                     },                    
                     {
@@ -93,9 +93,9 @@
                         "DESCRIPTION": "Gathering immense strength, Liam smashes the ground with his sword, dealing %s damage to all enemies in the area. %s to increase the damage, reaching its peak of %s in %s, %s enemies.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["20", 0],
+                            ["20", 2],
                             ["HOLD", 1],
-                            ["35", 0],
+                            ["35", 2],
                             ["2 seconds", 0],
                             ["knocking back", 0]
                         ]
@@ -105,9 +105,9 @@
                         "DESCRIPTION": "Gathering immense strength, Liam smashes the ground with his sword, dealing %s damage to all enemies in the area. %s to increase the damage, reaching its peak of %s in %s, %s enemies.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["20", 0],
+                            ["20", 2],
                             ["HOLD", 1],
-                            ["35", 0],
+                            ["35", 2],
                             ["1.2 seconds", 0],
                             ["knocking back", 0]
                         ]
@@ -121,7 +121,7 @@
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["3 meters", 0],
-                            ["35", 0],
+                            ["35", 2],
                             ["60", 0],
                             ["4 seonds", 0]
                         ]
@@ -132,7 +132,7 @@
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["3 meters", 0],
-                            ["35", 0],
+                            ["35", 2],
                             ["pulling", 0],
                             ["60", 0],
                             ["4 seonds", 0]
@@ -144,7 +144,7 @@
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["3 meters", 0],
-                            ["35", 0],
+                            ["35", 2],
                             ["80", 0],
                             ["4 seconds", 0],
                             ["HOLD", 1],
@@ -159,7 +159,7 @@
                         "DESCRIPTION": "Liam pulls his Giant Sword from the ground, causing the earth to fracture progressively, dealing %s damage to enemies, reducing their movement speed by %s for %s.",
                         "COOLDOWN": 15,
                         "VALUES": [
-                            ["40", 0],
+                            ["40", 2],
                             ["80", 0],
                             ["2 seconds", 0]
                         ]
@@ -169,7 +169,7 @@
                         "DESCRIPTION": "Liam pulls his Giant Sword from the ground, causing the earth to fracture progressively, dealing %s damage to enemies, %s and %s them for %s.",
                         "COOLDOWN": 15,
                         "VALUES": [
-                            ["40", 0],
+                            ["40", 2],
                             ["pulling away", 0],
                             ["stunning", 0],
                             ["2 seconds", 0]
@@ -181,8 +181,8 @@
                         "COOLDOWN": 15,
                         "VALUES": [
                             ["instantly", 0],
-                            ["45", 0],
-                            ["30", 0],
+                            ["45", 2],
+                            ["30", 2],
                             ["80", 0],
                             ["2 seconds", 0]
                         ]
@@ -241,7 +241,7 @@
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["20%", 0],
-                            ["15", 0],
+                            ["15", 2],
                             ["knocking", 0]
                         ]
                     },
@@ -262,7 +262,7 @@
                         "DESCRIPTION": "Marly channels the Holy Light to shoot a light bolt at her target, dealing %s damage.",
                         "COOLDOWN": 2,
                         "VALUS": [
-                            ["10", 0]
+                            ["10", 2]
                         ]
                     },
                     {
@@ -270,7 +270,7 @@
                         "DESCRIPTION": "Marly channels the Holy Light to shoot a light bolt at her target, dealing %s damage, with na increased cast speed of %s.",
                         "COOLDOWN": 2,
                         "VALUS": [
-                            ["10", 0],
+                            ["10", 2],
                             ["10%", 0]
                         ]
                     },
@@ -279,7 +279,7 @@
                         "DESCRIPTION": "Marly channels the Holy Light to shoot a light bolt at her target, dealing %s damage, with na increased cast speed of %s.",
                         "COOLDOWN": 2,
                         "VALUS": [
-                            ["10", 0],
+                            ["10", 2],
                             ["25%", 0]
                         ]
                     }                    
@@ -290,7 +290,7 @@
                         "DESCRIPTION": "Marly uses the Holy Power of light to perform Chastise, dealing %s damage in a frontal área, %s enemies for %s.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["15", 0],
+                            ["15", 2],
                             ["rooting", 0],
                             ["1 seconds", 0]
                         ]
@@ -300,11 +300,11 @@
                         "DESCRIPTION": "Marly uses the Holy Power of light to perform Chastise, dealing %s damage in a frontal área, %s enemies for %s. %s to increase the damage, reaching its damage peak of %s in %s.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["15", 0],
+                            ["15", 2],
                             ["rooting", 0],
                             ["1.2 seconds", 0],
                             ["HOLD", 1],
-                            ["25", 0],
+                            ["25", 2],
                             ["2 seconds"]
                         ]
                     },
@@ -313,11 +313,11 @@
                         "DESCRIPTION": "Marly uses the Holy Power of light to perform Chastise, dealing %s damage in a frontal área, %s enemies for %s. %s to increase the damage, reaching its damage peak of %s in %s.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["15", 0],
+                            ["15", 2],
                             ["rooting", 0],
                             ["1.5 seconds", 0],
                             ["HOLD", 1],
-                            ["25", 0],
+                            ["25", 2],
                             ["1.2 seconds"]
                         ]
                     }
@@ -328,7 +328,7 @@
                         "DESCRIPTION": "Marly conjures a blast of Holy Light that deals %s damage to all enemies in an area around her, reducing their movement speed by %s for %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
-                            ["30", 0],
+                            ["30", 2],
                             ["60", 0],
                             ["4 seconds", 0]
                         ]
@@ -339,7 +339,7 @@
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["fast", 0],
-                            ["30", 0],
+                            ["30", 2],
                             ["60", 0],
                             ["4 seconds", 0],
                             ["HOLD", 1],
@@ -353,7 +353,7 @@
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["fast", 0],
-                            ["30", 0],
+                            ["30", 2],
                             ["60", 0],
                             ["4 seconds", 0],
                             ["HOLD", 1],
@@ -370,7 +370,7 @@
                         "VALUES": [
                             ["100%", 0],
                             ["2 seconds", 0],
-                            ["25", 0]
+                            ["25", 2]
                         ]
                     },
                     {
@@ -381,7 +381,7 @@
                             ["100%", 0],
                             ["2 seconds", 0],
                             ["2 seconds", 0],
-                            ["25", 0],
+                            ["25", 2],
                             ["120", 0],
                             ["2 seconds", 0]
                         ]
@@ -393,7 +393,7 @@
                         "VALUES": [
                             ["100%", 0],
                             ["2 seconds", 0],
-                            ["25", 0],
+                            ["25", 2],
                             ["5%", 0],
                             ["4 seconds", 0]
                         ]
@@ -481,7 +481,7 @@
                             ["7 seconds", 0],
                             ["20%", 0],
                             ["20%", 0],
-                            ["10", 0]
+                            ["10", 2]
                         ]                        
                     }                                        
                 ],
@@ -491,7 +491,7 @@
                         "DESCRIPTION": "Using her powers, Iris fires a sequence of three Magic Missiles at her target, dealing a total of %s damage.",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 0]
+                            ["10", 2]
                         ]
                     },
                     {
@@ -499,7 +499,7 @@
                         "DESCRIPTION": "Using her powers, Iris fires a sequence of three Magic Missiles at her target, dealing a total of %s damage, with na increased cast speed of %s",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 0],
+                            ["10", 2],
                             ["10%", 0]
                         ]
                     },
@@ -508,7 +508,7 @@
                         "DESCRIPTION": "Using her powers, Iris fires a sequence of three Magic Missiles at her target, dealing a total of %s damage, with na increased cast speed of %s",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 0],
+                            ["10", 2],
                             ["25%", 0]
                         ]
                     }
@@ -519,7 +519,7 @@
                         "DESCRIPTION": "Iris shoots out a powerful magic blast from her Orb, dealing %s damage to enemies in a frontal area.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["20", 0]
+                            ["20", 2]
                         ]
                     },
                     {
@@ -527,9 +527,9 @@
                         "DESCRIPTION": "Iris shoots out a powerful magic blast from her Orb, dealing %s damage to enemies in a frontal area. %s to increase the damage, reaching its peak of %s in %s, enemies struck by the charged attack will also have their souls knocked out of their bodies for a brief moment, receiving %s movement speed reduction for %s.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["20", 0],
+                            ["20", 2],
                             ["HOLD", 1],
-                            ["33", 0],
+                            ["33", 2],
                             ["2 seconds", 0],
                             ["60", 0],
                             ["4 seconds", 0]
@@ -541,9 +541,9 @@
                         "DESCRIPTION": "Iris shoots out a powerful magic blast from her Orb, dealing %s damage to enemies in a frontal area. %s to increase the damage, reaching its peak of %s in %s, enemies struck by the charged attack will also have their souls knocked out of their bodies for a brief moment, receiving %s movement speed reduction for %s.",
                         "COOLDOWN": 6,
                         "VALUES": [
-                            ["20", 0],
+                            ["20", 2],
                             ["HOLD", 1],
-                            ["33", 0],
+                            ["33", 2],
                             ["1.2 seconds", 0],
                             ["60", 0],
                             ["4 seconds", 0]
@@ -557,7 +557,7 @@
                         "DESCRIPTION": "Iris charges her Orb with magic and slams it onto the ground, creating a burtst of astral energy that delas %s damage and reduces enemie's movement speed by %s for %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
-                            ["35", 0],
+                            ["35", 2],
                             ["100", 0],
                             ["4 seconds", 0]
                         ]
@@ -567,7 +567,7 @@
                         "DESCRIPTION": "Iris charges her Orb with magic and slams it onto the ground, creating a burtst of astral energy that delas %s damage and reduces enemie's movement speed by %s for %s. Enemies struck are also polymorphed into a butterfly, becoming %s for %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
-                            ["35", 0],
+                            ["35", 2],
                             ["100", 0],
                             ["4 seconds", 0],
                             ["silence", 0],
@@ -579,7 +579,7 @@
                         "DESCRIPTION": "Iris charges her Orb with magic and slams it onto the ground, creating a burtst of astral energy that delas %s damage and reduces enemie's movement speed by %s for %s. Each of her clones unleashes na Astral Burst as well",
                         "COOLDOWN": 10,
                         "VALUES": [
-                            ["35", 0],
+                            ["35", 2],
                             ["100", 0],
                             ["4 seconds", 0]                            
                         ]
@@ -595,7 +595,7 @@
                             ["0.5 seconds", 0],
                             ["marks", 0],
                             ["Marked", 0],
-                            ["3", 0]
+                            ["3", 2]
                         ]
                     },
                     {
@@ -607,7 +607,7 @@
                             ["0.5 seconds", 0],
                             ["marks", 0],
                             ["Marked", 0],
-                            ["3", 0],
+                            ["3", 2],
                             ["Illusion", 0],
                             ["7 seconds", 0]
                         ]
@@ -619,7 +619,7 @@
                         "VALUES": [
                             ["marks", 0],
                             ["Marked", 0],
-                            ["6", 0],
+                            ["6", 2],
                             ["HOLD to aim", 1]
                         ]
                     }                                        
@@ -640,15 +640,221 @@
             ]
         },
         {
+            "NAME": "Byron",
+            "SKILLS": [
+                [
+                    {
+                        "NAME": "Time Warp",
+                        "DESCRIPTION": "Byron uses his power to jump in time for %s. receiving %s damage reduction and %s movement speed bonus.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["1.2 seconds", 0],
+                            ["20%", 0],
+                            ["275", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Time Warp",
+                        "DESCRIPTION": "Byron uses his power to jump in time for %s. receiving %s damage reduction and %s movement speed bonus. It has %s charges, but the cooldown is higher.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["1.2 seconds", 0],
+                            ["20%", 0],
+                            ["275", 0],
+                            ["2", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Time Warp",
+                        "DESCRIPTION": "Byron uses his power to jump in time for %s. receiving %s damage reduction and %s movement speed bonus and a shield equal to %s of his maximum health.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["1.2 seconds", 0],
+                            ["20%", 0],
+                            ["275", 0],
+                            ["10%", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Time Warp",
+                        "DESCRIPTION": "Byron uses his power to jump in time for %s. receiving %s damage reduction and %s movement speed bonus. When a dodge is performed with perfect timing, Byron will also gain an attack increase of %s and an extra %s movement speed for %.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["1.2 seconds", 0],
+                            ["20%", 0],
+                            ["275", 0],
+                            ["20%", 0],
+                            ["25", 0],
+                            ["10 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Time Warp",
+                        "DESCRIPTION": "Byron uses his power to jump in time for %s. receiving %s damage reduction and %s movement speed bonus. When a dodge is performed with perfect timing, Byron will also gain a shield up to %s of his max health and receive an extra %s movement speed for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["1.2 seconds", 0],
+                            ["20%", 0],
+                            ["275", 0],
+                            ["25%", 0],
+                            ["25", 0],
+                            ["10 seconds", 0]
+                        ]
+                    }                                                            
+                ],
+                [
+                    {
+                        "NAME": "Elemental Missile",
+                        "DESCRIPTION": "Byron fires an Elemental Missile at his target, dealing %s damage. The element changes according to Byron's last attack",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 2]
+                        ]
+                    },
+                    {
+                        "NAME": "Elemental Missile",
+                        "DESCRIPTION": "Byron fires an Elemental Missile at his target, dealing %s damage, with an increased cast speed of %s. The element changes according to Byron's last attack",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 2],
+                            ["10%", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Elemental Missile",
+                        "DESCRIPTION": "Byron fires an Elemental Missile at his target, dealing %s damage, with an increased cast speed of %s. The element changes according to Byron's last attack",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 20],
+                            ["25%", 0]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME":"Wind Blast / Fireball",
+                        "DESCRIPTION": "Byron creates s burst of wind that deals %s damage and puses back enemies in a frontal area. On %s, Byron creates a small fire ball and hurls it into the targeted direction, the fireball explodes on contact, dealing %s damage",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 2],
+                            ["HOLD", 1],
+                            ["20", 2]
+                        ]
+                    },
+                    {
+                        "NAME":"Wind Blast / Fireball",
+                        "DESCRIPTION": "Byron creates s burst of wind that deals %s damage and puses back enemies in a frontal area. On %s, Byron creates a %s fire ball and hurls it into the targeted direction, the fireball explodes on contact, dealing %s damage and igniting enemies, dealing damage over %s over %s. Byron can increase the burn damage if he holds the ability even further, reaching its damage peak of %s in %s for a total of %s damage.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 2],
+                            ["HOLD", 1],
+                            ["stronger", 0],
+                            ["20", 2],
+                            ["1 seconds", 0],
+                            ["5 seconds", 0],
+                            ["2", 2],
+                            ["2 seconds", 0],
+                            ["33", 2]
+                        ]                        
+                    },
+                    {
+                        "NAME":"Wind Blast / Fireball",
+                        "DESCRIPTION": "Byron creates s burst of wind that deals %s damage and puses back enemies in a frontal area. On %s, Byron creates a %s fire ball and hurls it into the targeted direction, the fireball explodes on contact, dealing %s damage and igniting enemies, dealing damage over %s over %s. Byron can increase the burn damage if he holds the ability even further, reaching its damage peak of %s in %s for a total of %s damage.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 2],
+                            ["HOLD", 1],
+                            ["stronger", 0],
+                            ["20", 2],
+                            ["1 seconds", 0],
+                            ["5 seconds", 0],
+                            ["2", 2],
+                            ["1.2 seconds", 0],
+                            ["33", 2]
+                        ]                        
+                    }                    
+                ],
+                [
+                    {
+                        "NAME": "Meteor",
+                        "DESCRIPTION": "Byron conjures a Mateor, dealing %s damage and %s enemies for %s. On %s, Byron uses his power to conjure a powerful Blizzard at the targeted area that deals up to %s damage to all enemies in area, dealing %s instantly and %s every %s over %s and reducing enemie's movement speed by %s for %s. %s",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["35", 2],
+                            ["stunning", 0],
+                            ["0.8 seconds", 0],
+                            ["HOLD", 0],
+                            ["40", 2],
+                            ["17", 2],
+                            ["2", 2],
+                            ["0.5 seconds", 0],
+                            ["3 seconds", 0],
+                            ["140", 0],
+                            ["2 seconds", 0], 
+                            ["If the entire Blizzard lands on an enemy, it causes Freeze for 3 seconds. Freeze breaks upon taking any damage, dealing 10 damage", 1]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Time Rewind",
+                        "DESCRIPTION": "Byron creates a time marker of the present time. After %s, he travels back to that exact time, returning to his previous position and restoring %s of his health as it was at the time marker and he will benefit from %s damage reduction for %s. In the end, a time blast that deals %s damage in a small area will take place where Byron",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["3.6 seconds", 0],
+                            ["80%", 0],
+                            ["100%", 0],
+                            ["1 second", 0],
+                            ["20", 2]                            
+                        ]
+                    },
+                    {
+                        "NAME": "Time Rewind",
+                        "DESCRIPTION": "Byron creates a time marker of the present time for a %s. After %s, the targeted person travels back to that exact time, returning to their previous position and restoring %s of their health as it was at the time marker and he will benefit from %s damage reduction for %s. In the end, a time blast that deals %s damage in a small area will take place where the targeted person was.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["selected ally"],
+                            ["3.6 seconds", 0],
+                            ["80%", 0],
+                            ["100%", 0],
+                            ["1 second", 0],
+                            ["20", 2]                            
+                        ]
+                    },
+                    {
+                        "NAME": "Time Rewind",
+                        "DESCRIPTION": "Byron creates a time marker of the present time. After %s, he travels back to that exact time, returning to his previous position and restoring %s of his health as it was at the time marker and he will benefit from %s damage reduction for %s. On %s the time marker will be set for his current %s without the health benefits. in the end, a time blast that deals %s damage in a small area will take place where the targeted person was.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["3.6 seconds", 0],
+                            ["80%", 0],
+                            ["100%", 0],
+                            ["1 second", 0],
+                            ["HOLD", 1],
+                            ["targeted enemy", 0],
+                            ["20", 2]                            
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Time Rejuvenation",
+                        "DESCRIPTION": "Byron utilizes his proficiency in Chronomancy to select an ally and manipulates times to roll back, restoring its wounds.",
+                        "ENERGY": 100,
+                        "VALUES": [
+
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
             "NAME": "Korz",
             "SKILLS": []
         },
         {
             "NAME": "Arryn",
             "SKILLS": []
-        },
-        {
-            "NAME": "Byron"
         },
         {
             "NAME": "Faendar"

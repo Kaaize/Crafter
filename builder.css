@@ -413,6 +413,10 @@ body {
     color: cyan;
 }
 
+.damage-highlight {
+    color: rgb(245, 245, 119)
+}
+
 .tooltip-preview {
     visibility: hidden;
     background-color: rgba(2, 0, 0, 0.9);
