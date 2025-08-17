@@ -725,7 +725,7 @@
                         "DESCRIPTION": "Byron fires an Elemental Missile at his target, dealing %s damage, with an increased cast speed of %s. The element changes according to Byron's last attack",
                         "COOLDOWN": 2,
                         "VALUES": [
-                            ["10", 20],
+                            ["10", 2],
                             ["25%", 0]
                         ]
                     }
