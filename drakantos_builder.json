@@ -777,6 +777,33 @@
                 [
                     {
                         "NAME": "Meteor",
+                        "DESCRIPTION": "Byron conjures a Mateor, dealing %s damage and %s enemies for %s. %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["35", 2],
+                            ["stunning", 0],
+                            ["0.8 seconds", 0],
+                            ["HOLD to aim", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Meteor",
+                        "DESCRIPTION": "Byron conjures a Mateor, dealing %s damage and %s enemies for %s. On %s, Byron uses his power to devastating Hurricane at the targeted area that deals up to %s damage to all enemies in area, dealing %s instantly and %s every %s over %s while also continuously pushing back enemies on the center.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["35", 2],
+                            ["stunning", 0],
+                            ["0.8 seconds", 0],
+                            ["HOLD", 0],
+                            ["40", 2],
+                            ["17", 2],
+                            ["2", 2],
+                            ["0.5 seconds", 0],
+                            ["4 seconds", 0]
+                        ]
+                    },                                        
+                    {
+                        "NAME": "Meteor",
                         "DESCRIPTION": "Byron conjures a Mateor, dealing %s damage and %s enemies for %s. On %s, Byron uses his power to conjure a powerful Blizzard at the targeted area that deals up to %s damage to all enemies in area, dealing %s instantly and %s every %s over %s and reducing enemie's movement speed by %s for %s. %s",
                         "COOLDOWN": 10,
                         "VALUES": [
