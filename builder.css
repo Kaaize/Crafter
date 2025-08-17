@@ -485,16 +485,21 @@ body {
         height: 24px;
     }
 
-    #skill-3 {
+    #skill-5 {
         width: 72px;
         height: 72px;
+        order: 1;
     }
 
-    #skill-3 img {
+    #skill-5 img {
         width: 72px;
         height: 72px;
         border-radius: 50px;
-    }    
+    }
+
+    #skill-3, #skill-4 {
+        order: 2;
+    }
 
     .character-container {
         display: flex;
