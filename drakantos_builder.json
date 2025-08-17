@@ -116,21 +116,6 @@
 
                 [
                     {
-                        "NAME": "Warrior's Cry",
-                        "DESCRIPTION": "Liam shouts with all his might, %s all enemies within a vast area for %s. During this fearsome battle cry, he benefits from %s damage reduction. Afterward, Liam maintains a formidable %s damage reduction for %s.",
-                        "ENERGY": 100,
-                        "VALUES": [
-                            ["taunting", 0],
-                            ["8 seconds", 0],
-                            ["100%", 0],
-                            ["50%", 0],
-                            ["20 seconds", 0]
-                        ]
-                    }
-                ],
-
-                [
-                    {
                         "NAME": "Heroic Strike",
                         "DESCRIPTION": "Liam jumps %s foward and fiercely plunges his sword into the ground, dealing %s damage to all enemies in the area, reducing their movement speed by %s for %s.",
                         "COOLDOWN": 10,
@@ -202,7 +187,456 @@
                             ["2 seconds", 0]
                         ]
                     }
-                ]                                                   
+                ],
+
+                [
+                    {
+                        "NAME": "Warrior's Cry",
+                        "DESCRIPTION": "Liam shouts with all his might, %s all enemies within a vast area for %s. During this fearsome battle cry, he benefits from %s damage reduction. Afterward, Liam maintains a formidable %s damage reduction for %s.",
+                        "ENERGY": 100,
+                        "VALUES": [
+                            ["taunting", 0],
+                            ["8 seconds", 0],
+                            ["100%", 0],
+                            ["50%", 0],
+                            ["20 seconds", 0]
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "NAME": "Marly",
+            "SKILLS": [
+                [
+                    {
+                        "NAME": "Divine Protection",
+                        "DESCRIPTION": "Marly uses the Holy Light to cast a Divine Protection on her. It grants a shield equal to %s of her max health until it breaks or the ability is activated again.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["20%", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Divine Protection",
+                        "DESCRIPTION": "Marly uses the Holy Light to cast a Divine Protection on her. It grants a shield equal to %s of her max health until it breaks or the ability is activated again. Also grants %s damage reduction while the shield is active.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["20%", 0],
+                            ["30%", 0]
+                        ]
+                    },     
+                    {
+                        "NAME": "Divine Protection",
+                        "DESCRIPTION": "Marly uses the Holy Light to cast a Divine Protection on a %s. It grants a shield equal to %s of her max health until it breaks or the ability is activated again.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["selected ally", 0],
+                            ["20%", 0]
+                        ]
+                    },                                   
+                    {
+                        "NAME": "Divine Protection",
+                        "DESCRIPTION": "Marly uses the Holy Light to cast a Divine Protection on her. It grants a shield equal to %s of her max health until it breaks or the ability is activated again. If the shield is broken, it release a blast of Holy Light that deals %s damage to nearby enemies, %s them back.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["20%", 0],
+                            ["15", 0],
+                            ["knocking", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Divine Protection",
+                        "DESCRIPTION": "Marly uses the Holy Light to cast a Divine Protection on her. It grants a shield equal to %s of her max health until it breaks or the ability is activated again. It also makes her %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["20%", 0],
+                            ["invulnerable", 0],
+                            ["0.4 seconds", 0]
+                        ]
+                    }                                                           
+                ],
+                [
+                    {
+                        "NAME": "Holy Light",
+                        "DESCRIPTION": "Marly channels the Holy Light to shoot a light bolt at her target, dealing %s damage.",
+                        "COOLDOWN": 2,
+                        "VALUS": [
+                            ["10", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Holy Light",
+                        "DESCRIPTION": "Marly channels the Holy Light to shoot a light bolt at her target, dealing %s damage, with na increased cast speed of %s.",
+                        "COOLDOWN": 2,
+                        "VALUS": [
+                            ["10", 0],
+                            ["10%", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Holy Light",
+                        "DESCRIPTION": "Marly channels the Holy Light to shoot a light bolt at her target, dealing %s damage, with na increased cast speed of %s.",
+                        "COOLDOWN": 2,
+                        "VALUS": [
+                            ["10", 0],
+                            ["25%", 0]
+                        ]
+                    }                    
+                ],
+                [
+                    {
+                        "NAME": "Chastise",
+                        "DESCRIPTION": "Marly uses the Holy Power of light to perform Chastise, dealing %s damage in a frontal área, %s enemies for %s.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["15", 0],
+                            ["rooting", 0],
+                            ["1 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Chastise",
+                        "DESCRIPTION": "Marly uses the Holy Power of light to perform Chastise, dealing %s damage in a frontal área, %s enemies for %s. %s to increase the damage, reaching its damage peak of %s in %s.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["15", 0],
+                            ["rooting", 0],
+                            ["1.2 seconds", 0],
+                            ["HOLD", 1],
+                            ["25", 0],
+                            ["2 seconds"]
+                        ]
+                    },
+                    {
+                        "NAME": "Chastise",
+                        "DESCRIPTION": "Marly uses the Holy Power of light to perform Chastise, dealing %s damage in a frontal área, %s enemies for %s. %s to increase the damage, reaching its damage peak of %s in %s.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["15", 0],
+                            ["rooting", 0],
+                            ["1.5 seconds", 0],
+                            ["HOLD", 1],
+                            ["25", 0],
+                            ["1.2 seconds"]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Holy Nova",
+                        "DESCRIPTION": "Marly conjures a blast of Holy Light that deals %s damage to all enemies in an area around her, reducing their movement speed by %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["30", 0],
+                            ["60", 0],
+                            ["4 seconds", 0]
+                        ]
+                    },                    
+                    {
+                        "NAME": "Holy Nova",
+                        "DESCRIPTION": "Marly conjures a %s blast of Holy Light that delas %s damage to all enemies in a large area around her, reducing their movement speed by %s for %s. On %s, she will cast a Dive Protection in the nearby allies granting a shield equal to %s of her max health for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["fast", 0],
+                            ["30", 0],
+                            ["60", 0],
+                            ["4 seconds", 0],
+                            ["HOLD", 1],
+                            ["28%", 0],
+                            ["15 sencods", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Holy Nova",
+                        "DESCRIPTION": "Marly conjures a %s blast of Holy Light that delas %s damage to all enemies in a large área around her, reducing their movement speed by %s for %s. On %s, she will blast a %s and will %s enemies.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["fast", 0],
+                            ["30", 0],
+                            ["60", 0],
+                            ["4 seconds", 0],
+                            ["HOLD", 1],
+                            ["larger area", 0],
+                            ["knockback", 0]
+                        ]
+                    }                    
+                ],
+                [
+                    {
+                        "NAME": "Guardian Light",
+                        "DESCRIPTION": "Marly conjures a Guardian Light on the selected ally. The shield grants %s damage reduction for %s and explodes afterward, dealing %s damage to nearby enemies.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["2 seconds", 0],
+                            ["25", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Guardian Light",
+                        "DESCRIPTION": "Marly conjures a Guardian Light on the selected ally. The shield grants %s damage reduction for %s and explodes after %s, dealing %s damage to nearby enemies and removes the slow effect and increases the ally's movement speed by %s for %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["2 seconds", 0],
+                            ["2 seconds", 0],
+                            ["25", 0],
+                            ["120", 0],
+                            ["2 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Guardian Light",
+                        "DESCRIPTION": "Marly conjures a Guardian Light on the selected ally. The shield grants %s damage reduction for %s and explodes afterward, dealing %S damage to nearby enemies, granting a shield equal to %s of her max health for each enemy hit, lasting %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["2 seconds", 0],
+                            ["25", 0],
+                            ["5%", 0],
+                            ["4 seconds", 0]
+                        ]
+                    }                    
+                ],
+                [
+                    {
+                        "NAME": "Sariel's Light",
+                        "DESCRIPTION": "Marly afters a heartfelt prayer to Sariel, invoking her divine grace upon the battlefield. As Sariel's Light descends, it provides continuous healing over %s seconds, with a stronger healing at the start that gradually softens.",
+                        "ENERGY": 100,
+                        "VALUES": [
+                            ["10 seconds"]
+                        ]
+                    }
+                ]
+            ]
+        },        
+        {
+            "NAME": "Iris",
+            "SKILLS": [
+                [
+                    {
+                        "NAME": "Mirror Image",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The illusion redirects %s of the received damage to Iris if her HP is higher than %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["90%", 0],
+                            ["200", 0],
+                            ["Illusion", 2000],
+                            ["7 seconds", 0],
+                            ["20%", 0],
+                            ["20%", 0]
+                        ]                        
+                    },
+                    {
+                        "NAME": "Mirror Image",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. After vanishing, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["90%", 0],
+                            ["200", 0],
+                            ["Illusion", 2000],
+                            ["7 seconds", 0],
+                            ["20%", 0],
+                            ["20%", 0]
+                        ]                        
+                    },
+                    {
+                        "NAME": "Mirror Image",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. Additionally, enemies who hits Iris during this time window are also polymorphed into a butterfly, becoming %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["90%", 0],
+                            ["200", 0],
+                            ["Illusion", 2000],
+                            ["7 seconds", 0],
+                            ["20%", 0],
+                            ["20%", 0],
+                            ["silenced", 0],
+                            ["2 seconds", 0]
+                        ]                        
+                    },
+                    {
+                        "NAME": "Mirror Image",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. If she vanishes with perfect timing, Iris will also gain %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["90%", 0],
+                            ["200", 0],
+                            ["Illusion", 2000],
+                            ["7 seconds", 0],
+                            ["20%", 0],
+                            ["20%", 0],
+                            ["energy", 0]
+                        ]                        
+                    },
+                    {
+                        "NAME": "Mirror Image",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. If she vanishes with perfect timing, Iris will also deal %s damage to enemies nearby.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["90%", 0],
+                            ["200", 0],
+                            ["Illusion", 2000],
+                            ["7 seconds", 0],
+                            ["20%", 0],
+                            ["20%", 0],
+                            ["10", 0]
+                        ]                        
+                    }                                        
+                ],
+                [
+                    {
+                        "NAME": "Magic Missile",
+                        "DESCRIPTION": "Using her powers, Iris fires a sequence of three Magic Missiles at her target, dealing a total of %s damage.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Magic Missile",
+                        "DESCRIPTION": "Using her powers, Iris fires a sequence of three Magic Missiles at her target, dealing a total of %s damage, with na increased cast speed of %s",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 0],
+                            ["10%", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Magic Missile",
+                        "DESCRIPTION": "Using her powers, Iris fires a sequence of three Magic Missiles at her target, dealing a total of %s damage, with na increased cast speed of %s",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 0],
+                            ["25%", 0]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Ether Blast",
+                        "DESCRIPTION": "Iris shoots out a powerful magic blast from her Orb, dealing %s damage to enemies in a frontal area.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Ether Blast",
+                        "DESCRIPTION": "Iris shoots out a powerful magic blast from her Orb, dealing %s damage to enemies in a frontal area. %s to increase the damage, reaching its peak of %s in %s, enemies struck by the charged attack will also have their souls knocked out of their bodies for a brief moment, receiving %s movement speed reduction for %s.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 0],
+                            ["HOLD", 1],
+                            ["33", 0],
+                            ["2 seconds", 0],
+                            ["60", 0],
+                            ["4 seconds", 0]
+
+                        ]
+                    },
+                    {
+                        "NAME": "Ether Blast",
+                        "DESCRIPTION": "Iris shoots out a powerful magic blast from her Orb, dealing %s damage to enemies in a frontal area. %s to increase the damage, reaching its peak of %s in %s, enemies struck by the charged attack will also have their souls knocked out of their bodies for a brief moment, receiving %s movement speed reduction for %s.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 0],
+                            ["HOLD", 1],
+                            ["33", 0],
+                            ["1.2 seconds", 0],
+                            ["60", 0],
+                            ["4 seconds", 0]
+
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Astral Burst",
+                        "DESCRIPTION": "Iris charges her Orb with magic and slams it onto the ground, creating a burtst of astral energy that delas %s damage and reduces enemie's movement speed by %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["35", 0],
+                            ["100", 0],
+                            ["4 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Astral Burst",
+                        "DESCRIPTION": "Iris charges her Orb with magic and slams it onto the ground, creating a burtst of astral energy that delas %s damage and reduces enemie's movement speed by %s for %s. Enemies struck are also polymorphed into a butterfly, becoming %s for %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["35", 0],
+                            ["100", 0],
+                            ["4 seconds", 0],
+                            ["silence", 0],
+                            ["1.5 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Astral Burst",
+                        "DESCRIPTION": "Iris charges her Orb with magic and slams it onto the ground, creating a burtst of astral energy that delas %s damage and reduces enemie's movement speed by %s for %s. Each of her clones unleashes na Astral Burst as well",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["35", 0],
+                            ["100", 0],
+                            ["4 seconds", 0]                            
+                        ]
+                    }                                        
+                ],
+                [
+                    {
+                        "NAME": "Ethereal Illusions",
+                        "DESCRIPTION": "Iris deceives everyone, vanishing for a brief moment, receiving %s damage reduction for %s and %s anyone in na área around her. %s enemies take na extra Magical Explosion from any damage that they take, dealing %s damage up to 6 times.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["0.5 seconds", 0],
+                            ["marks", 0],
+                            ["Marked", 0],
+                            ["3", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Ethereal Illusions",
+                        "DESCRIPTION": "Iris deceives everyone, vanishing for a brief moment, receiving %s damage reduction for %s and %s anyone in na area around her after and before she vanishes. %s enemies take na extra Magical Explosion from any damage that they take, dealing %s damage up to 6 times, Iris will also create na %s that lasts for %s where she was.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["0.5 seconds", 0],
+                            ["marks", 0],
+                            ["Marked", 0],
+                            ["3", 0],
+                            ["Illusion", 0],
+                            ["7 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Ethereal Illusions",
+                        "DESCRIPTION": "Iris creates na illusion in the targetered área and %s anyone in na area around the Illusion. %s enemies take na extra Magical Explosion from any damage that they take, dealing %s damage up to 3 times. %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["marks", 0],
+                            ["Marked", 0],
+                            ["6", 0],
+                            ["HOLD to aim", 1]
+                        ]
+                    }                                        
+                ],
+                [
+                    {
+                        "NAME": "Dimensional Barrier",
+                        "DESCRIPTION": "Iris uses the full extent of her Orb power to expand its size, pushing away enemies and turning the area into a domain of her own, receiving %s damage reduction while casting. The barrier blocks enemie's attacks from the outside, protecting Iris and her allies which also receives 30% damage reduction while %s the barrier. Enemies inside the barrier receive %s movement speed reduction.",
+                        "ENERGY": 100,
+                        "VALUES": [
+                            ["100%", 0],
+                            ["50%", 0],
+                            ["inside", 0],
+                            ["40", 0]
+                        ]
+                    }
+                ]
             ]
         },
         {
@@ -218,12 +652,6 @@
         },
         {
             "NAME": "Faendar"
-        },
-        {
-            "NAME": "Iris"
-        },
-        {
-            "NAME": "Marly"
         },
         {
             "NAME": "Ojore"

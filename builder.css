@@ -87,15 +87,20 @@ body {
     height: 32px;
 }
 
-#skill-3 {
+#skill-5 {
     width: 96px;
     height: 96px;
+    order: 1;
 }
 
-#skill-3 img {
+#skill-5 img {
     width: 96px;
     height: 96px;
     border-radius: 50px;
+}
+
+#skill-3, #skill-4 {
+    order: 2;
 }
 
 .link-container {
