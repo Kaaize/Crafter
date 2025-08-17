@@ -525,7 +525,7 @@ body {
         z-index: 1;
         left: 0;
         top: 0;
-        align-content: center;
+        align-content: start;
         width: 100vw;
         height: 100vh;
         overflow: auto;
@@ -536,7 +536,7 @@ body {
 
     .modal-window {
         width: 100vw;
-        height: 100%;
+        height: 90vh;
         margin: 0px;
         display: flex;
         flex-direction: column;
@@ -548,7 +548,7 @@ body {
         display: flex;
         flex-direction: column;
         width: 100vw;
-        height: 100%;
+        height: 90vh;
     }
 
     .artifact-modal-bottom,
