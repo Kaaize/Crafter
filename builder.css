@@ -542,7 +542,9 @@ body {
         flex-direction: column;
     }
     
-    .artifact-modal-content {
+    .artifact-modal-content,
+    .trophy-modal-content,
+    .orb-modal-content {
         display: flex;
         flex-direction: column;
         width: 100vw;
@@ -578,7 +580,7 @@ body {
         background-color: red;
         border: none;
         color: white;
-        padding: 8px 32px;
+        padding: 1vh 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
@@ -586,46 +588,111 @@ body {
         font-weight: bold;
     }    
 
-    .artifact-choose-div {
+    .artifact-choose-div,
+    .trophy-choose-div,
+    .orb-choose-div {
         display: flex;
         flex-direction: column;
         height: 20vh;
+        padding: 0px;
     }
 
-    .artifact-search-title {
+    .artifact-search-title,
+    .trophy-search-title,
+    .orb-search-title {
         font-size: 15px;
     }
 
-    .artifact-search-input input{
+    .artifact-search-input input,
+    .trophy-search-input input,
+    .orb-search-input input{
         padding: 4px 4px 4px 20px;
         margin: 0px 15px 0px 10px;
         flex-grow: 1;
         height: 15px;    
     }
 
-    .artifact-options {
-        height: 120px;
+    .artifact-options,
+    .trophy-options,
+    .orb-options {
+        height: 15vh;
     }
 
-    .artifact-options img {
+    .artifact-options img,
+    .trophy-option img,
+    .orb-option img {
         width: 48px;
     }
 
-    .artifact-option {
+    .artifact-option
+    .trophy-option,
+    .orb-option {
         margin: 5px;
     }
 
-    .artifact-preview {
+    .artifact-preview
+    .trophy-preview,
+    .orb-preview,
+    .tooltip-preview {
         display: flex;
         flex-direction: column;
-        height: 40vh;
+        min-height: 40vh;
     }
 
-    .artifact-preview-top {
+    .artifact-preview-top,
+    .trophy-preview-top,
+    .orb-preview-top,
+    .tooltip-preview-top {
         border-style: solid;
     }
 
-    .artifact-preview img {
+    .tooltip-preview-top {
+        height: 20px;
+        padding: 3px;
+    }
+
+    .tooltip-orb-preview {
+        padding-left: 10px;
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .artifact-preview img,
+    .trophy-preview img,
+    .orb-preview img,
+    .tooltip-preview img {
         width: 90vw;
+    }
+
+    .tooltip-orb-preview img{
+        width: auto;
+    }   
+
+
+    .artifact-description,
+    .trophy-description,
+    .orb-description,
+    .tooltip-description {
+        display: flex;
+        flex-grow: 2;
+        padding: 10px;
+        display: flex;
+        overflow-y: auto;
+        align-content: start;
+    }
+
+    .modal-window-character {
+        width: 100vw;
+        height: 100vh;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .character-option {
+        width: 14vh;
+    }
+
+    .tooltip-preview {
+        width: 100vw;
     }
 }

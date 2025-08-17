@@ -576,7 +576,7 @@ function updateArtifactTooltip(artifactID) {
     const orbImage = document.getElementById('tooltip-orb-preview');
 
     orbImage.style.display = 'none';    
-        
+
     const artifact = data.ARTIFACTS[artifactID];
 
     if (artifact) {
@@ -657,9 +657,17 @@ function setModalEvents() {
             
             const tooltip = document.getElementById('tooltip');
             const rect = artifact.getBoundingClientRect();
-            tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
-            tooltip.style.left  = `${rect.left + window.scrollX}px`;
             updateArtifactTooltip(build.artifacts[slotID]);
+            const tooltipHeight = tooltip.getBoundingClientRect().height;
+
+            if (window.innerWidth > 600) {
+                tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
+                tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            }
+            else {
+                tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
+                tooltip.style.left  = `0px`;
+            };
             tooltip.style.visibility = 'visible';
         });
         artifact.addEventListener('mouseleave', () => {
@@ -692,9 +700,17 @@ function setModalEvents() {
             
             const tooltip = document.getElementById('tooltip');
             const rect = trophy.getBoundingClientRect();
-            tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
-            tooltip.style.left  = `${rect.left + window.scrollX}px`;
             updateTrophyTooltip(build.trophies[slotID]);
+            const tooltipHeight = tooltip.getBoundingClientRect().height;
+
+            if (window.innerWidth > 600) {
+                tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
+                tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            }
+            else {
+                tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
+                tooltip.style.left  = `0px`;
+            };            
             tooltip.style.visibility = 'visible';
         });
         trophy.addEventListener('mouseleave', () => {
@@ -734,7 +750,12 @@ function setModalEvents() {
             updateOrbTooltip(index, build.orbs[index]);
             const tooltipHeight = tooltip.getBoundingClientRect().height;
             tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
-            tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            if (window.innerWidth > 600) {
+                tooltip.style.left  = `${rect.left + window.scrollX}px`;
+            }
+            else {
+                tooltip.style.left  = `0px`;
+            }
             tooltip.style.visibility = 'visible';
         });
         skill.addEventListener('mouseleave', () => {
@@ -828,6 +849,9 @@ function loadParamQuery() {
 
 
 function main() {
+    window.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    });    
     loadArtifacts();    
     loadTrophies();
     loadCharacters()
