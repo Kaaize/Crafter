@@ -536,7 +536,7 @@ body {
 
     .modal-window {
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         margin: 0px;
         display: flex;
         flex-direction: column;
@@ -548,7 +548,7 @@ body {
         display: flex;
         flex-direction: column;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
     }
 
     .artifact-modal-bottom,
@@ -667,7 +667,6 @@ body {
     .tooltip-orb-preview img{
         width: auto;
     }   
-
 
     .artifact-description,
     .trophy-description,
