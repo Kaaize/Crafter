@@ -9,6 +9,7 @@ async function carregarReceitas() {
 
         const receitasSelecionadas = {};
         var valorTotal = 0;
+        var slotInventario = 0;
 
         // Atualiza painel das receitas selecionadas (meio)
         function atualizarSelecionadas() {
@@ -121,6 +122,8 @@ async function carregarReceitas() {
                 const item = data.ITEMS[idIng];
                 if (!item) return; // ignorar IDs inválidos
 
+                slotInventario += Math.ceil(quantidade / 100);
+
                 const div = document.createElement("div");
                 div.classList.add("ingredient-item");
 
@@ -145,11 +148,10 @@ async function carregarReceitas() {
                 div.appendChild(divInfo);
 
                 listaIngredientes.appendChild(div);
-
             });
 
             const caption = document.querySelector(".caption-incredientes");
-            caption.textContent = `Ingredientes Totais ($${valorTotal})`;
+            caption.textContent = `Ingredientes Totais ($${valorTotal}) | Slots Necessários: ${slotInventario}`;
         }
 
         // Monta a lista da sidebar com imagem + nome

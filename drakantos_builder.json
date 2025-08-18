@@ -417,12 +417,12 @@
                 [
                     {
                         "NAME": "Mirror Image",
-                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The illusion redirects %s of the received damage to Iris if her HP is higher than %s.",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, an %s that lasts for %s is created and targeted instead. The illusion redirects %s of the received damage to Iris if her HP is higher than %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["90%", 0],
                             ["200", 0],
-                            ["Illusion", 2000],
+                            ["Illusion", 1000],
                             ["7 seconds", 0],
                             ["20%", 0],
                             ["20%", 0]
@@ -430,12 +430,12 @@
                     },
                     {
                         "NAME": "Mirror Image",
-                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. After vanishing, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s.",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. After vanishing, an %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["90%", 0],
                             ["200", 0],
-                            ["Illusion", 2000],
+                            ["Illusion", 1000],
                             ["7 seconds", 0],
                             ["20%", 0],
                             ["20%", 0]
@@ -443,12 +443,12 @@
                     },
                     {
                         "NAME": "Mirror Image",
-                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. Additionally, enemies who hits Iris during this time window are also polymorphed into a butterfly, becoming %s for %s.",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, an %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. Additionally, enemies who hits Iris during this time window are also polymorphed into a butterfly, becoming %s for %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["90%", 0],
                             ["200", 0],
-                            ["Illusion", 2000],
+                            ["Illusion", 1000],
                             ["7 seconds", 0],
                             ["20%", 0],
                             ["20%", 0],
@@ -458,12 +458,12 @@
                     },
                     {
                         "NAME": "Mirror Image",
-                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. If she vanishes with perfect timing, Iris will also gain %s.",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, an %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. If she vanishes with perfect timing, Iris will also gain %s.",
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["90%", 0],
                             ["200", 0],
-                            ["Illusion", 2000],
+                            ["Illusion", 1000],
                             ["7 seconds", 0],
                             ["20%", 0],
                             ["20%", 0],
@@ -472,12 +472,12 @@
                     },
                     {
                         "NAME": "Mirror Image",
-                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, na %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. If she vanishes with perfect timing, Iris will also deal %s damage to enemies nearby.",
+                        "DESCRIPTION": "Iris tricks her enemies, vanishing for a brief moment, receiving %s damage reduction and %s movement speed bônus. If she gets hit during that period, an %s that lasts for %s is created and targeted instead. The Illusion redirects %s of the received damage to Iris if her HP is higher than %s. If she vanishes with perfect timing, Iris will also deal %s damage to enemies nearby.",
                         "COOLDOWN": 10,
                         "VALUES": [
                             ["90%", 0],
                             ["200", 0],
-                            ["Illusion", 2000],
+                            ["Illusion", 1000],
                             ["7 seconds", 0],
                             ["20%", 0],
                             ["20%", 0],
@@ -600,7 +600,7 @@
                     },
                     {
                         "NAME": "Ethereal Illusions",
-                        "DESCRIPTION": "Iris deceives everyone, vanishing for a brief moment, receiving %s damage reduction for %s and %s anyone in na area around her after and before she vanishes. %s enemies take na extra Magical Explosion from any damage that they take, dealing %s damage up to 6 times, Iris will also create na %s that lasts for %s where she was.",
+                        "DESCRIPTION": "Iris deceives everyone, vanishing for a brief moment, receiving %s damage reduction for %s and %s anyone in na area around her after and before she vanishes. %s enemies take na extra Magical Explosion from any damage that they take, dealing %s damage up to 6 times, Iris will also create an %s that lasts for %s where she was.",
                         "COOLDOWN": 15,
                         "VALUES": [
                             ["100%", 0],

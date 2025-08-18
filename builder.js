@@ -38,6 +38,7 @@ function formatPlaceHolder(text, format) {
         case 0: return `<span class="white-highlight">${text}</span>`;
         case 1: return `<span class="cyan-highlight">${text}</span>`;
         case 2: return `<span class="damage-highlight">${text}</span>`;
+        case 1000: return `<span class="iris-illusion"><img class="iris-illusion-img" src="imgs/drakantos/orbs/IRIS/ILLUSION.PNG"> </img>${text}</span>`;
         default: return text;
     }
 };
