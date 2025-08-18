@@ -111,6 +111,7 @@ async function carregarReceitas() {
 
             const acumulador = {};
             valorTotal = 0;
+            slotInventario = 0;
 
             // Para cada receita selecionada, agrega ingredientes recursivamente
             Object.entries(receitasSelecionadas).forEach(([id, info]) => {
