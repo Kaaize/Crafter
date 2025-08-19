@@ -876,6 +876,239 @@
             ]
         },
         {
+            "NAME": "Yuki",
+            "SKILLS": [
+                [
+                    {
+                        "NAME": "Agility",
+                        "DESCRIPTION": "Yuki assumes a feral stance for %s seconds, receiving %s damage reduction and %s movement speed bonus. If Yuki performs a %s on the next seconds, it will throw an %s instead, applying a %s.",
+                        "COOLDOWN": 8,
+                        "VALUES": [
+                            ["1.5 seconds", 0],
+                            ["20%", 0],
+                            ["210", 0],
+                            ["Feral Slash", 0],
+                            ["Ice Spike", 1001],
+                            ["Freeze Stack", 1002]
+                        ]
+                    },
+                    {
+                        "NAME": "Agility",
+                        "DESCRIPTION": "Yuki assumes a feral stance for %s, receiving %s damage reduction and %s movement speed bonus. If Yuki performs a %s on the next seconds, it will throw an %s instead, applying a %s. It has %s charges, but the cooldown is higher.",
+                        "COOLDOWN": 8,
+                        "VALUES": [
+                            ["1.5 seconds", 0],
+                            ["20%", 0],
+                            ["210", 0],
+                            ["Feral Slash", 0],
+                            ["Ice Spike", 1001],
+                            ["Freeze Stack", 1002],
+                            ["2", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Agility", 
+                        "DESCRIPTION": "Yuki assumes a feral stance for %s, receiving %s damage reduction, %s movement speed bonus and a shield equal to %s of her maximum health. If Yuki performs a %s on the next seconds, it will throw an %s instead, applying a %s.",
+                        "COOLDOWN": 8,
+                        "VALUES": [
+                            ["1.5 seconds", 0],
+                            ["20%", 0],
+                            ["210", 0],
+                            ["10%", 0],
+                            ["Feral Slash", 0],
+                            ["Ice Spike", 1001],
+                            ["Freeze Stack", 1002]
+                        ]
+                    },
+                    {
+                        "NAME": "Agility",
+                        "DESCRIPTION": "Yuki assumes a feral stance for %s, receiving %s damage reduction and %s movement speed bonus. If Yuki performs a %s on the next seconds, it will throw an %s instead, applying a %s. When a dodge is performed with perfect timing, Yuki will also gain an attack increase of %s and an extra %s movement speed for %s.",
+                        "COOLDOWN": 8,
+                        "VALUES": [
+                            ["1.5 seconds", 0],
+                            ["20%", 0],
+                            ["210", 0],
+                            ["Feral Slash", 0],
+                            ["Ice Spike", 1001],
+                            ["Freeze Stack", 1002],
+                            ["20%", 0],
+                            ["25", 0],
+                            ["10 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Agility",
+                        "DESCRIPTION": "Yuki assumes a feral stance for %s, receiving %s damage reduction and %s movement speed bonus. If Yuki performs a %s on the next seconds, it will throw an %s instead, applying a %s. When a dodge is performed with perfect timing, Yuki will also gain a shield up to %s of her max health and receive an extra %s movement speed for %s.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["1.5 seconds", 0],
+                            ["20%", 0],
+                            ["210", 0],
+                            ["Feral Slash", 0],
+                            ["Ice Spike", 1001],
+                            ["Freeze Stack", 1002],
+                            ["25%", 0],
+                            ["25", 0],
+                            ["10 seconds", 0]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Feral Slash",
+                        "DESCRIPTION": "Yuki uses her sharp claws to slash her target, dealing %s damage. It also applies %s in weak enemies. %s %s %s.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 2],
+                            ["1x Freeze Stack", 1002],
+                            ["Each stack reduces enemy movement speed. Acumulating", 1],
+                            ["6x Freeze Stacks", 1002],
+                            ["causes Freeze for 3 seconds. Freeze breaks upon taking any damage, dealing 10 damage", 1]
+                        ]
+                    },
+                    {
+                        "NAME": "Feral Slash",
+                        "DESCRIPTION": "Yuki uses her sharp claws to slash her target, dealing %s damage, with and increased cast speed of %s. It also applies %s in weak enemies. %s %s %s.",
+                        "COOLDOWN": 2,
+                        "VALUES": [
+                            ["10", 2],
+                            ["10%", 0],
+                            ["1x Freeze Stack", 1002],
+                            ["Each stack reduces enemy movement speed. Acumulating", 1],
+                            ["6x Freeze Stacks", 1002],
+                            ["causes Freeze for 3 seconds. Freeze breaks upon taking any damage, dealing 10 damage", 1]
+                        ]
+                    },
+                    {
+                        "NAME": "Feral Slash",
+                        "DESCRIPTION": "Yuki uses her sharp claws to slash her target, dealing %s damage, with and increased cast speed of %s. It also applies %s in weak enemies. %s %s %s.",
+                        "COOLDOWN": 8,
+                        "VALUES": [
+                            ["10", 2],
+                            ["25%", 0],
+                            ["1x Freeze Stack", 1002],
+                            ["Each stack reduces enemy movement speed. Acumulating", 1],
+                            ["6x Freeze Stacks", 1002],
+                            ["causes Freeze for 3 seconds. Freeze breaks upon taking any damage, dealing 10 damage", 1]
+                        ]
+                    }                   
+                ],
+                [
+                    {
+                        "NAME": "Ice Claws",
+                        "DESCRIPTION": "Yuki jumps foward and performs a quick slash with her claws covered by ice, dealing %s damage and applying %s to enemies hit.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 2],
+                            ["1x Freeze Stacks", 1002]
+                        ]
+                    },
+                    {
+                        "NAME": "Ice Claws",
+                        "DESCRIPTION": "Yuki jumps foward and performs a quick slash with her claws covered by ice, dealing %s damage and applying %s to enemies hit.",
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 2],
+                            ["2x Freeze Stacks", 1002]
+                        ]
+                    },
+                    {
+                        "NAME": "Ice Claws",
+                        "DESCRIPTION": "Yuki jumps foward and performs a quick slash with her claws covered by ice, dealing %s damage to enemies hit. However, if it hits an enemy at the %s of the jump, Yuki will perform a %s combo, dealing %s extra damage. Each hit will also apply %s to enemies hit.",                        
+                        "COOLDOWN": 6,
+                        "VALUES": [
+                            ["20", 2],
+                            ["end", 0],
+                            ["follow-up", 0],
+                            ["10", 2],
+                            ["1x Freeze Stacks", 1002]
+                        ]
+                    }                                        
+                ],
+                [
+                    {
+                        "NAME": "Ice Spikes", 
+                        "DESCRIPTION": "Yuki leaps into the air, becoming %s for %s. She slams the ground, creating a large %s that deal %s damage to nearby enemies. Enemies hit also receive %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["invulnerable", 0],
+                            ["0.6 seconds", 0],
+                            ["30", 2],
+                            ["1x Freeze Stacks"]
+                        ]
+                    },
+                    {
+                        "NAME": "Ice Spikes",
+                        "DESCRIPTION": "Yuki leaps into the air, becoming %s for %s. Upon landing, she huris an Ice Spike foward, percing enemies in its path and dealing %s damage. enemies hit also receive %s, and those struck directly by the spike receive %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["invulnerable", 0],
+                            ["0.6 seconds", 0],
+                            ["30", 2],
+                            ["1x Freeze Stacks", 1002],
+                            ["3x Freeze Stacks", 1002]
+                        ]
+                    },
+                    {
+                        "NAME": "Ice Spikes",
+                        "DESCRIPTION": "Yuki leaps into the air, becoming %s for %s. Upon landing, she dashes foward, percing enemies in her path and dealing %s damage. Enemies hit also receive %s, and those struck directly by Yuki receive %s.",
+                        "COOLDOWN": 10,
+                        "VALUES": [
+                            ["invulnerable", 0],
+                            ["0.6 seconds", 0],
+                            ["30", 2],
+                            ["1x Freeze Stacks", 1002],
+                            ["3x Freeze Stacks", 1002]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Winter's Grasp",
+                        "DESCRIPTION": "The ground freezes in an instant as Yuki channels her magic. A crown of icy spears bursts forth, delivering %s damage and pushes back enemies, also applying %s.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["35", 2],
+                            ["3x Freeze Stacks", 1002]
+                        ]
+                    },
+                    {
+                        "NAME": "Winter's Grasp",
+                        "DESCRIPTION": "Yuki creates a wall of thick ice in front of her that deals %s damage and pushes back enemies, applying %s. The wall lasts for %s and the ability can be cast again to destroy the wall.",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["35", 2],
+                            ["3x Freeze Stacks", 1002],
+                            ["10 seconds", 0]
+                        ]
+                    },
+                    {
+                        "NAME": "Winter's Grasp",
+                        "DESCRIPTION": "The ground freezes in an instant as yuki channels her magic. Giant Icy spears bursts forth delivering %s damage and applies %s",
+                        "COOLDOWN": 15,
+                        "VALUES": [
+                            ["35", 2],
+                            ["3x Freeze Stacks", 1002]
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "NAME": "Kitsune's Cry",
+                        "DESCRIPTION": "Yuki unleashes her untamed spirit with a piercing Kitsune's Cry, %s all enemies within a vast area for %s. During this fearsome cry, she benefits from %s damage reduction. Afterward, Yuki maintains a formidable %s damage reduction for %s.",
+                        "ENERGY": 100,
+                        "VALUES": [
+                            ["taunting", 0],
+                            ["8 seconds", 0],
+                            ["90%", 0],
+                            ["50%", 0],
+                            ["20 seconds", 0]
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
             "NAME": "Korz",
             "SKILLS": []
         },
@@ -900,9 +1133,6 @@
         },
         {
             "NAME": "Thomas"
-        },
-        {
-            "NAME": "Yuki"
         },
         {
             "NAME": "Yura"

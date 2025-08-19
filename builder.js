@@ -39,6 +39,8 @@ function formatPlaceHolder(text, format) {
         case 1: return `<span class="cyan-highlight">${text}</span>`;
         case 2: return `<span class="damage-highlight">${text}</span>`;
         case 1000: return `<span class="iris-illusion"><img class="iris-illusion-img" src="imgs/drakantos/orbs/IRIS/ILLUSION.PNG"> </img>${text}</span>`;
+        case 1001: return `<span class="yuki-ice-spike"><img class="yuki-ice-spike-img" src="imgs/drakantos/orbs/YUKI/ICE_SPIKE.PNG"> </img>${text}</span>`;
+        case 1002: return `<span class="yuki-freeze-stack"><img class="yuki-freeze-stack-img" src="imgs/drakantos/orbs/YUKI/FREEZE_STACK.PNG"> </img>${text}</span>`;
         default: return text;
     }
 };
