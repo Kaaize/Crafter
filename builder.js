@@ -377,13 +377,13 @@ function updateArtifactPreview(artifactID) {
 
     if (artifact) {
         artifactName.textContent = artifact.NAME;
-        artifactImage.src = `imgs/drakantos/artifacts/preview/${artifactID}.GIF`;
+        artifactImage.src = `imgs/drakantos/artifacts/preview/${artifactID}.WEBP`;
         artifactDesc.innerHTML = artifact.DESCRIPTION;
         artifactCharge.textContent = 'Charges: ' + artifact.CHARGES;
     }
     else {
         artifactName.textContent = '';
-        artifactImage.src = 'imgs/drakantos/artifacts/preview/NULL.GIF';
+        artifactImage.src = 'imgs/drakantos/artifacts/preview/NULL.WEBP';
         artifactDesc.textContent = '';
         artifactCharge.textContent = '';
     }
@@ -483,7 +483,7 @@ function updateOrbPreview(skillID, orbID) {
 
     const orb = slot[orbID];
     orbName.textContent = orb.NAME;
-    orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${skillID}${orbID}.GIF`;
+    orbImage.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${skillID}_${orbID}.WEBP`;
     orbDesc.innerHTML = formatAbilityDescription(orb);
     if (orb.COOLDOWN) {
         orbCooldown.textContent = 'Cooldown: ' + orb.COOLDOWN;
@@ -585,7 +585,7 @@ function updateArtifactTooltip(artifactID) {
 
     if (artifact) {
         name.textContent = artifact.NAME;
-        image.src = `imgs/drakantos/artifacts/preview/${artifactID}.GIF`;
+        image.src = `imgs/drakantos/artifacts/preview/${artifactID}.WEBP`;
         description.textContent = artifact.DESCRIPTION;
         charge.textContent = 'Charges: ' + artifact.CHARGES;
     };
@@ -604,7 +604,7 @@ function updateTrophyTooltip(trophyID) {
 
     if (trophy) {
         name.textContent = trophy.NAME;
-        image.src = `imgs/drakantos/trophies/preview/${trophyID}.GIF`;
+        image.src = `imgs/drakantos/trophies/preview/${trophyID}.WEBP`;
         description.textContent = trophy.DESCRIPTION;
         charge.textContent = '';
     };
@@ -630,7 +630,7 @@ function updateOrbTooltip(slotID, skillID) {
 
     if (orb) {
         name.textContent = orb.NAME;
-        image.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${slotID}_${skillID}.GIF`;
+        image.src = `imgs/drakantos/orbs/${character.NAME.toUpperCase()}/preview/${slotID}_${skillID}.WEBP`;
         if (skillID == 0) {
             orbImage.style.display = 'none';
         }
