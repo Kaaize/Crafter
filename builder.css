@@ -678,6 +678,10 @@ body {
         width: 90vw;
     }
 
+    .iris-illusion img, .yuki-ice-spike img, .yuki-freeze-stack img {
+        width: auto;
+    }
+
     .tooltip-orb-preview img{
         width: auto;
     }   
