@@ -1107,38 +1107,6 @@
                     }
                 ]
             ]
-        },
-        {
-            "NAME": "Korz",
-            "SKILLS": []
-        },
-        {
-            "NAME": "Arryn",
-            "SKILLS": []
-        },
-        {
-            "NAME": "Faendar"
-        },
-        {
-            "NAME": "Ojore"
-        },
-        {
-            "NAME": "Orbryn"
-        },
-        {
-            "NAME": "Ozul"
-        },
-        {
-            "NAME": "Reya"
-        },
-        {
-            "NAME": "Thomas"
-        },
-        {
-            "NAME": "Yura"
-        },
-        {
-            "NAME": "Zeugladius"
         }
     ],
     "ARTIFACTS": [

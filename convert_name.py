@@ -50,6 +50,4 @@ def converter_nomes_arquivos(diretorio):
 # Exemplo de uso:
 # Altere 'meu_diretorio_com_arquivos' para o caminho do seu diretório.
 # Para o diretório atual, você pode usar '.'
-converter_nomes_arquivos(r'C:\Users\danie\Documents\GitHub\Crafter\imgs\drakantos\characters')
-converter_nomes_arquivos(r'C:\Users\danie\Documents\GitHub\Crafter\imgs\drakantos\orbs')
-converter_nomes_arquivos(r'C:\Users\danie\Documents\GitHub\Crafter\imgs\drakantos\trophies')
+converter_nomes_arquivos(r'C:\Users\danie\Documents\GitHub\Crafter\imgs\drakantos\orbs\IRIS\preview')
