@@ -627,7 +627,7 @@
                 [
                     {
                         "NAME": "Dimensional Barrier",
-                        "DESCRIPTION": "Iris uses the full extent of her Orb power to expand its size, pushing away enemies and turning the area into a domain of her own, receiving %s damage reduction while casting. The barrier blocks enemie's attacks from the outside, protecting Iris and her allies which also receives 30% damage reduction while %s the barrier. Enemies inside the barrier receive %s movement speed reduction.",
+                        "DESCRIPTION": "Iris uses the full extent of her Orb power to expand its size, pushing away enemies and turning the area into a domain of her own, receiving %s damage reduction while casting. The barrier blocks enemie's attacks from the outside, protecting Iris and her allies which also receives %s damage reduction while %s the barrier. Enemies inside the barrier receive %s movement speed reduction.",
                         "ENERGY": 100,
                         "VALUES": [
                             ["100%", 0],
