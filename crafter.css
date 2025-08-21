@@ -137,7 +137,7 @@ body {
     padding-bottom: 10px;
 }
 
-.selected-recipe img {
+.selected-recipe-img {
     width: 32px;
     height: 32px;
     object-fit: cover;
@@ -215,6 +215,8 @@ body {
 
 .delete-btn img {
     /* Estilos para a imagem (ícone) */
+    display: flex;
     width: 16px;
     height: 16px;
+    justify-content: center;
 }

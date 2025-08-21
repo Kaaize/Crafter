@@ -22,6 +22,7 @@ async function carregarReceitas() {
                 const img = document.createElement("img");
                 img.src = info.receita.image;
                 img.alt = info.receita.nome;
+                img.classList.add("selected-recipe-img");
 
                 const detalhes = document.createElement("div");
                 detalhes.classList.add("selected-recipe-details");
@@ -45,7 +46,7 @@ async function carregarReceitas() {
                 });
         
                 const delBtnImg = document.createElement("img");
-                delBtnImg.src = "/Crafter/images/CANCELAR.PNG";
+                delBtnImg.src = "images/CANCELAR.PNG";
                 delBtnImg.alt = "Cancelar";
         
                 delBtn.appendChild(delBtnImg);

@@ -66,6 +66,7 @@ body {
     display: flex;
     flex-direction: row;
     padding-right: 64px;
+    align-items: center;
 }
 
 .skills-container h1 {
