@@ -423,8 +423,8 @@ body {
     background-color: rgba(2, 0, 0, 0.9);
     color: rgb(167, 167, 167);
     position: absolute;
-    width: 25vw;
     min-height: 35vh;
+    width: 420px;
 }
 
 
