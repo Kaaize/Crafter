@@ -1,22 +1,15 @@
 const torchTop = document.getElementsByClassName("torch-top")[0];   
 const torchMid = document.getElementsByClassName("torch-mid")[0];   
 const torchBot = document.getElementsByClassName("torch-bot")[0];   
+const resetButton = document.getElementById("reset-button");
+const countDisplay = document.getElementById("count");
 
-let torchList = [0, 1, 0, 1, 0, 1, 0, 1];
+let torchList = [0, 0, 0, 0, 0, 0, 0, 0];
+let count = 0;
 function shuffle(array) {
-  let currentIndex = array.length;
-
-  // While there remain elements to shuffle...
-  while (currentIndex != 0) {
-
-    // Pick a remaining element...
-    let randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
+    for (let i = 0; i < array.length; i++) {
+        array[i] = Math.floor(Math.random() * 2);
+    }
 }
 
 function getPrev(index) {
@@ -42,7 +35,6 @@ function changeState(tochaId) {
     torchList[tochaId] = torchList[tochaId] === 1 ? 0 : 1;
     torchList[prev] = torchList[prev] === 1 ? 0 : 1;
     torchList[next] = torchList[next] === 1 ? 0 : 1;
-    console.log(tochaId, prev, next);
 }
 
 function updateTochas() {
@@ -74,7 +66,21 @@ function updateTochas() {
             torchBot.appendChild(torch);
         }
     }
+
+    if (!torchList.includes(1)) {
+        alert("Parabéns! Você apagou tudo");
+        while (!torchList.includes(1)) {
+            shuffle(torchList);
+        }
+        updateTochas();
+        count += 1;
+        countDisplay.innerText = count;
+    }
 }
 
+resetButton.addEventListener("click", function() {
+    shuffle(torchList);
+    updateTochas();
+});
 shuffle(torchList);
 updateTochas();
