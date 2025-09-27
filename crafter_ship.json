@@ -217,7 +217,7 @@
             "price": 0,
             "craft": [
                 {
-                    "id": "prancha_de_carvalho",
+                    "id": "tora_de_carvalho",
                     "qty": 10
                 }
             ]
@@ -228,7 +228,7 @@
             "price": 0,
             "craft": [
                 {
-                    "id": "lingote_de_ferro",
+                    "id": "minerio_de_ferro",
                     "qty": 8
                 }
             ]
@@ -575,7 +575,7 @@
                     "qty": 1
                 },
                 {
-                    "id": "vela_5",
+                    "id": "vela_4",
                     "qty": 1
                 }
             ]

@@ -49,7 +49,6 @@ function insertItemInResultList(id, quantity, resultList = {}) {
             }
         });
     }
-    return resultList
 }
 
 function updateResultList() {
@@ -204,8 +203,6 @@ function loadRecipes() {
         recipeList = filterItemsByGroup(allItems, "arsenal_4");
         loadRecipes()
     });
-
-    console.log(recipeList)
 
     Object.keys(recipeList).forEach(id => {
         item = allItems[id];
