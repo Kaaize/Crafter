@@ -152,6 +152,7 @@ function updateSelectedRecipesDisplay() {
         delBtn.addEventListener("click", () => {
             delete selectedRecipes[id];
             updateSelectedRecipesDisplay();
+            updateResultList();
         });
 
         const delBtnImg = document.createElement("img");
@@ -168,7 +169,6 @@ function updateSelectedRecipesDisplay() {
             }
             selectedRecipes[id] = val;
             updateResultList();
-            console.log(selectedRecipes)
         });
 
         detalhes.appendChild(nome);
@@ -198,6 +198,13 @@ function loadRecipes() {
         recipeList = filterItemsByGroup(allItems, "arsenal_3");
         loadRecipes()
     });
+
+    arsenal4 = document.getElementById("filter-arsenal_4");
+    arsenal4.addEventListener("click", () => {
+        recipeList = filterItemsByGroup(allItems, "arsenal_4");
+        loadRecipes()
+    });
+
     console.log(recipeList)
 
     Object.keys(recipeList).forEach(id => {
