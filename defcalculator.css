@@ -86,8 +86,15 @@ display: flex;
     margin: 1vw 0 1vw 0
 }
 
+.input-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1px;
+}
+
 .info-input {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
 }
@@ -96,7 +103,7 @@ display: flex;
     display: flex;
     border: 2px black inset;
     padding: 0 1vw 1vw 1vw;
-    width: 90vw;
+    width: 45vw;
     flex-direction: column;    
     margin-bottom: 1vw;
     background-color: #333;
@@ -112,8 +119,8 @@ h1 {
 .block-info {
     display: flex;
     justify-content: space-between;
-    font-size: 2vw;
-    margin: 5px
+    font-size: 1.5vw;
+    margin: 2px
 }
 
 .block-info input {
