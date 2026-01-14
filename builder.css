@@ -446,8 +446,7 @@ h1 {
 }
 
 .artifact-option-image,
-.trophy-option-image,
-.orb-option-image {
+.trophy-option-image {
     width: 60px;
     height: 60px;
     object-fit: contain;
@@ -455,6 +454,17 @@ h1 {
     background: rgba(0,0,0,0.2);
     border-radius: 6px;
     padding: 4px;
+    flex-shrink: 0;
+}
+
+.orb-option-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-right: 20px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 6px;
+    padding: 2px;
     flex-shrink: 0;
 }
 
