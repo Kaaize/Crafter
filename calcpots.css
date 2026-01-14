@@ -63,6 +63,15 @@ body>h1 {
     cursor: pointer;
     transition: all 0.2s ease;
     border: 2px solid transparent;
+    /* Button reset properties */
+    appearance: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    text-transform: none;
+    overflow: visible;
 }
 
 .filter-icon img {
@@ -80,6 +89,12 @@ body>h1 {
     background: #2a2d35;
     border-color: #ad8484;
     box-shadow: 0 0 10px rgba(173, 132, 132, 0.3);
+}
+
+.filter-icon:focus-visible {
+    outline: none;
+    border-color: #ad8484;
+    box-shadow: 0 0 10px rgba(173, 132, 132, 0.5);
 }
 
 /* Left Column: Inputs */
