@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Receitas</title>
-  <link rel="stylesheet" href="ferramenta.css">
+
+  <link rel="stylesheet" href="crafter.css">
   <link rel="stylesheet" href="menu.css">
 </head>
 
@@ -48,23 +49,24 @@
       </div>
     </div>
   </nav>
-  <aside id="sidebar">
-    <h2>Itens</h2>
-    <input type="text" id="search-input" placeholder="Pesquisar item...">
-    <div id="lista-receitas"></div>
-  </aside>
+  <div id="main">
+    <aside id="sidebar">
+      <h2>Receitas</h2>
+      <div id="lista-receitas"></div>
+    </aside>
 
-  <main id="painel-principal">
-    <h1>Receitas Selecionadas</h1>
-    <div id="selecionadas"></div>
-  </main>
+    <main id="painel-principal">
+      <h1>Receitas Selecionadas</h1>
+      <div id="selecionadas"></div>
+    </main>
 
-  <div id="painel-resultado">
-    <h1 class="caption-incredientes">Resultados</h1>
-    <textarea id="lista-resultado"></textarea>
+    <section id="painel-ingredientes">
+      <h1 class="caption-incredientes">Ingredientes Totais</h1>
+      <div id="lista-ingredientes"></div>
+    </section>
+
+    <script src="crafter.js"></script>
   </div>
-
-  <script src="ferramenta.js"></script>
 </body>
 
 </body>

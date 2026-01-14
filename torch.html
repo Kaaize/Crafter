@@ -7,24 +7,35 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="torch.css">
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <title>Tocha</title>
 </head>
-<body>   
+
+<body>
     <nav>
         <div class="menu-container">
             <div class="logo">
-                <a href="."><img src="imgs/rocket.png"></a>
+                <a href="index.html"><img src="imgs/rocket.png"></a>
             </div>
             <div class="dropdown-container">
                 <div class="menu-icon">
                     <img src="imgs/GLA.ico">
                     <div class="dropdown-content">
-                        <a href="crafter.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Crafts</a>
-                        <a href="calcpots.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Pots</a>
-                        <a href="puzzles.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Quebra-Cabeças</a>
-                        <a href="mirrors.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Espelhos</a>
-                        <a href="defcalculator.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Def</a>
+                        <a href="crafter.html"><img
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Crafts</a>
+
+                        <a href="calcpots.html"><img
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Pots</a>
+                        <a href="puzzles.html"><img
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Quebra-Cabeças</a>
+                        <a href="mirrors.html"><img
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Espelhos</a>
+                        <a href="torch.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Puzzle
+                            Tocha</a>
+                        <a href="defcalculator.html"><img
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Def</a>
                     </div>
                 </div>
                 <div class="menu-icon">
@@ -38,21 +49,18 @@
                 <div class="menu-icon">
                     <img src="imgs/drakantos.png">
                     <div class="dropdown-content">
-                        <a href="builder.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Builder</a>
+                        <a href="builder.html"><img
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Builder</a>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>     
+    </nav>
     <div class="reset-container">
         <h1 id="count">0</h1>
         <button class="reset-button" id="reset-button">Embaralhar</button>
     </div>
-    <div class="torch-panel">
-        <div class="torch-top"></div>
-        <div class="torch-mid"></div>
-        <div class="torch-bot"></div>
-    </div>
+    <div class="torch-grid" id="torch-grid"></div>
     <script src="torch.js"></script>
 </body>
 

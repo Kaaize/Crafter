@@ -1,7 +1,7 @@
 
 var data = {};
 var modalArtifact = document.getElementById("artifact-modal");
-var modalTrophy = document.getElementById("trophy-modal");   
+var modalTrophy = document.getElementById("trophy-modal");
 var modalCharacter = document.getElementById("character-modal");
 var modalOrb = document.getElementById("orb-modal");
 
@@ -46,16 +46,16 @@ function formatPlaceHolder(text, format) {
 };
 
 function formatAbilityDescription(ability) {
-  let description = ability.DESCRIPTION;
-  const values = ability.VALUES;
+    let description = ability.DESCRIPTION;
+    const values = ability.VALUES;
 
-  let i = 0;
-  while (description.includes('%s') && i < values.length) {
-    description = description.replace('%s', formatPlaceHolder(values[i][0], values[i][1]));
-    i++;
-  }
-  
-  return description;
+    let i = 0;
+    while (description.includes('%s') && i < values.length) {
+        description = description.replace('%s', formatPlaceHolder(values[i][0], values[i][1]));
+        i++;
+    }
+
+    return description;
 }
 
 function isItemCharacterAllowed(item, characterID) {
@@ -83,7 +83,7 @@ function filterArtifacts(event) {
             continue;
         };
         const itemText = data.ARTIFACTS[id].NAME.toLowerCase();
-        
+
         if (itemText.includes(filterText)) {
             artifact.classList.remove('hidden')
         }
@@ -127,7 +127,7 @@ function filterOrbs(event) {
     }
 
     var filterInput = document.getElementById('search-orb-input');
-    var orbOptions = document.getElementsByClassName('orb-options')[0].children;    
+    var orbOptions = document.getElementsByClassName('orb-options')[0].children;
 
     const filterText = filterInput.value.toLowerCase();
 
@@ -151,7 +151,7 @@ function filterOrbs(event) {
 }
 
 function loadArtifacts() {
-    const filteredArtifacts = data.ARTIFACTS.map((artifact, index) => ({artifact, index})).filter(artifact => isItemCharacterAllowed(artifact.artifact, build.character));
+    const filteredArtifacts = data.ARTIFACTS.map((artifact, index) => ({ artifact, index })).filter(artifact => isItemCharacterAllowed(artifact.artifact, build.character));
 
     const artifactOptions = document.getElementsByClassName('artifact-options')[0];
     artifactOptions.innerHTML = "";
@@ -161,7 +161,7 @@ function loadArtifacts() {
         div.className = 'artifact-option';
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/artifacts/"+artifact.index+".PNG";
+        img.src = "imgs/drakantos/artifacts/" + artifact.index + ".PNG";
         img.className = 'artifact-option-image';
 
         div.setAttribute('data-id', artifact.index);
@@ -172,14 +172,14 @@ function loadArtifacts() {
 
         if (artifact.index == build.artifacts[currentArtifactSlotID]) {
             div.classList.add('selected')
-        }      
+        }
 
         artifactOptions.appendChild(div);
     });
 }
 
 function loadTrophies() {
-    const filteredTrophies = data.TROPHIES.map((trophy, index) => ({trophy, index})).filter(trophy => isItemCharacterAllowed(trophy.trophy, build.character));
+    const filteredTrophies = data.TROPHIES.map((trophy, index) => ({ trophy, index })).filter(trophy => isItemCharacterAllowed(trophy.trophy, build.character));
 
     const trophyOptions = document.getElementsByClassName('trophy-options')[0];
     trophyOptions.innerHTML = "";
@@ -189,19 +189,19 @@ function loadTrophies() {
         div.className = 'trophy-option';
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/trophies/"+trophy.index+".PNG";
+        img.src = "imgs/drakantos/trophies/" + trophy.index + ".PNG";
         img.className = 'trophy-option-image';
 
         div.setAttribute('data-id', trophy.index)
         div.appendChild(img);
         img.addEventListener("click", (event) => {
-            trophyClick(trophy.index, event)  
+            trophyClick(trophy.index, event)
         });
 
         if (trophy.index == build.trophies[currentTrophySlotID]) {
             div.classList.add('selected')
-        }        
-        
+        }
+
         trophyOptions.appendChild(div);
     });
 }
@@ -209,10 +209,10 @@ function loadTrophies() {
 function loadCharacters() {
     Object.values(data.CHARACTERS).forEach((character, index) => {
         var div = document.createElement('div');
-        div.className = 'character-option';         
+        div.className = 'character-option';
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/portraits/"+character.NAME.toUpperCase()+".PNG";
+        img.src = "imgs/drakantos/portraits/" + character.NAME.toUpperCase() + ".PNG";
         img.className = 'character-option-image';
 
         var p = document.createElement('p');
@@ -222,7 +222,7 @@ function loadCharacters() {
         div.appendChild(img);
         div.appendChild(p);
 
-        img.addEventListener("click", () => {
+        div.addEventListener("click", () => {
             characterOptionClick(index)
         });
 
@@ -243,13 +243,13 @@ function loadOrbs(characterID, skillID) {
     orbsOptions.innerHTML = '';
 
     orbs = character.SKILLS[skillID]
-    
+
     orbs.forEach((orb, index) => {
         var div = document.createElement('div');
-        div.className = 'orb-option';         
+        div.className = 'orb-option';
 
         var img = document.createElement('img');
-        img.src = "imgs/drakantos/orbs/"+character.NAME.toUpperCase() + "/" + skillID + "_" + index + ".PNG";
+        img.src = "imgs/drakantos/orbs/" + character.NAME.toUpperCase() + "/" + skillID + "_" + index + ".PNG";
         img.className = 'orb-option-image';
 
         div.setAttribute('data-id', index)
@@ -271,7 +271,7 @@ function updateCharacter() {
     var characterName = characterSlot.getElementsByClassName('character-slot-name')[0];
     var characterImage = characterSlot.getElementsByClassName('character-slot-image')[0];
 
-    if (build.character == null || data.CHARACTERS[build.character] == null) { 
+    if (build.character == null || data.CHARACTERS[build.character] == null) {
         characterName.textContent = 'SELECT THE CHARACTER';
         characterImage.src = 'imgs/drakantos/characters/NULL.PNG';
     }
@@ -302,7 +302,7 @@ function updateArtifact() {
     }
     else {
         artifact2Name.textContent = data.ARTIFACTS[build.artifacts[1]].NAME;
-        artifact2Image.src = `imgs/drakantos/artifacts/${build.artifacts[1]}.PNG`;        
+        artifact2Image.src = `imgs/drakantos/artifacts/${build.artifacts[1]}.PNG`;
     };
 };
 
@@ -328,7 +328,7 @@ function updateTrophy() {
     else {
         trophy2Name.textContent = data.TROPHIES[build.trophies[1]].NAME;
         trophy2Image.src = `imgs/drakantos/trophies/${build.trophies[1]}.PNG`;
-    };    
+    };
 };
 
 function updateOrb() {
@@ -341,15 +341,15 @@ function updateOrb() {
         var orbDiv = document.getElementById('skill-' + skillID);
         var orbImage = orbDiv.getElementsByClassName('skill-slot-image')[0];
 
-        if (character == null || build.orbs[skillID] == null || 
+        if (character == null || build.orbs[skillID] == null ||
             data.CHARACTERS[build.character].SKILLS == null || data.CHARACTERS[build.character].SKILLS[skillID] == null) {
-            orbImage.src = "imgs/drakantos/orbs/NULL.PNG";        
+            orbImage.src = "imgs/drakantos/orbs/NULL.PNG";
         }
         else {
-            orbImage.src = "imgs/drakantos/orbs/"+data.CHARACTERS[build.character].NAME.toUpperCase() + "/S_" + skillID + ".PNG";        
+            orbImage.src = "imgs/drakantos/orbs/" + data.CHARACTERS[build.character].NAME.toUpperCase() + "/S_" + skillID + ".PNG";
         };
 
-        
+
     });
 };
 
@@ -359,7 +359,7 @@ function updateBuild() {
     updateTrophy();
     updateOrb();
 
-    setLink();    
+    setLink();
 };
 
 function setArtifact(slot, artifactID) {
@@ -372,7 +372,7 @@ function updateArtifactPreview(artifactID) {
     const artifactImage = document.getElementById('artifact-image');
     const artifactDesc = document.getElementById('artifact-description');
     const artifactCharge = document.getElementById('artifact-charge');
-    
+
     const artifact = data.ARTIFACTS[artifactID];
 
     if (artifact) {
@@ -398,7 +398,7 @@ function artifactClick(artifactID, event) {
     if (selectedList) {
         for (let i = 0; i < selectedList.length; i++) {
             selectedList[i].classList.remove('selected');
-       };
+        };
     };
     artifactDiv.classList.add('selected');
 
@@ -414,7 +414,7 @@ function updateTrophyPreview(trophyID) {
     const trophyName = document.getElementById('trophy-name');
     const trophyImage = document.getElementById('trophy-image');
     const trophyDesc = document.getElementById('trophy-description');
-    
+
     const trophy = data.TROPHIES[trophyID];
 
     if (trophy) {
@@ -438,7 +438,7 @@ function trophyClick(trophyID, event) {
     if (selectedList) {
         for (let i = 0; i < selectedList.length; i++) {
             selectedList[i].classList.remove('selected');
-       };
+        };
     };
     trophyDiv.classList.add('selected');
 
@@ -494,24 +494,24 @@ function updateOrbPreview(skillID, orbID) {
 };
 
 function orbClick(skillID, orbID, event) {
-    const orbDiv = event.currentTarget;    
+    const orbDiv = event.currentTarget;
 
     selectedList = document.getElementsByClassName('selected');
     if (selectedList) {
         for (let i = 0; i < selectedList.length; i++) {
             selectedList[i].classList.remove('selected');
-       };
+        };
     };
     orbDiv.classList.add('selected');
 
     updateOrbPreview(skillID, orbID);
 };
 
-function selectArtifact() {    
-    loadArtifacts();    
+function selectArtifact() {
+    loadArtifacts();
     updateArtifactPreview(build.artifacts[currentArtifactSlotID]);
 
-    modalArtifact.style.display = "block";    
+    modalArtifact.style.display = "block";
 };
 
 function selectTrophy() {
@@ -536,7 +536,7 @@ function artifactSlotClick(event) {
     if (build.character == null) {
         return
     };
-        
+
     currentArtifactSlotID = event.target.parentElement.getAttribute('data-artifact-slot');
 
     selectArtifact();
@@ -579,7 +579,7 @@ function updateArtifactTooltip(artifactID) {
     const charge = document.getElementById('tooltip-charge');
     const orbImage = document.getElementById('tooltip-orb-preview');
 
-    orbImage.style.display = 'none';    
+    orbImage.style.display = 'none';
 
     const artifact = data.ARTIFACTS[artifactID];
 
@@ -598,7 +598,7 @@ function updateTrophyTooltip(trophyID) {
     const charge = document.getElementById('tooltip-charge');
     const orbImage = document.getElementById('tooltip-orb-preview');
 
-    orbImage.style.display = 'none';    
+    orbImage.style.display = 'none';
 
     const trophy = data.TROPHIES[trophyID];
 
@@ -620,8 +620,8 @@ function updateOrbTooltip(slotID, skillID) {
     const character = data.CHARACTERS[build.character];
 
     if (!character ||
-        !character.SKILLS || 
-        !character.SKILLS[slotID] || 
+        !character.SKILLS ||
+        !character.SKILLS[slotID] ||
         !character.SKILLS[slotID][skillID]) {
         return
     };
@@ -658,19 +658,19 @@ function setModalEvents() {
             if (!data.ARTIFACTS[build.artifacts[slotID]]) {
                 return
             };
-            
+
             const tooltip = document.getElementById('tooltip');
             const rect = artifact.getBoundingClientRect();
             updateArtifactTooltip(build.artifacts[slotID]);
             const tooltipHeight = tooltip.getBoundingClientRect().height;
 
             if (window.innerWidth > 600) {
-                tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
-                tooltip.style.left  = `${rect.left + window.scrollX}px`;
+                tooltip.style.top = `${rect.top + window.scrollY + 70}px`;
+                tooltip.style.left = `${rect.left + window.scrollX}px`;
             }
             else {
-                tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
-                tooltip.style.left  = `0px`;
+                tooltip.style.top = `${rect.top + window.scrollY - tooltipHeight}px`;
+                tooltip.style.left = `0px`;
             };
             tooltip.style.visibility = 'visible';
         });
@@ -678,20 +678,20 @@ function setModalEvents() {
             tooltip.style.visibility = 'hidden';
         });
     });
-    
-    const artifactOkButton = document.getElementById('artifact-ok-button');    
+
+    const artifactOkButton = document.getElementById('artifact-ok-button');
     artifactOkButton.addEventListener('click', () => {
         setArtifact(currentArtifactSlotID, currentSelectedArtifact);
-        modalArtifact.style.display = "none";        
+        modalArtifact.style.display = "none";
         currentSelectedArtifact = 0;
     })
 
     const artifactCancelButton = document.getElementById('artifact-cancel-button');
     artifactCancelButton.addEventListener('click', () => {
-        modalArtifact.style.display = "none";        
+        modalArtifact.style.display = "none";
         currentSelectedArtifact = 0;
     });
-    
+
     const trophies = document.querySelectorAll(".trophy-slot-image");
     trophies.forEach(trophy => {
         trophy.addEventListener("click", trophySlotClick);
@@ -701,25 +701,25 @@ function setModalEvents() {
             if (!data.TROPHIES[build.trophies[slotID]]) {
                 return
             };
-            
+
             const tooltip = document.getElementById('tooltip');
             const rect = trophy.getBoundingClientRect();
             updateTrophyTooltip(build.trophies[slotID]);
             const tooltipHeight = tooltip.getBoundingClientRect().height;
 
             if (window.innerWidth > 600) {
-                tooltip.style.top  = `${rect.top + window.scrollY + 70}px`;
-                tooltip.style.left  = `${rect.left + window.scrollX}px`;
+                tooltip.style.top = `${rect.top + window.scrollY + 70}px`;
+                tooltip.style.left = `${rect.left + window.scrollX}px`;
             }
             else {
-                tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
-                tooltip.style.left  = `0px`;
-            };            
+                tooltip.style.top = `${rect.top + window.scrollY - tooltipHeight}px`;
+                tooltip.style.left = `0px`;
+            };
             tooltip.style.visibility = 'visible';
         });
         trophy.addEventListener('mouseleave', () => {
             tooltip.style.visibility = 'hidden';
-        });        
+        });
     });
 
     const trophyOkButton = document.getElementById('trophy-ok-button');
@@ -743,33 +743,33 @@ function setModalEvents() {
         skill.addEventListener("click", skillSlotClick);
         skill.addEventListener('mouseenter', () => {
             if (!data.CHARACTERS[build.character] ||
-                !data.CHARACTERS[build.character].SKILLS || 
-                !data.CHARACTERS[build.character].SKILLS[index] || 
+                !data.CHARACTERS[build.character].SKILLS ||
+                !data.CHARACTERS[build.character].SKILLS[index] ||
                 !data.CHARACTERS[build.character].SKILLS[index][build.orbs[index]]) {
                 return
             };
-            
+
             const tooltip = document.getElementById('tooltip');
             const rect = skill.getBoundingClientRect();
             updateOrbTooltip(index, build.orbs[index]);
             const tooltipHeight = tooltip.getBoundingClientRect().height;
-            tooltip.style.top  = `${rect.top + window.scrollY - tooltipHeight}px`;
+            tooltip.style.top = `${rect.top + window.scrollY - tooltipHeight}px`;
             if (window.innerWidth > 600) {
-                tooltip.style.left  = `${rect.left + window.scrollX}px`;
+                tooltip.style.left = `${rect.left + window.scrollX}px`;
             }
             else {
-                tooltip.style.left  = `0px`;
+                tooltip.style.left = `0px`;
             }
             tooltip.style.visibility = 'visible';
         });
         skill.addEventListener('mouseleave', () => {
             tooltip.style.visibility = 'hidden';
-        });        
+        });
     });
 
     const orbOkButton = document.getElementById('orb-ok-button');
     orbOkButton.addEventListener('click', () => {
-        setOrb(currentSkillSlotID, currentSelectedOrb);        
+        setOrb(currentSkillSlotID, currentSelectedOrb);
         modalOrb.style.display = "none";
         currentSelectedOrb = 0;
     });
@@ -790,10 +790,10 @@ function setModalEvents() {
     orbInput.addEventListener('input', filterOrbs);
 
     window.onclick = function (event) {
-        if (event.target == modalArtifact) {        
+        if (event.target == modalArtifact) {
             modalArtifact.style.display = "none";
         }
-        else if (event.target == modalTrophy) {        
+        else if (event.target == modalTrophy) {
             modalTrophy.style.display = "none";
         }
         else if (event.target == modalCharacter) {
@@ -802,13 +802,13 @@ function setModalEvents() {
         else if (event.target == modalOrb) {
             modalOrb.style.display = "none";
         }
-    };    
+    };
 };
 
 function setLink() {
-    var code = `${window.location.origin+window.location.pathname}?code=`+
-    `${build.character}-${build.artifacts[0]}-${build.artifacts[1]}-${build.trophies[0]}-${build.trophies[1]}` +
-    `-${build.orbs[0]}-${build.orbs[1]}-${build.orbs[2]}-${build.orbs[3]}-${build.orbs[4]}-${build.orbs[5]}`;
+    var code = `${window.location.origin + window.location.pathname}?code=` +
+        `${build.character}-${build.artifacts[0]}-${build.artifacts[1]}-${build.trophies[0]}-${build.trophies[1]}` +
+        `-${build.orbs[0]}-${build.orbs[1]}-${build.orbs[2]}-${build.orbs[3]}-${build.orbs[4]}-${build.orbs[5]}`;
 
     var linkInput = document.getElementById('link-input');
     linkInput.value = code;
@@ -848,20 +848,20 @@ function loadParamQuery() {
         dataQuery[chave] = valor;
     });
 
-    loadBuild(dataQuery.code) 
+    loadBuild(dataQuery.code)
 };
 
 
 function main() {
     window.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    });    
-    loadArtifacts();    
+        e.preventDefault();
+    });
+    loadArtifacts();
     loadTrophies();
     loadCharacters()
-    setModalEvents();      
+    setModalEvents();
 
-    copyButton.addEventListener("click", () =>{
+    copyButton.addEventListener("click", () => {
         navigator.clipboard.writeText(linkInput.value)
     });
 
@@ -869,7 +869,7 @@ function main() {
     loadParamQuery();
 }
 
-loadInfo();    
+loadInfo();
 
 
 
