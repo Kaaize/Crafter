@@ -390,33 +390,44 @@ h1 {
     border-color: #ad8484;
 }
 
-/* Options Grid */
+/* Options List for Artifacts, Trophies, Orbs */
 .artifact-options,
 .trophy-options,
-.character-options,
 .orb-options {
     flex-grow: 1;
     overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     padding: 10px;
 }
 
-/* Items in Grid */
+/* Character Options stays as Grid */
+.character-options {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); /* Fallback, overridden below */
+    gap: 10px;
+    padding: 10px;
+}
+
+/* Items in List View */
 .artifact-option,
 .trophy-option,
 .orb-option {
-    width: 64px;
-    height: 64px;
+    width: 100%;
+    height: auto;
+    min-height: 80px;
     background: #2a2d33;
     border: 1px solid transparent;
     border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     cursor: pointer;
     transition: all 0.2s;
+    padding: 10px;
 }
 
 .artifact-option:hover,
@@ -430,16 +441,59 @@ h1 {
 .trophy-option.selected,
 .orb-option.selected {
     border-color: #ad8484;
-    background: rgba(173, 132, 132, 0.2);
-    box-shadow: 0 0 10px rgba(173, 132, 132, 0.3);
+    background: rgba(173, 132, 132, 0.1);
+    box-shadow: 0 0 10px rgba(173, 132, 132, 0.2);
 }
 
 .artifact-option-image,
 .trophy-option-image,
 .orb-option-image {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
+    margin-right: 20px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 6px;
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+/* Info Text Styling */
+.option-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0; /* allows text truncation */
+}
+
+.option-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin: 0 0 4px 0;
+}
+
+.option-desc {
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Highlight Classes for Description Text */
+.white-highlight { color: #fff; font-weight: 600; }
+.cyan-highlight { color: #00ffff; }
+.damage-highlight { color: #ff6666; }
+.iris-illusion { color: #d8bfd8; }
+.iris-illusion-img, .yuki-ice-spike-img, .yuki-freeze-stack-img {
+    height: 1em;
+    vertical-align: text-bottom;
+    margin-right: 2px;
 }
 
 /* Character Options Grid - specific */
