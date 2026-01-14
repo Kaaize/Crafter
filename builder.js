@@ -164,9 +164,25 @@ function loadArtifacts() {
         img.src = "imgs/drakantos/artifacts/" + artifact.index + ".PNG";
         img.className = 'artifact-option-image';
 
+        var infoDiv = document.createElement('div');
+        infoDiv.className = 'option-info';
+
+        var nameP = document.createElement('p');
+        nameP.className = 'option-name';
+        nameP.textContent = artifact.artifact.NAME;
+
+        var descP = document.createElement('div');
+        descP.className = 'option-desc';
+        descP.innerHTML = artifact.artifact.DESCRIPTION;
+
+        infoDiv.appendChild(nameP);
+        infoDiv.appendChild(descP);
+
         div.setAttribute('data-id', artifact.index);
         div.appendChild(img);
-        img.addEventListener("click", (event) => {
+        div.appendChild(infoDiv);
+
+        div.addEventListener("click", (event) => {
             artifactClick(artifact.index, event)
         });
 
@@ -192,9 +208,25 @@ function loadTrophies() {
         img.src = "imgs/drakantos/trophies/" + trophy.index + ".PNG";
         img.className = 'trophy-option-image';
 
+        var infoDiv = document.createElement('div');
+        infoDiv.className = 'option-info';
+
+        var nameP = document.createElement('p');
+        nameP.className = 'option-name';
+        nameP.textContent = trophy.trophy.NAME;
+
+        var descP = document.createElement('div');
+        descP.className = 'option-desc';
+        descP.innerHTML = trophy.trophy.DESCRIPTION;
+
+        infoDiv.appendChild(nameP);
+        infoDiv.appendChild(descP);
+
         div.setAttribute('data-id', trophy.index)
         div.appendChild(img);
-        img.addEventListener("click", (event) => {
+        div.appendChild(infoDiv);
+
+        div.addEventListener("click", (event) => {
             trophyClick(trophy.index, event)
         });
 
@@ -252,10 +284,25 @@ function loadOrbs(characterID, skillID) {
         img.src = "imgs/drakantos/orbs/" + character.NAME.toUpperCase() + "/" + skillID + "_" + index + ".PNG";
         img.className = 'orb-option-image';
 
+        var infoDiv = document.createElement('div');
+        infoDiv.className = 'option-info';
+
+        var nameP = document.createElement('p');
+        nameP.className = 'option-name';
+        nameP.textContent = orb.NAME;
+
+        var descP = document.createElement('div');
+        descP.className = 'option-desc';
+        descP.innerHTML = formatAbilityDescription(orb);
+
+        infoDiv.appendChild(nameP);
+        infoDiv.appendChild(descP);
+
         div.setAttribute('data-id', index)
         div.appendChild(img);
+        div.appendChild(infoDiv);
 
-        img.addEventListener("click", (event) => {
+        div.addEventListener("click", (event) => {
             orbClick(skillID, index, event)
         });
 
