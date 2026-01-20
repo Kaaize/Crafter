@@ -16,41 +16,40 @@
     <nav>
         <div class="menu-container">
             <div class="logo">
-                <a href="index.html"><img src="imgs/rocket.png"></a>
+                <a href="index.html"><img src="imgs/rocket.png" alt="Página Inicial"></a>
             </div>
             <div class="dropdown-container">
                 <div class="menu-icon">
-                    <img src="imgs/GLA.ico">
+                    <img src="imgs/GLA.ico" alt="Ícone GLA">
                     <div class="dropdown-content">
                         <a href="crafter.html"><img
-                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Crafts</a>
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Calculadora de Crafts</a>
 
                         <a href="calcpots.html"><img
-                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Pots</a>
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Calculadora de Pots</a>
                         <a href="puzzles.html"><img
-                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Quebra-Cabeças</a>
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Quebra-Cabeças</a>
                         <a href="mirrors.html"><img
-                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Espelhos</a>
-                        <a href="torch.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Puzzle
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Espelhos</a>
+                        <a href="torch.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Puzzle
                             Tocha</a>
                         <a href="defcalculator.html"><img
-                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Calculadora de Def</a>
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Calculadora de Def</a>
                     </div>
                 </div>
                 <div class="menu-icon">
-                    <img src="imgs/PXG.ico">
+                    <img src="imgs/PXG.ico" alt="Ícone PXG">
                     <div class="dropdown-content">
                         <a href=""><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Boost</a>
                         <a href=""><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Craft</a>
                         <a href=""><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Celebi</a>
-                        <a href="finder.html"><img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Finder</a>
                     </div>
                 </div>
                 <div class="menu-icon">
-                    <img src="imgs/drakantos.png">
+                    <img src="imgs/drakantos.png" alt="Ícone Drakantos">
                     <div class="dropdown-content">
                         <a href="builder.html"><img
-                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">Builder</a>
+                                src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Estrela">Builder</a>
                     </div>
                 </div>
             </div>
@@ -61,34 +60,34 @@
     <hr>
     <div class="calc-container">
         <div class="tierfilter" id="tierfilter">
-            <div class="filter-icon tier" id="Bronze">
-                <img src="https://wiki.gla.com.br/images/f/fa/Bronzestar.png">
-            </div>
-            <div class="filter-icon tier" id="Prata">
-                <img src="https://wiki.gla.com.br/images/1/1a/Silverstar.png">
-            </div>
-            <div class="filter-icon tier active" id="Ouro">
-                <img src="https://wiki.gla.com.br/images/2/2c/Goldstar.png">
-            </div>
-            <div class="filter-icon tier" id="Diamante">
-                <img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png">
-            </div>
+            <button type="button" class="filter-icon tier" id="Bronze" aria-label="Selecionar Bronze">
+                <img src="https://wiki.gla.com.br/images/f/fa/Bronzestar.png" alt="Ícone Bronze">
+            </button>
+            <button type="button" class="filter-icon tier" id="Prata" aria-label="Selecionar Prata">
+                <img src="https://wiki.gla.com.br/images/1/1a/Silverstar.png" alt="Ícone Prata">
+            </button>
+            <button type="button" class="filter-icon tier active" id="Ouro" aria-label="Selecionar Ouro">
+                <img src="https://wiki.gla.com.br/images/2/2c/Goldstar.png" alt="Ícone Ouro">
+            </button>
+            <button type="button" class="filter-icon tier" id="Diamante" aria-label="Selecionar Diamante">
+                <img src="https://wiki.gla.com.br/images/5/53/Diamondstar.png" alt="Ícone Diamante">
+            </button>
         </div>
         <div class="info-input">
             <div class="level-info">
                 <h1>Personagem Info</h1>
                 <div class="block-info">
-                    <label>Level do Personagem: </label>
+                    <label for="now_lvl">Level do Personagem: </label>
                     <input type="number" id="now_lvl" oninput="this.value = Math.round(this.value)" class="form-control"
                         value=1 placeholder="Level Atual">
                 </div>
                 <div class="block-info">
-                    <label>Porcentagem p/ Upar: </label>
+                    <label for="percent">Porcentagem p/ Upar: </label>
                     <input type="number" id="percent" oninput="this.value = Math.round(this.value)" class="form-control"
                         value=100 placeholder="Porcentagem p/ upar">
                 </div>
                 <div class="block-info">
-                    <label>Level Desejado: </label>
+                    <label for="target_lvl">Level Desejado: </label>
                     <input type="number" id="target_lvl" oninput="this.value = Math.round(this.value)"
                         class="form-control" value=110 placeholder="Level Desejado">
                 </div>
@@ -96,17 +95,17 @@
             <div class="level-info">
                 <h1>Poções Info</h1>
                 <div class="block-info">
-                    <label>Poções Grande: </label>
+                    <label for="big_pots">Poções Grande: </label>
                     <input type="number" id="big_pots" oninput="this.value = Math.round(this.value)"
                         class="form-control" value=0 placeholder="Poções Grande">
                 </div>
                 <div class="block-info">
-                    <label>Poções Média: </label>
+                    <label for="med_pots">Poções Média: </label>
                     <input type="number" id="med_pots" oninput="this.value = Math.round(this.value)"
                         class="form-control" value=0 placeholder="Poções Média">
                 </div>
                 <div class="block-info">
-                    <label>Poções Pequena: </label>
+                    <label for="sml_pots">Poções Pequena: </label>
                     <input type="number" id="sml_pots" oninput="this.value = Math.round(this.value)"
                         class="form-control" value=0 placeholder="Poções Pequena">
                 </div>
@@ -136,16 +135,16 @@
                 </div>
                 <div class="pots-show">
                     <div class="result-info">
-                        <img src="https://wiki.gla.com.br/images/a/a5/Bigexppot.png">
+                        <img src="https://wiki.gla.com.br/images/a/a5/Bigexppot.png" alt="Poção Grande">
                         <p id="rbig" class="result-value"></p>
                     </div>
                     <div class="result-info">
-                        <img src="https://wiki.gla.com.br/images/d/df/Medexppot.png">
+                        <img src="https://wiki.gla.com.br/images/d/df/Medexppot.png" alt="Poção Média">
                         <p id="rmed" class="result-value"></p>
                     </div>
                     <div class="result-info">
-                        <img src="https://wiki.gla.com.br/images/5/5a/Smallexppot.png">
-                        <p id="rsml" class="result-value"></label>
+                        <img src="https://wiki.gla.com.br/images/5/5a/Smallexppot.png" alt="Poção Pequena">
+                        <p id="rsml" class="result-value"></p>
                     </div>
                 </div>
             </div>
