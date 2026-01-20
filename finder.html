@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimap Interactive Viewer</title>
+    <link rel="stylesheet" href="finder.css">
+</head>
+
+<body>
+
+    <div id="layout">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <h2>FOV Visualizer</h2>
+
+            <div class="control-group">
+                <label>Position X</label>
+                <input type="number" id="input-x" value="3800">
+            </div>
+            <div class="control-group">
+                <label>Position Y</label>
+                <input type="number" id="input-y" value="4800">
+            </div>
+            <div class="control-group">
+                <label>Position Z</label>
+                <input type="number" id="input-z" value="7" disabled>
+            </div>
+
+            <div class="control-group">
+                <label>Direction</label>
+                <select id="input-dir">
+                    <option value="N">North (N)</option>
+                    <option value="NE">North-East (NE)</option>
+                    <option value="E">East (E)</option>
+                    <option value="SE">South-East (SE)</option>
+                    <option value="S">South (S)</option>
+                    <option value="SW">South-West (SW)</option>
+                    <option value="W">West (W)</option>
+                    <option value="NW">North-West (NW)</option>
+                </select>
+            </div>
+
+            <button onclick="pasteCoords()" style="background: #2196F3; margin-bottom: 5px;">Paste from
+                Clipboard</button>
+            <button onclick="addVector()">Add Vector</button>
+
+            <div id="vector-list">
+                <!-- Vector items will appear here -->
+            </div>
+
+            <div id="status"></div>
+
+            <div id="cursor-coords">Hover map to see coords</div>
+
+            <hr>
+            <div id="nav-controls">
+                <button onclick="zoomIn()">+</button>
+                <button onclick="zoomOut()">-</button>
+                <button onclick="resetView()">Reset View</button>
+            </div>
+        </div>
+
+        <!-- Map Area -->
+        <div id="map-viewport">
+            <div id="map-loading">Loading Map...</div>
+            <div id="map-container">
+                <div id="map-content">
+                    <canvas id="map-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="otmm_data.js"></script>
+    <script src="otmm.js"></script>
+    <script src="finder.js"></script>
+</body>
+
+</html>
