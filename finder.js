@@ -7,8 +7,15 @@ const cursorDisplay = document.getElementById('cursor-coords');
 const vectorListEl = document.getElementById('vector-list');
 
 // Map Config
-const GLOBAL_OFFSET_X = 2816;
-const GLOBAL_OFFSET_Y = 3136;
+// Map Config
+let GLOBAL_OFFSET_X = 2816;
+let GLOBAL_OFFSET_Y = 3136;
+
+// Floor Config
+let currentFloor = 7;
+let floorsData = null; // Stores parsed OTMM data { z: { blocks, minX... } }
+const floorCache = new Map(); // Stores rendered contexts
+let isMapLoading = false;
 
 let scale = 1;
 let pannedX = 0;
@@ -17,111 +24,214 @@ let isDragging = false;
 let startX, startY;
 
 const mapImage = new Image();
-mapImage.src = "./minimap_final.png";
-
 // List of vectors
 let vectors = [];
+// We won't set src immediately if we are going full preload mode, 
+// to avoid the image loading race condition with our preload logic.
+// But we can fallback to image if OTMM fails.
+// Just keep it simple: Init triggers the preload.
 
-// Fallback: Generate from OTMM if PNG fails
-// Fallback: Generate from OTMM if PNG fails
-// Fallback: Generate from OTMM if PNG fails
-mapImage.onerror = async () => {
-    loading.textContent = "Image missing. Generating from 'minimap.otmm'...";
-    loading.style.color = "#FFC107"; // Warning Yellow
-    const status = document.getElementById('status');
-    status.textContent = "Generating map from OTMM...";
+// Fallback: Generate from OTMM if PNG fails is now the PRIMARY path for multi-floor
+// consistency. We will try to load OTMM immediately on start.
+
+window.addEventListener('DOMContentLoaded', initApp);
+
+async function initApp() {
+    loading.style.display = 'block';
+    loading.textContent = "Initializing Map Data...";
 
     try {
         const loader = new OTMMLoader();
-        let result;
-
-        // Define Valid Bounds to prevent Out of Memory
-        const bounds = {
-            minX: 2792,
-            minY: 3124,
-            maxX: 4821,
-            maxY: 6465
-        };
+        let buffer;
 
         if (typeof MINIMAP_OTMM_BASE64 !== 'undefined') {
-            status.textContent = "Using embedded OTMM data...";
-            // Wait a tick to let the UI update
-            await new Promise(r => setTimeout(r, 10));
-            const buffer = loader.base64ToArrayBuffer(MINIMAP_OTMM_BASE64);
-            result = await loader.parseAndRender(buffer, canvas, (msg) => {
-                loading.textContent = msg;
-            }, bounds);
+            loading.textContent = "Parsing embedded OTMM...";
+            buffer = loader.base64ToArrayBuffer(MINIMAP_OTMM_BASE64);
         } else {
-            // Try fetching (will likely fail on local file:// but safe to keep)
-            result = await loader.loadAndRender('./minimap.otmm', canvas, (msg) => {
-                loading.textContent = msg;
-            }, bounds);
+            loading.textContent = "Fetching minimap.otmm...";
+            const resp = await fetch('./minimap.otmm');
+            if (!resp.ok) throw new Error("Failed to load OTMM");
+            buffer = await resp.arrayBuffer();
         }
 
+        // Parse ALL floors once
+        loading.textContent = "Indexing floors...";
+        // Give UI a moment to render
+        await new Promise(r => setTimeout(r, 10));
+
+        floorsData = await loader.parseAllFloors(buffer, (msg) => {
+            loading.textContent = msg;
+        });
+
+        // Initial Load
+        await loadFloor(currentFloor, false); // false = don't preserve view on first load
+
+    } catch (err) {
+        console.error("Init Error:", err);
+        loading.innerHTML = `Error initializing map:<br>${err.message}<br><small>${err.stack}</small>`;
+        loading.style.color = "#ff5555";
+    }
+
+    // Fallback to legacy PNG mode if OTMM fails completely? 
+    // Or just show error since multi-floor depends on OTMM.
+    // Let's rely on OTMM for consistency.
+}
+
+function updateFloorUI() {
+    document.getElementById('input-z').value = currentFloor;
+}
+
+async function changeFloor(delta) {
+    const newFloor = currentFloor + delta;
+    if (floorsData && !floorsData[newFloor]) {
+        // If we have data but this floor doesn't exist, check limits?
+        // Or maybe just let it try?
+        // Check if floor exists in data keys
+        // if (!floorsData[newFloor]) return; 
+        // But 0-15 are standard, maybe just empty.
+        if (newFloor < 0 || newFloor > 15) return;
+    } else {
+        if (newFloor < 0 || newFloor > 15) return;
+    }
+
+    // 1. Capture Global Center
+    const viewportW = container.clientWidth;
+    const viewportH = container.clientHeight;
+
+    // Valid mapping only if canvas exists
+    let globalCenterX, globalCenterY;
+
+    if (canvas.width > 0) {
+        const localCenterX = (viewportW / 2 - pannedX) / scale;
+        const localCenterY = (viewportH / 2 - pannedY) / scale;
+        globalCenterX = localCenterX + GLOBAL_OFFSET_X;
+        globalCenterY = localCenterY + GLOBAL_OFFSET_Y;
+    }
+
+    currentFloor = newFloor;
+    updateFloorUI();
+
+    await loadFloor(currentFloor, true, globalCenterX, globalCenterY);
+}
+
+async function loadFloor(z, preserveView, targetGlobalX, targetGlobalY) {
+    if (isMapLoading) return;
+    isMapLoading = true;
+    loading.style.display = 'block';
+    loading.textContent = `Rendering Floor ${z}...`;
+    loading.style.color = "#FFC107"; // Yellow
+
+    try {
+        // If we don't have buckets yet (init failed?), can't do much
+        if (!floorsData) throw new Error("Map data not loaded");
+
+        let floorCtx = floorCache.get(z);
+
+        if (!floorCtx) {
+            // Render it
+            const fd = floorsData[z];
+            if (!fd) {
+                console.warn(`Floor ${z} has no data! Floors found: ${Object.keys(floorsData)}`);
+                // Empty floor
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                isMapLoading = false;
+                return;
+            }
+
+            console.log(`Rendering Floor ${z}, Found ${fd.blocks.length} blocks. Bounds: ${fd.minX},${fd.minY} to ${fd.maxX},${fd.maxY}`);
+
+            // Create canvas for this floor
+            // Bounds
+            const width = (fd.maxX - fd.minX) + 64;
+            const height = (fd.maxY - fd.minY) + 64;
+
+            const fCanvas = document.createElement('canvas');
+            fCanvas.width = width;
+            fCanvas.height = height;
+
+            const loader = new OTMMLoader(); // Helper instance
+            await loader.renderFloor(fd, fCanvas, (msg) => {
+                loading.textContent = msg;
+            });
+
+            floorCtx = fCanvas.getContext('2d');
+            floorCache.set(z, floorCtx);
+        }
+
+        // Apply to main canvas
+        canvas.width = floorCtx.canvas.width;
+        canvas.height = floorCtx.canvas.height;
+
+        // Use our new unified redraw function to ensure vectors are drawn over the new floor
+        redrawMap();
+
+        // Update Map Config for this floor
+        // We need minX/minY from the floorsData to set GLOBAL_OFFSET
+        // Wait, cache just stores context. We need metadata.
+        const fd = floorsData[z];
+        if (fd) {
+            GLOBAL_OFFSET_X = fd.minX;
+            GLOBAL_OFFSET_Y = fd.minY;
+        }
+
+        // Update View
         content.style.width = canvas.width + 'px';
         content.style.height = canvas.height + 'px';
 
-        // Recenter view
-        const viewportW = container.clientWidth;
-        const viewportH = container.clientHeight;
-        pannedX = (viewportW - canvas.width) / 2;
-        pannedY = (viewportH - canvas.height) / 2;
-        scale = 0.8;
+        if (preserveView && targetGlobalX !== undefined) {
+            // Recalculate pannedX/Y to center on targetGlobalX/Y
+            const viewportW = container.clientWidth;
+            const viewportH = container.clientHeight;
+
+            const newLocalCenterX = targetGlobalX - GLOBAL_OFFSET_X;
+            const newLocalCenterY = targetGlobalY - GLOBAL_OFFSET_Y;
+
+            pannedX = (viewportW / 2) - (newLocalCenterX * scale);
+            pannedY = (viewportH / 2) - (newLocalCenterY * scale);
+        } else if (!preserveView) {
+            // Reset to center
+            const viewportW = container.clientWidth;
+            const viewportH = container.clientHeight;
+            pannedX = (viewportW - canvas.width) / 2;
+            pannedY = (viewportH - canvas.height) / 2;
+            scale = 0.8;
+        }
 
         updateTransform();
-
-        // Hide loading
+        // renderCanvas(); // Removed: mapImage.onload will trigger renderCanvas via initMap
         loading.style.display = 'none';
-        status.textContent = "Map generated from OTMM.";
-        status.style.color = "#4CAF50";
-
-        // Set src to dataURL
-        const dataURL = canvas.toDataURL();
-        mapImage.src = dataURL;
-        mapImage.onload = () => {
-            // We need to support global offset adjustments if the user wants accurate coords.
-            // But for now, we just display the cropped map.
-            initMap();
-        };
 
     } catch (err) {
         console.error(err);
-        loading.textContent = "Failed to generate map from OTMM.";
+        loading.textContent = `Error loading floor ${z}`;
         loading.style.color = "#ff5555";
-        status.textContent = "Error: " + err.message;
     }
-};
 
-mapImage.onload = () => {
-    initMap();
-};
-
-function initMap() {
-    loading.style.display = 'none';
-    canvas.width = mapImage.naturalWidth;
-    canvas.height = mapImage.naturalHeight;
-    content.style.width = canvas.width + 'px';
-    content.style.height = canvas.height + 'px';
-
-    const viewportW = container.clientWidth;
-    const viewportH = container.clientHeight;
-    pannedX = (viewportW - canvas.width) / 2;
-    pannedY = (viewportH - canvas.height) / 2;
-    scale = 0.8;
-
-    updateTransform();
-    renderCanvas();
+    isMapLoading = false;
 }
 
-function renderCanvas() {
+// Remove old initMap as it is replaced by initApp / loadFloor logic
+// Keep renderCanvas etc.
+
+function redrawMap() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(mapImage, 0, 0);
+
+    // Draw current floor from cache
+    const floorCtx = floorCache.get(currentFloor);
+    if (floorCtx) {
+        ctx.drawImage(floorCtx.canvas, 0, 0);
+    } else {
+        // Fallback or empty?
+        // If we are here, maybe we should trigger a load, but usually load handles drawing.
+    }
 
     // Draw ALL vectors
     vectors.forEach(v => {
         drawVectorOnCanvas(v);
     });
 }
+// Alias for compatibility if needed, though we will replace calls.
+const renderCanvas = redrawMap;
 
 function drawVectorOnCanvas(data) {
     const { localX, localY, angle1, angle2 } = data;
@@ -234,6 +344,15 @@ container.addEventListener('wheel', (e) => {
     updateCursorCoords(e);
 });
 
+// Floor shortcut (CTRL + Scroll)
+window.addEventListener('wheel', (e) => {
+    if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = Math.sign(e.deltaY);
+        changeFloor(delta);
+    }
+}, { passive: false });
+
 // ... (Cursor Coords / Paste remain same) ...
 function updateCursorCoords(e) {
     if (!canvas.width) return;
@@ -245,7 +364,7 @@ function updateCursorCoords(e) {
     const globalX = localX + GLOBAL_OFFSET_X;
     const globalY = localY + GLOBAL_OFFSET_Y;
     if (localX >= 0 && localX < canvas.width && localY >= 0 && localY < canvas.height) {
-        cursorDisplay.textContent = `X: ${globalX}\nY: ${globalY}\nZ: 7`;
+        cursorDisplay.textContent = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
         cursorDisplay.style.color = "#4CAF50";
     } else {
         cursorDisplay.textContent = `Out of bounds`;
@@ -253,44 +372,69 @@ function updateCursorCoords(e) {
     }
 }
 
-async function pasteCoords() {
+async function pasteAndFill() {
     const status = document.getElementById('status');
     try {
         const text = await navigator.clipboard.readText();
-        const regex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)[^0-9]+(?:Z[:\s]*)?(\d+)/i;
+        const regex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)/i;
         const match = text.match(regex);
+
         if (match) {
             document.getElementById('input-x').value = match[1];
             document.getElementById('input-y').value = match[2];
-            document.getElementById('input-z').value = match[3];
-            status.textContent = "Pasted: " + match[0];
-            status.style.color = "#4CAF50";
-        } else {
-            const regex2 = /(\d+)[^0-9]+(\d+)/;
-            const match2 = text.match(regex2);
-            if (match2) {
-                document.getElementById('input-x').value = match2[1];
-                document.getElementById('input-y').value = match2[2];
-                status.textContent = "Pasted X, Y";
-                status.style.color = "#ccc";
-            } else {
-                status.textContent = "No coords found.";
-                status.style.color = "#ff5555";
+            // Check for Z if present
+            const regexZ = /(?:Z[:\s]*)?(\d+)/i;
+            // Logic to find Z might be tricky if not in same string, but let's try
+            // Actually original regex had Z, let's keep simple for now or parsing logic
+            // Original: /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)[^0-9]+(?:Z[:\s]*)?(\d+)/i
+
+            const fullRegex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)[^0-9]+(?:Z[:\s]*)?(\d+)/i;
+            const fullMatch = text.match(fullRegex);
+            if (fullMatch && fullMatch[3]) {
+                const z = parseInt(fullMatch[3]);
+                if (z !== currentFloor) {
+                    changeFloor(z - currentFloor);
+                }
             }
+
+            status.textContent = "Pasted: " + match[1] + ", " + match[2];
+            status.style.color = "#4CAF50";
+            return true;
+        } else {
+            status.textContent = "No coords found in clipboard.";
+            status.style.color = "#ff5555";
+            return false;
         }
-    } catch (err) { status.textContent = "Paste error"; }
+    } catch (err) {
+        console.error(err);
+        status.textContent = "Paste error: " + err.message;
+        return false;
+    }
 }
 
-// --- NEW Multi-Vector Logic ---
-function addVector() {
+async function handleCompassClick(dir) {
+    // 1. Try to paste first
+    const pasted = await pasteAndFill();
+
+    // 2. Add vector using current input values (whether pasted or existing)
+    addVector(dir);
+}
+
+// --- NEW Multi-Vector Logic (Updated) ---
+function addVector(dir) {
     const status = document.getElementById('status');
     const inputX = parseInt(document.getElementById('input-x').value);
     const inputY = parseInt(document.getElementById('input-y').value);
-    const dir = document.getElementById('input-dir').value;
-    status.style.color = "#ccc";
+    // dir is passed in now
+    if (!dir) {
+        status.textContent = "Please select a direction (N, NE, etc.)";
+        status.style.color = "#ff5555";
+        return;
+    }
 
     if (isNaN(inputX) || isNaN(inputY)) {
-        status.textContent = "Invalid coordinates!";
+        status.textContent = "Enter coordinates first!";
+        status.style.color = "#ff5555";
         return;
     }
 
@@ -365,4 +509,7 @@ function updateVectorList() {
 
 function zoomIn() { scale *= 1.2; updateTransform(); }
 function zoomOut() { scale /= 1.2; updateTransform(); }
-function resetView() { initMap(); }
+function resetView() {
+    // Reset view for current floor (preserveView = false)
+    loadFloor(currentFloor, false);
+}
