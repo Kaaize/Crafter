@@ -286,19 +286,11 @@ function drawVectorOnCanvas(data) {
 
     ctx.restore(); // Restore clip (and context stack)
 
-    // --- 3. Center Marker (X) ---
+    // --- 3. Center Marker (Dot) ---
     // Drawn AFTER restore so it's not clipped/affected
     ctx.save();
-    const markSize = 4;
-    ctx.beginPath();
-    ctx.moveTo(localX - markSize, localY - markSize);
-    ctx.lineTo(localX + markSize, localY + markSize);
-    ctx.moveTo(localX + markSize, localY - markSize);
-    ctx.lineTo(localX - markSize, localY + markSize);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "black";
-    ctx.setLineDash([]);
-    ctx.stroke();
+    ctx.fillStyle = "black";
+    ctx.fillRect(localX - 1, localY - 1, 2, 2); // 2x2 pixel dot
     ctx.restore();
 }
 
@@ -477,6 +469,16 @@ function addVector(dir) {
 
     vectors.push(newVector);
     updateVectorList();
+
+    // Auto-center on the new vector
+    const viewportW = container.clientWidth;
+    const viewportH = container.clientHeight;
+
+    // Calculate panned positions to put localX/localY in center
+    pannedX = (viewportW / 2) - (localX * scale);
+    pannedY = (viewportH / 2) - (localY * scale);
+
+    updateTransform();
     renderCanvas();
 }
 
@@ -510,6 +512,10 @@ function updateVectorList() {
 function zoomIn() { scale *= 1.2; updateTransform(); }
 function zoomOut() { scale /= 1.2; updateTransform(); }
 function resetView() {
+    // Clear vectors
+    vectors = [];
+    updateVectorList();
+
     // Reset view for current floor (preserveView = false)
     loadFloor(currentFloor, false);
 }
