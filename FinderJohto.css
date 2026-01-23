@@ -1,0 +1,414 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Layout Reset */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #e0e0e0;
+    background-image: url("imgs/drakantos/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+/* Main Container - Dark Transparent Overlay */
+.finder-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: rgba(18, 18, 20, 0.85);
+    /* Matches builder */
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+}
+
+/* Sidebar Styling - Glass Panel */
+.sidebar-glass {
+    width: 320px;
+    background: rgba(30, 32, 36, 0.6);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-title {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #ad8484;
+    /* Premium accent */
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border-bottom: 1px solid rgba(173, 132, 132, 0.3);
+    padding-bottom: 10px;
+}
+
+/* Controls */
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-size: 0.85rem;
+    color: #aaa;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* Inputs */
+input[type="number"],
+input[type="text"] {
+    background: #2a2d33;
+    border: 1px solid #444;
+    color: white;
+    padding: 8px;
+    /* Reduced pading */
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    flex: 1;
+    min-width: 0;
+    /* Critical for flex shrinking */
+    outline: none;
+    transition: all 0.2s;
+}
+
+input:focus {
+    border-color: #ad8484;
+}
+
+/* Action Buttons */
+button {
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.2s;
+}
+
+#btn-paste {
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0 10px;
+    /* Reduced padding */
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    /* Don't shrink the button */
+}
+
+#btn-paste:hover {
+    background: #444;
+    border-color: #ad8484;
+}
+
+/* Floor Controls */
+.floor-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Ensure spacing */
+    gap: 5px;
+    background: #2a2d33;
+    border-radius: 8px;
+    padding: 4px;
+    /* increased slightly */
+    border: 1px solid #444;
+}
+
+.floor-controls button {
+    background: transparent;
+    color: #ad8484;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex: 0 0 30px;
+    /* Fixed width, no grow/shrink */
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floor-controls button:hover {
+    background: rgba(173, 132, 132, 0.1);
+}
+
+.floor-controls input {
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    min-width: 0;
+    flex: 1;
+    padding: 0;
+    /* Remove padding for this specific input */
+}
+
+/* Compass (3x3 Grid Layout) */
+#compass-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.compass {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.compass-row {
+    display: flex;
+    gap: 5px;
+}
+
+.dir-btn {
+    width: 40px;
+    height: 40px;
+    background: #333;
+    color: #ccc;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.dir-btn:hover {
+    background: #ad8484;
+    color: white;
+    border-color: #ad8484;
+    transform: scale(1.05);
+}
+
+.compass-center {
+    width: 40px;
+    height: 40px;
+    background: rgba(173, 132, 132, 0.1);
+    border-radius: 50%;
+    margin: auto;
+    border: 2px solid #ad8484;
+    position: relative;
+}
+
+.compass-center::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: #ad8484;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+/* Primary Action Button */
+.action-btn {
+    background: #ad8484;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(173, 132, 132, 0.3);
+}
+
+.action-btn:hover {
+    background: #c99b9b;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(173, 132, 132, 0.4);
+}
+
+/* Vector List */
+#vector-header {
+    font-size: 0.85rem;
+    color: #ad8484;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+#vector-list {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vector-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2a2d33;
+    margin-bottom: 5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.vector-item:hover {
+    border-color: #ad8484;
+    background: #333;
+}
+
+.vector-info {
+    font-size: 0.85rem;
+    color: #ddd;
+}
+
+.delete-btn {
+    background: rgba(255, 85, 85, 0.2);
+    color: #ff5555;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    background: #ff5555;
+    color: white;
+}
+
+/* Bottom status area */
+.bottom-controls {
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #444;
+}
+
+#status {
+    font-size: 0.8rem;
+    min-height: 1.2em;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+#cursor-coords {
+    font-family: monospace;
+    color: #ad8484;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+#nav-controls {
+    display: flex;
+    gap: 5px;
+}
+
+#nav-controls button {
+    flex: 1;
+    background: #444;
+    color: #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+#nav-controls button:hover {
+    background: #555;
+    color: white;
+}
+
+/* Map Viewport */
+#map-viewport {
+    flex-grow: 1;
+    position: relative;
+    background: #121214;
+    /* Slightly darker than container */
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+#map-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ad8484;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    position: relative;
+}
+
+#map-container:active {
+    cursor: grabbing;
+}
+
+#map-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+}
+
+#map-canvas {
+    image-rendering: pixelated;
+    display: block;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ad8484;
+}

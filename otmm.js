@@ -21,7 +21,7 @@ class OTMMLoader {
         }
     }
 
-    async parseAllFloors(arrayBuffer, statusCallback) {
+    async parseAllFloors(arrayBuffer, statusCallback, bounds) {
         try {
             const data = new DataView(arrayBuffer);
             if (statusCallback) statusCallback("Parsing ALL blocks...");
@@ -32,6 +32,12 @@ class OTMMLoader {
 
             // Bucket by Z
             const floors = {}; // z -> { blocks: [], minX, maxX, minY, maxY }
+
+            // Default Kanto Bounds
+            const filterMinX = bounds ? bounds.minX : 2792;
+            const filterMaxX = bounds ? bounds.maxX : 4821;
+            const filterMinY = bounds ? bounds.minY : 3123;
+            const filterMaxY = bounds ? bounds.maxY : 6465;
 
             // 1. First Pass: Parse and collect bounds
             let globalMinX = Infinity, globalMaxX = -Infinity;
@@ -54,8 +60,7 @@ class OTMMLoader {
                 }
 
                 // Strict Bounds Filtering
-                // Min: 2792, 3123 | Max: 4821, 6465
-                if (x < 2792 || x > 4821 || y < 3123 || y > 6465) {
+                if (x < filterMinX || x > filterMaxX || y < filterMinY || y > filterMaxY) {
                     offset += length;
                     continue;
                 }
@@ -93,8 +98,8 @@ class OTMMLoader {
             // (0,0) on Floor 7 will match (0,0) on Floor 8 exactly.
             if (globalMinX === Infinity) {
                 // Fallback if no valid blocks found
-                globalMinX = 2792; globalMaxX = 4821;
-                globalMinY = 3123; globalMaxY = 6465;
+                globalMinX = filterMinX; globalMaxX = filterMaxX;
+                globalMinY = filterMinY; globalMaxY = filterMaxY;
             }
 
             Object.values(floors).forEach(f => {
