@@ -909,8 +909,21 @@ function main() {
     loadCharacters()
     setModalEvents();
 
+    let copyTimeout;
     copyButton.addEventListener("click", () => {
-        navigator.clipboard.writeText(linkInput.value)
+        navigator.clipboard.writeText(linkInput.value).then(() => {
+            copyButton.innerText = "Copied!";
+            copyButton.classList.add("copied");
+
+            if (copyTimeout) clearTimeout(copyTimeout);
+
+            copyTimeout = setTimeout(() => {
+                copyButton.innerText = "Copy Link";
+                copyButton.classList.remove("copied");
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
     });
 
     updateBuild();
