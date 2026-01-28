@@ -266,9 +266,15 @@ function drawVectors() {
         vectorCtx.moveTo(screenX, screenY);
         vectorCtx.lineTo(x2, y2);
 
-        vectorCtx.lineWidth = 1;
-        vectorCtx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+        // Draw Black Outline for Clarity
+        vectorCtx.lineWidth = 4;
+        vectorCtx.strokeStyle = "rgba(0, 0, 0, 0.8)";
         vectorCtx.setLineDash([]);
+        vectorCtx.stroke();
+
+        // Draw White Inner Line
+        vectorCtx.lineWidth = 2;
+        vectorCtx.strokeStyle = "rgba(255, 255, 255, 1)";
         vectorCtx.stroke();
 
         // --- 2. Distance Markers (Clipped Squares) ---
@@ -350,6 +356,72 @@ container.addEventListener('wheel', (e) => {
     updateTransform();
     updateCursorCoords(e);
 });
+
+// Touch Events (Mobile)
+let initialPinchDist = 0;
+let initialScale = 1;
+
+container.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+        // Single touch: Pan
+        isDragging = true;
+        startX = e.touches[0].clientX - pannedX;
+        startY = e.touches[0].clientY - pannedY;
+    } else if (e.touches.length === 2) {
+        // Multi touch: Pinch Zoom
+        isDragging = false;
+        initialPinchDist = getPinchDist(e);
+        initialScale = scale;
+    }
+}, { passive: false });
+
+container.addEventListener('touchmove', (e) => {
+    e.preventDefault(); // Prevent scroll/zoom of page
+    if (e.touches.length === 1 && isDragging) {
+        pannedX = e.touches[0].clientX - startX;
+        pannedY = e.touches[0].clientY - startY;
+        updateTransform();
+    } else if (e.touches.length === 2) {
+        const currentDist = getPinchDist(e);
+        if (initialPinchDist > 0) {
+            const pinchScale = currentDist / initialPinchDist;
+            let newScale = initialScale * pinchScale;
+
+            // Center zoom on pinch center
+            const rect = container.getBoundingClientRect();
+            const p1 = e.touches[0];
+            const p2 = e.touches[1];
+            const centerX = (p1.clientX + p2.clientX) / 2 - rect.left;
+            const centerY = (p1.clientY + p2.clientY) / 2 - rect.top;
+
+            const contentX = (centerX - pannedX) / scale;
+            const contentY = (centerY - pannedY) / scale;
+
+            if (newScale < 0.1) newScale = 0.1;
+            if (newScale > 10) newScale = 10;
+
+            pannedX = centerX - contentX * newScale;
+            pannedY = centerY - contentY * newScale;
+            scale = newScale;
+            updateTransform();
+        }
+    }
+}, { passive: false });
+
+container.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+        initialPinchDist = 0;
+    }
+    if (e.touches.length === 0) {
+        isDragging = false;
+    }
+});
+
+function getPinchDist(e) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
 
 // Floor shortcut (CTRL + Scroll)
 window.addEventListener('wheel', (e) => {
