@@ -756,3 +756,9 @@ h1 {
     margin: 0;
     display: block;
 }
+/* Feedback for Copy Button */
+#copy-button.copied {
+    background: #4caf50;
+    color: white;
+    border: 1px solid #4caf50; /* Ensure border matches if it exists */
+}
