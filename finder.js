@@ -29,7 +29,7 @@ let isDragging = false;
 let startX, startY;
 
 // Zoom Configuration
-const zoomFactors = [0, 0.25, 0.50, 1.0]; // 0% (Fit), 25%, 50%, 100% (Close)
+const zoomFactors = [0, 0.2, 0.4, 0.6, 0.8, 1.0]; // 6 Levels: Fit -> Close
 let currentZoomIndex = 0;
 
 // List of vectors
