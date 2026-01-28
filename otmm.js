@@ -11,13 +11,12 @@ const COLOR_LUT = new Uint32Array(256);
         if (i >= 216) {
             a = 0;
         } else {
-            // Original logic:
-            // r = Math.floor((colorIdx / 36) % 6 * 51);
-            // g = Math.floor((colorIdx / 6) % 6 * 51);
-            // b = Math.floor((colorIdx % 6) * 51);
-            r = Math.floor((i / 36) % 6 * 51);
-            g = Math.floor((i / 6) % 6 * 51);
-            b = Math.floor((i % 6) * 51);
+            // Original logic produced values > 255 due to float math (e.g. 263).
+            // Uint8ClampedArray clamped them implicitly.
+            // Since we are writing to Uint32Array, we must clamp explicitly.
+            r = Math.min(255, Math.floor((i / 36) % 6 * 51));
+            g = Math.min(255, Math.floor((i / 6) % 6 * 51));
+            b = Math.min(255, Math.floor((i % 6) * 51));
         }
 
         if (isLittleEndian) {
