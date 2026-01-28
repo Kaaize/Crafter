@@ -15,9 +15,9 @@ const COLOR_LUT = new Uint32Array(256);
             // r = Math.floor((colorIdx / 36) % 6 * 51);
             // g = Math.floor((colorIdx / 6) % 6 * 51);
             // b = Math.floor((colorIdx % 6) * 51);
-            r = Math.floor((i / 36) % 6 * 51);
-            g = Math.floor((i / 6) % 6 * 51);
-            b = Math.floor((i % 6) * 51);
+            r = (Math.floor(i / 36) % 6) * 51;
+            g = (Math.floor(i / 6) % 6) * 51;
+            b = (i % 6) * 51;
         }
 
         if (isLittleEndian) {

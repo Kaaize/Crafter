@@ -28,6 +28,10 @@ let pannedY = 0;
 let isDragging = false;
 let startX, startY;
 
+// Zoom Configuration
+const zoomFactors = [0, 0.25, 0.50, 1.0]; // 0% (Fit), 25%, 50%, 100% (Close)
+let currentZoomIndex = 0;
+
 // List of vectors
 let vectors = [];
 
@@ -200,12 +204,13 @@ async function loadFloor(z, preserveView, targetGlobalX, targetGlobalY) {
             pannedX = (viewportW / 2) - (newLocalCenterX * scale);
             pannedY = (viewportH / 2) - (newLocalCenterY * scale);
         } else if (!preserveView) {
-            // Reset to center
+            // Reset to fit and center
+            currentZoomIndex = 0;
+            scale = getTargetScale(0);
             const viewportW = container.clientWidth;
             const viewportH = container.clientHeight;
-            pannedX = (viewportW - canvas.width) / 2;
-            pannedY = (viewportH - canvas.height) / 2;
-            scale = 0.8;
+            pannedX = (viewportW - canvas.width * scale) / 2;
+            pannedY = (viewportH - canvas.height * scale) / 2;
         }
 
         updateTransform(); // This will trigger drawVectors
@@ -337,18 +342,15 @@ window.addEventListener('mousemove', (e) => {
 window.addEventListener('mouseup', () => { isDragging = false; });
 container.addEventListener('wheel', (e) => {
     e.preventDefault();
+    if (e.ctrlKey) return; // Floor shortcut handled below
+
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    const contentX = (mouseX - pannedX) / scale;
-    const contentY = (mouseY - pannedY) / scale;
-    const delta = -Math.sign(e.deltaY);
-    let newScale = scale * (delta > 0 ? 1.1 : 0.9);
-    if (newScale < 0.1) newScale = 0.1; if (newScale > 10) newScale = 10;
-    pannedX = mouseX - contentX * newScale;
-    pannedY = mouseY - contentY * newScale;
-    scale = newScale;
-    updateTransform();
+
+    const direction = -Math.sign(e.deltaY);
+    setZoomIndex(currentZoomIndex + direction, { x: mouseX, y: mouseY });
+
     updateCursorCoords(e);
 });
 
@@ -575,8 +577,60 @@ function updateVectorList() {
     });
 }
 
-function zoomIn() { scale *= 1.2; updateTransform(); }
-function zoomOut() { scale /= 1.2; updateTransform(); }
+function getTargetScale(index) {
+    if (!canvas.width) return 1;
+    const viewportW = container.clientWidth;
+    const viewportH = container.clientHeight;
+
+    // Scale to fit (95% of viewport)
+    const scaleFitX = viewportW / canvas.width;
+    const scaleFitY = viewportH / canvas.height;
+    const scaleFit = Math.min(scaleFitX, scaleFitY) * 0.95;
+
+    // Scale to show 100 tiles width
+    const scaleClose = viewportW / 100;
+
+    const factor = zoomFactors[index];
+    // Linear interpolation between Fit and Close
+    return scaleFit + (scaleClose - scaleFit) * factor;
+}
+
+function setZoomIndex(index, centerPoint) {
+    if (index < 0) index = 0;
+    if (index >= zoomFactors.length) index = zoomFactors.length - 1;
+
+    const oldScale = scale;
+    const newScale = getTargetScale(index);
+    currentZoomIndex = index;
+    scale = newScale;
+
+    // Center Logic
+    const viewportW = container.clientWidth;
+    const viewportH = container.clientHeight;
+
+    let cX, cY;
+    if (centerPoint) {
+        cX = centerPoint.x;
+        cY = centerPoint.y;
+    } else {
+        cX = viewportW / 2;
+        cY = viewportH / 2;
+    }
+
+    // Screen = Panned + Content * Scale
+    // Content = (Screen - Panned) / OldScale
+    const contentX = (cX - pannedX) / oldScale;
+    const contentY = (cY - pannedY) / oldScale;
+
+    // NewPanned = Screen - Content * NewScale
+    pannedX = cX - contentX * newScale;
+    pannedY = cY - contentY * newScale;
+
+    updateTransform();
+}
+
+function zoomIn() { setZoomIndex(currentZoomIndex + 1); }
+function zoomOut() { setZoomIndex(currentZoomIndex - 1); }
 function resetView() {
     // Clear vectors
     vectors = [];
@@ -584,4 +638,5 @@ function resetView() {
 
     // Reset view for current floor (preserveView = false)
     loadFloor(currentFloor, false);
+    // loadFloor calls setZoomIndex(0) inside via preserveView logic
 }
