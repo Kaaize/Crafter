@@ -266,15 +266,10 @@ function drawVectors() {
         vectorCtx.moveTo(screenX, screenY);
         vectorCtx.lineTo(x2, y2);
 
-        // Draw Black Outline for Clarity
-        vectorCtx.lineWidth = 4;
-        vectorCtx.strokeStyle = "rgba(0, 0, 0, 0.8)";
+        // Draw Vector Lines
+        vectorCtx.lineWidth = 3;
+        vectorCtx.strokeStyle = "black";
         vectorCtx.setLineDash([]);
-        vectorCtx.stroke();
-
-        // Draw White Inner Line
-        vectorCtx.lineWidth = 2;
-        vectorCtx.strokeStyle = "rgba(255, 255, 255, 1)";
         vectorCtx.stroke();
 
         // --- 2. Distance Markers (Clipped Squares) ---
@@ -298,9 +293,9 @@ function drawVectors() {
             vectorCtx.beginPath();
             vectorCtx.rect(screenX - r, screenY - r, r * 2, r * 2);
 
-            vectorCtx.lineWidth = 1;
-            vectorCtx.strokeStyle = d.color;
-            vectorCtx.setLineDash([2, 2]); // Fine dots
+            vectorCtx.lineWidth = 3;
+            vectorCtx.strokeStyle = "black";
+            vectorCtx.setLineDash([]);
             vectorCtx.stroke();
         });
 
