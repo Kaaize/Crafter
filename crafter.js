@@ -13,7 +13,36 @@ async function initializeCrafter() {
     allItems = data.ITEMS;
     recipeList = filterItemsByGroup(allItems, "food");
 
+    setupEventListeners();
     loadRecipes();
+}
+
+function setupEventListeners() {
+    arsenal2 = document.getElementById("filter-arsenal_2");
+    arsenal2.addEventListener("click", () => {
+        recipeList = filterItemsByGroup(allItems, "arsenal_2");
+        loadRecipes();
+    });
+
+    arsenal3 = document.getElementById("filter-arsenal_3");
+    arsenal3.addEventListener("click", () => {
+        recipeList = filterItemsByGroup(allItems, "arsenal_3");
+        loadRecipes()
+    });
+
+    arsenal4 = document.getElementById("filter-arsenal_4");
+    arsenal4.addEventListener("click", () => {
+        recipeList = filterItemsByGroup(allItems, "arsenal_4");
+        loadRecipes()
+    });
+
+    filterFood = document.getElementById("filter-food");
+    if (filterFood) {
+        filterFood.addEventListener("click", () => {
+            recipeList = filterItemsByGroup(allItems, "food");
+            loadRecipes();
+        });
+    }
 }
 
 /**
@@ -204,32 +233,6 @@ function updateSelectedRecipesDisplay() {
 function loadRecipes() {
     allItems = data.ITEMS;
     recipeListDiv.innerHTML = "";
-
-    arsenal2 = document.getElementById("filter-arsenal_2");
-    arsenal2.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_2");
-        loadRecipes();
-    });
-
-    arsenal3 = document.getElementById("filter-arsenal_3");
-    arsenal3.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_3");
-        loadRecipes()
-    });
-
-    arsenal4 = document.getElementById("filter-arsenal_4");
-    arsenal4.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_4");
-        loadRecipes()
-    });
-
-    filterFood = document.getElementById("filter-food");
-    if (filterFood) {
-        filterFood.addEventListener("click", () => {
-            recipeList = filterItemsByGroup(allItems, "food");
-            loadRecipes();
-        });
-    }
 
     Object.keys(recipeList).forEach(id => {
         item = allItems[id];
