@@ -50,12 +50,13 @@ function formatAbilityDescription(ability) {
     const values = ability.VALUES;
 
     let i = 0;
-    while (description.includes('%s') && i < values.length) {
-        description = description.replace('%s', formatPlaceHolder(values[i][0], values[i][1]));
-        i++;
-    }
-
-    return description;
+    return description.replace(/%s/g, (match) => {
+        if (i < values.length) {
+            const val = values[i++];
+            return formatPlaceHolder(val[0], val[1]);
+        }
+        return match;
+    });
 }
 
 function isItemCharacterAllowed(item, characterID) {
