@@ -236,7 +236,13 @@ function redrawMap() {
 }
 
 // Replaces old drawVectorOnCanvas
-function drawVectors() {
+// Supports optional override parameters for animation syncing
+function drawVectors(overrideScale, overridePannedX, overridePannedY) {
+    // Use overrides if provided, otherwise use global state
+    const currentScale = (overrideScale !== undefined) ? overrideScale : scale;
+    const currentPannedX = (overridePannedX !== undefined) ? overridePannedX : pannedX;
+    const currentPannedY = (overridePannedY !== undefined) ? overridePannedY : pannedY;
+
     // Clear vector canvas (screen space)
     vectorCtx.clearRect(0, 0, vectorCanvas.width, vectorCanvas.height);
 
@@ -246,15 +252,15 @@ function drawVectors() {
     const viewportH = vectorCanvas.height;
     // Length large enough to cover screen diagonal
     // Use map dimensions * scale to ensure lines don't disappear when panning
-    const maxLen = Math.max(canvas.width, canvas.height) * scale * 3;
+    const maxLen = Math.max(canvas.width, canvas.height) * currentScale * 3;
 
     vectors.forEach(v => {
         const { localX, localY, angle1, angle2 } = v;
 
         // Project Map Point to Screen Point
         // Screen = Panned + Map * Scale
-        const screenX = pannedX + localX * scale;
-        const screenY = pannedY + localY * scale;
+        const screenX = currentPannedX + localX * currentScale;
+        const screenY = currentPannedY + localY * currentScale;
 
         vectorCtx.save();
 
@@ -294,7 +300,7 @@ function drawVectors() {
 
         // Draw Squares
         distances.forEach(d => {
-            const r = d.r * scale; // Scale the radius
+            const r = d.r * currentScale; // Scale the radius
             vectorCtx.beginPath();
             vectorCtx.rect(screenX - r, screenY - r, r * 2, r * 2);
 
@@ -643,7 +649,45 @@ function setZoomIndex(index, centerPoint) {
     pannedY = cY - contentY * newScale;
 
     updateTransform();
+
+    // Start synced vector animation
+    animateVectors();
 }
+
+let animationFrameId = null;
+
+function animateVectors() {
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+    const startTime = performance.now();
+
+    function loop() {
+        const style = window.getComputedStyle(content);
+        const matrix = new WebKitCSSMatrix(style.transform);
+
+        // Extract transition state
+        // scale is usually matrix.a (for 2d uniform scale)
+        // translate is matrix.e (x) and matrix.f (y)
+        const currentScale = matrix.a;
+        const currentPanX = matrix.e;
+        const currentPanY = matrix.f;
+
+        drawVectors(currentScale, currentPanX, currentPanY);
+
+        // Check if transition is roughly done (optional fallback)
+        // Better to rely on transitionend, but loop keeps it fluid
+        animationFrameId = requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+// Stop animation when transition ends
+content.addEventListener('transitionend', () => {
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+    drawVectors(); // Final draw with canonical state
+});
 
 function zoomIn() { setZoomIndex(currentZoomIndex + 1); }
 function zoomOut() { setZoomIndex(currentZoomIndex - 1); }
