@@ -331,10 +331,20 @@ function clampPosition() {
 }
 
 // ... Mouse events ...
-container.addEventListener('mousedown', (e) => { e.preventDefault(); isDragging = true; startX = e.clientX - pannedX; startY = e.clientY - pannedY; });
+container.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isDragging = true;
+    startX = e.clientX - pannedX;
+    startY = e.clientY - pannedY;
+
+    // Disable transition during drag for responsiveness
+    content.classList.remove('map-transition');
+});
+
 window.addEventListener('mousemove', (e) => {
     updateCursorCoords(e);
-    if (!isDragging) return; e.preventDefault();
+    if (!isDragging) return;
+    e.preventDefault();
     pannedX = e.clientX - startX;
     pannedY = e.clientY - startY;
     updateTransform();
@@ -359,6 +369,9 @@ let initialPinchDist = 0;
 let initialScale = 1;
 
 container.addEventListener('touchstart', (e) => {
+    // Disable transition for any touch interaction (pan/pinch)
+    content.classList.remove('map-transition');
+
     if (e.touches.length === 1) {
         // Single touch: Pan
         isDragging = true;
@@ -598,6 +611,9 @@ function getTargetScale(index) {
 function setZoomIndex(index, centerPoint) {
     if (index < 0) index = 0;
     if (index >= zoomFactors.length) index = zoomFactors.length - 1;
+
+    // Enable smooth transition for zoom actions
+    content.classList.add('map-transition');
 
     const oldScale = scale;
     const newScale = getTargetScale(index);
