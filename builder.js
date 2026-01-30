@@ -33,6 +33,20 @@ async function loadInfo() {
     main();
 };
 
+function makeAccessible(element, label) {
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('role', 'button');
+    if (label) {
+        element.setAttribute('aria-label', label);
+    }
+    element.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.target.click();
+        }
+    });
+}
+
 function formatPlaceHolder(text, format) {
     switch (format) {
         case 0: return `<span class="white-highlight">${text}</span>`;
@@ -187,6 +201,8 @@ function loadArtifacts() {
             artifactClick(artifact.index, event)
         });
 
+        makeAccessible(div, "Select " + artifact.artifact.NAME);
+
         if (artifact.index == build.artifacts[currentArtifactSlotID]) {
             div.classList.add('selected')
         }
@@ -231,6 +247,8 @@ function loadTrophies() {
             trophyClick(trophy.index, event)
         });
 
+        makeAccessible(div, "Select " + trophy.trophy.NAME);
+
         if (trophy.index == build.trophies[currentTrophySlotID]) {
             div.classList.add('selected')
         }
@@ -258,6 +276,8 @@ function loadCharacters() {
         div.addEventListener("click", () => {
             characterOptionClick(index)
         });
+
+        makeAccessible(div, "Select " + character.NAME);
 
         const characterOptions = document.getElementsByClassName('character-options')[0];
         characterOptions.appendChild(div);
@@ -306,6 +326,8 @@ function loadOrbs(characterID, skillID) {
         div.addEventListener("click", (event) => {
             orbClick(skillID, index, event)
         });
+
+        makeAccessible(div, "Select " + orb.NAME);
 
         if (index == build.orbs[currentSkillSlotID]) {
             div.classList.add('selected')
@@ -698,7 +720,8 @@ function updateOrbTooltip(slotID, skillID) {
 
 function setModalEvents() {
     const artifacts = document.querySelectorAll(".artifact-slot-image");
-    artifacts.forEach(artifact => {
+    artifacts.forEach((artifact, index) => {
+        makeAccessible(artifact, "Select Artifact Slot " + (index + 1));
         artifact.addEventListener("click", artifactSlotClick);
         artifact.addEventListener('mouseenter', () => {
             const slotID = artifact.getAttribute('data-artifact-slot');
@@ -741,7 +764,8 @@ function setModalEvents() {
     });
 
     const trophies = document.querySelectorAll(".trophy-slot-image");
-    trophies.forEach(trophy => {
+    trophies.forEach((trophy, index) => {
+        makeAccessible(trophy, "Select Trophy Slot " + (index + 1));
         trophy.addEventListener("click", trophySlotClick);
         trophy.addEventListener('mouseenter', () => {
             const slotID = trophy.getAttribute('data-trophy-slot');
@@ -784,10 +808,12 @@ function setModalEvents() {
     });
 
     var characterImage = characterSlot.getElementsByClassName('character-slot-image')[0];
+    makeAccessible(characterImage, "Select Character");
     characterImage.addEventListener("click", characterSlotClick);
 
     const skills = document.querySelectorAll(".skill-slot-image");
     skills.forEach((skill, index) => {
+        makeAccessible(skill, "Select Ability Slot " + (index + 1));
         skill.addEventListener("click", skillSlotClick);
         skill.addEventListener('mouseenter', () => {
             if (!data.CHARACTERS[build.character] ||

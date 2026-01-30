@@ -106,7 +106,8 @@ h1 {
     /* Ensure image doesn't overflow */
 }
 
-.character-container:hover {
+.character-container:hover,
+.character-container:focus-within {
     transform: translateY(-2px);
     box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
     border-color: rgba(173, 132, 132, 0.3);
@@ -172,7 +173,9 @@ h1 {
 }
 
 .artifact-slot:hover,
-.trophy-slot:hover {
+.trophy-slot:hover,
+.artifact-slot:focus-within,
+.trophy-slot:focus-within {
     background: rgba(255, 255, 255, 0.08);
     border-color: #ad8484;
     box-shadow: 0 0 15px rgba(173, 132, 132, 0.2);
@@ -234,7 +237,8 @@ h1 {
     position: relative;
 }
 
-.skill-slot:hover {
+.skill-slot:hover,
+.skill-slot:focus-within {
     border-color: #ad8484;
     box-shadow: 0 0 15px rgba(173, 132, 132, 0.3);
     transform: scale(1.05);
@@ -433,9 +437,13 @@ h1 {
 
 .artifact-option:hover,
 .trophy-option:hover,
-.orb-option:hover {
+.orb-option:hover,
+.artifact-option:focus-visible,
+.trophy-option:focus-visible,
+.orb-option:focus-visible {
     background: #3a3f47;
     border-color: #ad8484;
+    outline: none;
 }
 
 .artifact-option.selected,
@@ -518,11 +526,13 @@ h1 {
     border: 1px solid transparent;
 }
 
-.character-option:hover {
+.character-option:hover,
+.character-option:focus-visible {
     transform: translateY(-4px);
     background: #3a3f47;
     border-color: #ad8484;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    outline: none;
 }
 
 .character-option-image {
