@@ -21,18 +21,18 @@
             <div class="control-group">
                 <label>Coordinates</label>
                 <div class="input-row">
-                    <input type="number" id="input-x" placeholder="X">
-                    <input type="number" id="input-y" placeholder="Y">
-                    <button id="btn-paste" title="Paste from Clipboard" onclick="pasteAndFill()">📋</button>
+                    <input type="number" id="input-x" placeholder="X" aria-label="X Coordinate">
+                    <input type="number" id="input-y" placeholder="Y" aria-label="Y Coordinate">
+                    <button id="btn-paste" title="Paste from Clipboard" onclick="pasteAndFill()" aria-label="Paste Coordinates from Clipboard">📋</button>
                 </div>
             </div>
 
             <div class="control-group">
                 <label>Position Z (Floor)</label>
                 <div class="floor-controls">
-                    <button id="floor-up" onclick="changeFloor(-1)">▲</button>
-                    <input type="number" id="input-z" value="7" disabled>
-                    <button id="floor-down" onclick="changeFloor(1)">▼</button>
+                    <button id="floor-up" onclick="changeFloor(-1)" aria-label="Floor Up">▲</button>
+                    <input type="number" id="input-z" value="7" disabled aria-label="Current Floor">
+                    <button id="floor-down" onclick="changeFloor(1)" aria-label="Floor Down">▼</button>
                 </div>
             </div>
 
@@ -67,9 +67,9 @@
             <div class="bottom-controls">
                 <div id="cursor-coords">Hover map to see coords</div>
                 <div id="nav-controls">
-                    <button onclick="zoomIn()">+</button>
-                    <button onclick="zoomOut()">-</button>
-                    <button onclick="resetView()">Reset</button>
+                    <button onclick="zoomIn()" aria-label="Zoom In">+</button>
+                    <button onclick="zoomOut()" aria-label="Zoom Out">-</button>
+                    <button onclick="resetView()" aria-label="Reset View">Reset</button>
                 </div>
             </div>
         </div>

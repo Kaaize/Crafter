@@ -588,6 +588,7 @@ function updateVectorList() {
         const btn = document.createElement('button');
         btn.className = 'delete-btn';
         btn.textContent = 'X';
+        btn.setAttribute('aria-label', `Delete vector ${v.label}`);
         btn.onclick = () => deleteVector(v.id);
 
         item.appendChild(info);
