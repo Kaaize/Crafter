@@ -21,18 +21,18 @@
             <div class="control-group">
                 <label>Coordinates</label>
                 <div class="input-row">
-                    <input type="number" id="input-x" placeholder="X">
-                    <input type="number" id="input-y" placeholder="Y">
-                    <button id="btn-paste" title="Paste from Clipboard" onclick="pasteAndFill()">📋</button>
+                    <input type="number" id="input-x" placeholder="X" aria-label="X Coordinate">
+                    <input type="number" id="input-y" placeholder="Y" aria-label="Y Coordinate">
+                    <button id="btn-paste" title="Paste from Clipboard" aria-label="Paste coordinates from clipboard" onclick="pasteAndFill()">📋</button>
                 </div>
             </div>
 
             <div class="control-group">
                 <label>Position Z (Floor)</label>
                 <div class="floor-controls">
-                    <button id="floor-up" onclick="changeFloor(-1)">▲</button>
-                    <input type="number" id="input-z" value="7" disabled>
-                    <button id="floor-down" onclick="changeFloor(1)">▼</button>
+                    <button id="floor-up" onclick="changeFloor(-1)" aria-label="Floor Up" title="Floor Up">▲</button>
+                    <input type="number" id="input-z" value="7" disabled aria-label="Current Floor">
+                    <button id="floor-down" onclick="changeFloor(1)" aria-label="Floor Down" title="Floor Down">▼</button>
                 </div>
             </div>
 
@@ -40,19 +40,19 @@
             <div id="compass-container">
                 <div class="compass">
                     <div class="compass-row">
-                        <button class="dir-btn nw" onclick="handleCompassClick('NW')">NW</button>
-                        <button class="dir-btn n" onclick="handleCompassClick('N')">N</button>
-                        <button class="dir-btn ne" onclick="handleCompassClick('NE')">NE</button>
+                        <button class="dir-btn nw" onclick="handleCompassClick('NW')" aria-label="North West" title="North West">NW</button>
+                        <button class="dir-btn n" onclick="handleCompassClick('N')" aria-label="North" title="North">N</button>
+                        <button class="dir-btn ne" onclick="handleCompassClick('NE')" aria-label="North East" title="North East">NE</button>
                     </div>
                     <div class="compass-row">
-                        <button class="dir-btn w" onclick="handleCompassClick('W')">W</button>
+                        <button class="dir-btn w" onclick="handleCompassClick('W')" aria-label="West" title="West">W</button>
                         <div class="compass-center"></div>
-                        <button class="dir-btn e" onclick="handleCompassClick('E')">E</button>
+                        <button class="dir-btn e" onclick="handleCompassClick('E')" aria-label="East" title="East">E</button>
                     </div>
                     <div class="compass-row">
-                        <button class="dir-btn sw" onclick="handleCompassClick('SW')">SW</button>
-                        <button class="dir-btn s" onclick="handleCompassClick('S')">S</button>
-                        <button class="dir-btn se" onclick="handleCompassClick('SE')">SE</button>
+                        <button class="dir-btn sw" onclick="handleCompassClick('SW')" aria-label="South West" title="South West">SW</button>
+                        <button class="dir-btn s" onclick="handleCompassClick('S')" aria-label="South" title="South">S</button>
+                        <button class="dir-btn se" onclick="handleCompassClick('SE')" aria-label="South East" title="South East">SE</button>
                     </div>
                 </div>
             </div>
@@ -67,9 +67,9 @@
             <div class="bottom-controls">
                 <div id="cursor-coords">Hover map to see coords</div>
                 <div id="nav-controls">
-                    <button onclick="zoomIn()">+</button>
-                    <button onclick="zoomOut()">-</button>
-                    <button onclick="resetView()">Reset</button>
+                    <button onclick="zoomIn()" aria-label="Zoom In" title="Zoom In">+</button>
+                    <button onclick="zoomOut()" aria-label="Zoom Out" title="Zoom Out">-</button>
+                    <button onclick="resetView()" aria-label="Reset Map View">Reset</button>
                 </div>
             </div>
         </div>
