@@ -73,6 +73,14 @@ nav {
     transform: scale(1.1);
 }
 
+.filter-icon:focus-visible {
+    outline: 2px solid #ad8484;
+    outline-offset: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ad8484;
+    filter: grayscale(0%) opacity(1);
+}
+
 /* Active State */
 .filter-icon.active {
     background: rgba(173, 132, 132, 0.2);

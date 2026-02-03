@@ -22,5 +22,11 @@ console.log(tierbtns)
 for (let i=0; i<tierbtns.length; i++) {
     tierbtns[i].addEventListener("click", changeActive)
     tierbtns[i].addEventListener("click", SetFilter)
+    tierbtns[i].addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            this.click();
+        }
+    })
 }
 
