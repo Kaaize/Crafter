@@ -17,32 +17,38 @@ async function initializeCrafter() {
     loadRecipes();
 }
 
-function setupEventListeners() {
-    arsenal2 = document.getElementById("filter-arsenal_2");
-    arsenal2.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_2");
-        loadRecipes();
-    });
-
-    arsenal3 = document.getElementById("filter-arsenal_3");
-    arsenal3.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_3");
-        loadRecipes()
-    });
-
-    arsenal4 = document.getElementById("filter-arsenal_4");
-    arsenal4.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_4");
-        loadRecipes()
-    });
-
-    filterFood = document.getElementById("filter-food");
-    if (filterFood) {
-        filterFood.addEventListener("click", () => {
-            recipeList = filterItemsByGroup(allItems, "food");
-            loadRecipes();
-        });
+function makeAccessible(element, label) {
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('role', 'button');
+    if (label) {
+        element.setAttribute('aria-label', label);
     }
+    element.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.target.click();
+        }
+    });
+}
+
+function setupEventListeners() {
+    const filters = [
+        { id: "filter-arsenal_2", group: "arsenal_2", label: "Ship Tier II" },
+        { id: "filter-arsenal_3", group: "arsenal_3", label: "Ship Tier III" },
+        { id: "filter-arsenal_4", group: "arsenal_4", label: "Ship Tier IV" },
+        { id: "filter-food", group: "food", label: "Food" }
+    ];
+
+    filters.forEach(({ id, group, label }) => {
+        const el = document.getElementById(id);
+        if (el) {
+            makeAccessible(el, label);
+            el.addEventListener("click", () => {
+                recipeList = filterItemsByGroup(allItems, group);
+                loadRecipes();
+            });
+        }
+    });
 }
 
 /**
@@ -196,6 +202,8 @@ function updateSelectedRecipesDisplay() {
 
         const delBtn = document.createElement("button");
         delBtn.classList.add("delete-btn");
+        delBtn.title = "Remove " + info.name;
+        delBtn.setAttribute("aria-label", "Remove " + info.name);
         delBtn.addEventListener("click", () => {
             delete selectedRecipes[id];
             updateSelectedRecipesDisplay();
@@ -263,6 +271,8 @@ function loadRecipes() {
             updateSelectedRecipesDisplay();
             updateResultList();
         })
+
+        makeAccessible(div, "Add " + item.name);
 
         recipeListDiv.appendChild(div);
     });
