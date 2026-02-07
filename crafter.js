@@ -17,20 +17,37 @@ async function initializeCrafter() {
     loadRecipes();
 }
 
+function makeAccessible(element, label) {
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('role', 'button');
+    if (label) {
+        element.setAttribute('aria-label', label);
+    }
+    element.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.target.click();
+        }
+    });
+}
+
 function setupEventListeners() {
     arsenal2 = document.getElementById("filter-arsenal_2");
+    makeAccessible(arsenal2, "Filter by Ship Tier II");
     arsenal2.addEventListener("click", () => {
         recipeList = filterItemsByGroup(allItems, "arsenal_2");
         loadRecipes();
     });
 
     arsenal3 = document.getElementById("filter-arsenal_3");
+    makeAccessible(arsenal3, "Filter by Ship Tier III");
     arsenal3.addEventListener("click", () => {
         recipeList = filterItemsByGroup(allItems, "arsenal_3");
         loadRecipes()
     });
 
     arsenal4 = document.getElementById("filter-arsenal_4");
+    makeAccessible(arsenal4, "Filter by Ship Tier IV");
     arsenal4.addEventListener("click", () => {
         recipeList = filterItemsByGroup(allItems, "arsenal_4");
         loadRecipes()
@@ -38,6 +55,7 @@ function setupEventListeners() {
 
     filterFood = document.getElementById("filter-food");
     if (filterFood) {
+        makeAccessible(filterFood, "Filter by Food");
         filterFood.addEventListener("click", () => {
             recipeList = filterItemsByGroup(allItems, "food");
             loadRecipes();
@@ -108,6 +126,7 @@ function updateResultListDisplay() {
 
         divGroupTitle = document.createElement("div");
         divGroupTitle.classList.add("result-group-title");
+        makeAccessible(divGroupTitle, "Toggle " + group + " ingredients");
         divGroupTitle.addEventListener("click", () => {
             document.getElementById('group-' + group.toLocaleUpperCase()).classList.toggle("hidden");
         });
@@ -196,6 +215,8 @@ function updateSelectedRecipesDisplay() {
 
         const delBtn = document.createElement("button");
         delBtn.classList.add("delete-btn");
+        delBtn.setAttribute("aria-label", "Remove " + info.name);
+        delBtn.setAttribute("title", "Remove " + info.name);
         delBtn.addEventListener("click", () => {
             delete selectedRecipes[id];
             updateSelectedRecipesDisplay();
@@ -239,6 +260,7 @@ function loadRecipes() {
 
         const div = document.createElement("div");
         div.classList.add("recipe");
+        makeAccessible(div, "Add " + item.name + " to list");
 
         const img = document.createElement("img");
         if (item.image) {
