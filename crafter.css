@@ -340,3 +340,14 @@ body {
 .hidden {
     display: none !important;
 }
+
+/* Accessibility Focus Styles */
+.recipe:focus-visible,
+.result-group-title:focus-visible,
+.filter-food:focus-visible,
+.filter-arsenal-2:focus-visible,
+.filter-arsenal-3:focus-visible,
+.filter-arsenal-4:focus-visible {
+    outline: 2px solid #ad8484;
+    outline-offset: 2px;
+}

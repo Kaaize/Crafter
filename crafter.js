@@ -23,18 +23,21 @@ function setupEventListeners() {
         recipeList = filterItemsByGroup(allItems, "arsenal_2");
         loadRecipes();
     });
+    makeAccessible(arsenal2, "Filter by Ship Tier 2");
 
     arsenal3 = document.getElementById("filter-arsenal_3");
     arsenal3.addEventListener("click", () => {
         recipeList = filterItemsByGroup(allItems, "arsenal_3");
         loadRecipes()
     });
+    makeAccessible(arsenal3, "Filter by Ship Tier 3");
 
     arsenal4 = document.getElementById("filter-arsenal_4");
     arsenal4.addEventListener("click", () => {
         recipeList = filterItemsByGroup(allItems, "arsenal_4");
         loadRecipes()
     });
+    makeAccessible(arsenal4, "Filter by Ship Tier 4");
 
     filterFood = document.getElementById("filter-food");
     if (filterFood) {
@@ -42,7 +45,22 @@ function setupEventListeners() {
             recipeList = filterItemsByGroup(allItems, "food");
             loadRecipes();
         });
+        makeAccessible(filterFood, "Filter by Food");
     }
+}
+
+function makeAccessible(element, label) {
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('role', 'button');
+    if (label) {
+        element.setAttribute('aria-label', label);
+    }
+    element.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.target.click();
+        }
+    });
 }
 
 /**
@@ -111,6 +129,7 @@ function updateResultListDisplay() {
         divGroupTitle.addEventListener("click", () => {
             document.getElementById('group-' + group.toLocaleUpperCase()).classList.toggle("hidden");
         });
+        makeAccessible(divGroupTitle, "Toggle " + group.toUpperCase() + " results");
 
         divGroupText = document.createElement("h3");
         divGroupText.textContent = group.toUpperCase();
@@ -263,6 +282,7 @@ function loadRecipes() {
             updateSelectedRecipesDisplay();
             updateResultList();
         })
+        makeAccessible(div, "Add " + item.name + " to selection");
 
         recipeListDiv.appendChild(div);
     });
