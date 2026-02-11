@@ -27,6 +27,30 @@ var currentSelectedArtifact = 0;
 var currentSelectedTrophy = 0;
 var currentSelectedOrb = 0;
 
+var lastFocusedElement = null;
+
+function openModal(modal, focusId) {
+    lastFocusedElement = document.activeElement;
+    modal.style.display = "block";
+
+    let focusTarget = focusId ? document.getElementById(focusId) : null;
+    if (!focusTarget) {
+        focusTarget = modal.querySelector('input, button, [href], [tabindex]:not([tabindex="-1"])');
+    }
+
+    if (focusTarget) {
+        setTimeout(() => focusTarget.focus(), 50);
+    }
+}
+
+function closeModal(modal) {
+    modal.style.display = "none";
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+    }
+}
+
 async function loadInfo() {
     const resposta = await fetch("drakantos_builder.json");
     data = await resposta.json();
@@ -524,7 +548,7 @@ function setCharacter(characterID) {
 };
 
 function characterOptionClick(character) {
-    modalCharacter.style.display = "none";
+    closeModal(modalCharacter);
     setCharacter(character);
 };
 
@@ -581,25 +605,25 @@ function selectArtifact() {
     loadArtifacts();
     updateArtifactPreview(build.artifacts[currentArtifactSlotID]);
 
-    modalArtifact.style.display = "block";
+    openModal(modalArtifact, 'search-artifact-input');
 };
 
 function selectTrophy() {
     loadTrophies();
     updateTrophyPreview(build.trophies[currentTrophySlotID])
 
-    modalTrophy.style.display = "block";
+    openModal(modalTrophy, 'search-trophy-input');
 };
 
 function selectCharacter() {
-    modalCharacter.style.display = "block";
+    openModal(modalCharacter);
 }
 
 function selectOrb() {
     loadOrbs(build.character, currentSkillSlotID);
     updateOrbPreview(currentSkillSlotID, build.orbs[currentSkillSlotID]);
 
-    modalOrb.style.display = "block";
+    openModal(modalOrb, 'search-orb-input');
 };
 
 function artifactSlotClick(event) {
@@ -753,13 +777,13 @@ function setModalEvents() {
     const artifactOkButton = document.getElementById('artifact-ok-button');
     artifactOkButton.addEventListener('click', () => {
         setArtifact(currentArtifactSlotID, currentSelectedArtifact);
-        modalArtifact.style.display = "none";
+        closeModal(modalArtifact);
         currentSelectedArtifact = 0;
     })
 
     const artifactCancelButton = document.getElementById('artifact-cancel-button');
     artifactCancelButton.addEventListener('click', () => {
-        modalArtifact.style.display = "none";
+        closeModal(modalArtifact);
         currentSelectedArtifact = 0;
     });
 
@@ -797,13 +821,13 @@ function setModalEvents() {
     const trophyOkButton = document.getElementById('trophy-ok-button');
     trophyOkButton.addEventListener('click', () => {
         setTrophy(currentTrophySlotID, currentSelectedTrophy);
-        modalTrophy.style.display = "none";
+        closeModal(modalTrophy);
         currentSelectedTrophy = 0;
     });
 
     const trophyCancelButton = document.getElementById('trophy-cancel-button');
     trophyCancelButton.addEventListener('click', () => {
-        modalTrophy.style.display = "none";
+        closeModal(modalTrophy);
         currentSelectedTrophy = 0;
     });
 
@@ -844,13 +868,13 @@ function setModalEvents() {
     const orbOkButton = document.getElementById('orb-ok-button');
     orbOkButton.addEventListener('click', () => {
         setOrb(currentSkillSlotID, currentSelectedOrb);
-        modalOrb.style.display = "none";
+        closeModal(modalOrb);
         currentSelectedOrb = 0;
     });
 
     const orbCancelButton = document.getElementById('orb-cancel-button');
     orbCancelButton.addEventListener('click', () => {
-        modalOrb.style.display = "none";
+        closeModal(modalOrb);
         currentSelectedOrb = 0;
     });
 
@@ -865,16 +889,16 @@ function setModalEvents() {
 
     window.onclick = function (event) {
         if (event.target == modalArtifact) {
-            modalArtifact.style.display = "none";
+            closeModal(modalArtifact);
         }
         else if (event.target == modalTrophy) {
-            modalTrophy.style.display = "none";
+            closeModal(modalTrophy);
         }
         else if (event.target == modalCharacter) {
-            modalCharacter.style.display = "none";
+            closeModal(modalCharacter);
         }
         else if (event.target == modalOrb) {
-            modalOrb.style.display = "none";
+            closeModal(modalOrb);
         }
     };
 };
@@ -927,6 +951,15 @@ function loadParamQuery() {
 
 
 function main() {
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (modalArtifact.style.display === "block") closeModal(modalArtifact);
+            else if (modalTrophy.style.display === "block") closeModal(modalTrophy);
+            else if (modalCharacter.style.display === "block") closeModal(modalCharacter);
+            else if (modalOrb.style.display === "block") closeModal(modalOrb);
+        }
+    });
+
     window.addEventListener('contextmenu', (e) => {
         e.preventDefault();
     });
