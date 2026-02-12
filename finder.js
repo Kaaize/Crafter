@@ -488,6 +488,26 @@ async function pasteAndFill() {
 
             status.textContent = "Pasted: " + match[1] + ", " + match[2];
             status.style.color = "#4CAF50";
+
+            // Visual feedback on button
+            const btn = document.getElementById('btn-paste');
+            if (btn) {
+                const originalText = btn.dataset.originalText || btn.textContent;
+                btn.dataset.originalText = originalText;
+                btn.textContent = "✅";
+
+                if (btn.dataset.timeoutId) {
+                    clearTimeout(parseInt(btn.dataset.timeoutId));
+                }
+
+                const timeoutId = setTimeout(() => {
+                    btn.textContent = originalText;
+                    delete btn.dataset.timeoutId;
+                }, 2000);
+
+                btn.dataset.timeoutId = timeoutId;
+            }
+
             return true;
         } else {
             status.textContent = "No coords found in clipboard.";
@@ -589,6 +609,8 @@ function updateVectorList() {
         btn.className = 'delete-btn';
         btn.textContent = 'X';
         btn.onclick = () => deleteVector(v.id);
+        btn.setAttribute('aria-label', `Delete vector ${v.label}`);
+        btn.title = "Delete Vector";
 
         item.appendChild(info);
         item.appendChild(btn);
