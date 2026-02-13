@@ -30,9 +30,9 @@
             <div class="control-group">
                 <label>Position Z (Floor)</label>
                 <div class="floor-controls">
-                    <button id="floor-up" onclick="changeFloor(-1)">▲</button>
+                    <button id="floor-up" onclick="changeFloor(-1)" aria-label="Floor Up" title="Go Up One Floor">▲</button>
                     <input type="number" id="input-z" value="7" disabled>
-                    <button id="floor-down" onclick="changeFloor(1)">▼</button>
+                    <button id="floor-down" onclick="changeFloor(1)" aria-label="Floor Down" title="Go Down One Floor">▼</button>
                 </div>
             </div>
 
@@ -67,9 +67,9 @@
             <div class="bottom-controls">
                 <div id="cursor-coords">Hover map to see coords</div>
                 <div id="nav-controls">
-                    <button onclick="zoomIn()">+</button>
-                    <button onclick="zoomOut()">-</button>
-                    <button onclick="resetView()">Reset</button>
+                    <button onclick="zoomIn()" aria-label="Zoom In" title="Zoom In">+</button>
+                    <button onclick="zoomOut()" aria-label="Zoom Out" title="Zoom Out">-</button>
+                    <button onclick="resetView()" aria-label="Reset View" title="Reset View">Reset</button>
                 </div>
             </div>
         </div>

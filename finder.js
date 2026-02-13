@@ -468,6 +468,8 @@ function updateCursorCoords(e) {
 
 async function pasteAndFill() {
     const status = document.getElementById('status');
+    const btn = document.getElementById('btn-paste');
+
     try {
         const text = await navigator.clipboard.readText();
         const regex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)/i;
@@ -488,6 +490,13 @@ async function pasteAndFill() {
 
             status.textContent = "Pasted: " + match[1] + ", " + match[2];
             status.style.color = "#4CAF50";
+
+            // Visual feedback on button
+            btn.textContent = "✅";
+            setTimeout(() => {
+                btn.textContent = "📋";
+            }, 2000);
+
             return true;
         } else {
             status.textContent = "No coords found in clipboard.";
@@ -588,6 +597,8 @@ function updateVectorList() {
         const btn = document.createElement('button');
         btn.className = 'delete-btn';
         btn.textContent = 'X';
+        btn.setAttribute('aria-label', `Delete vector ${v.label}`);
+        btn.title = 'Delete vector';
         btn.onclick = () => deleteVector(v.id);
 
         item.appendChild(info);
