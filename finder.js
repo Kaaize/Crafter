@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 const loading = document.getElementById('map-loading');
 const cursorDisplay = document.getElementById('cursor-coords');
 const vectorListEl = document.getElementById('vector-list');
+const sidebar = document.getElementById('sidebar');
 
 // Vector Canvas
 const vectorCanvas = document.getElementById('vector-canvas');
@@ -450,6 +451,10 @@ window.addEventListener('wheel', (e) => {
 
 function updateCursorCoords(e) {
     if (!canvas.width) return;
+
+    // Don't update if hovering sidebar (keeps last valid coords for copying)
+    if (sidebar && sidebar.contains(e.target)) return;
+
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
@@ -457,12 +462,21 @@ function updateCursorCoords(e) {
     const localY = Math.floor((mouseY - pannedY) / scale);
     const globalX = localX + GLOBAL_OFFSET_X;
     const globalY = localY + GLOBAL_OFFSET_Y;
+
+    // Reset classes
+    cursorDisplay.classList.remove('coords-valid', 'coords-invalid');
+    // Remove inline style color if it was set by previous version or JS logic
+    cursorDisplay.style.color = '';
+
     if (localX >= 0 && localX < canvas.width && localY >= 0 && localY < canvas.height) {
-        cursorDisplay.textContent = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
-        cursorDisplay.style.color = "#4CAF50";
+        const text = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
+        cursorDisplay.textContent = text;
+        cursorDisplay.classList.add('coords-valid');
+        cursorDisplay.dataset.coords = text;
     } else {
         cursorDisplay.textContent = `Out of bounds`;
-        cursorDisplay.style.color = "#888";
+        cursorDisplay.classList.add('coords-invalid');
+        cursorDisplay.dataset.coords = ''; // Clear so we don't copy junk
     }
 }
 
@@ -700,3 +714,31 @@ function resetView() {
     loadFloor(currentFloor, false);
     // loadFloor calls setZoomIndex(0) inside via preserveView logic
 }
+
+let copyTimeout;
+cursorDisplay.addEventListener('click', () => {
+    // Only copy if we have valid coords
+    const text = cursorDisplay.dataset.coords;
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+        // Visual Feedback
+        const originalText = text;
+        cursorDisplay.textContent = "Copied!";
+        cursorDisplay.classList.add('coords-copied');
+        cursorDisplay.classList.remove('coords-valid');
+
+        if (copyTimeout) clearTimeout(copyTimeout);
+
+        copyTimeout = setTimeout(() => {
+            // Restore text only if it hasn't been updated by mouse movement
+            if (cursorDisplay.textContent === "Copied!") {
+                cursorDisplay.textContent = originalText;
+            }
+            cursorDisplay.classList.remove('coords-copied');
+            cursorDisplay.classList.add('coords-valid');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+});

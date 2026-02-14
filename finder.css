@@ -330,6 +330,27 @@ button {
     text-align: center;
     margin-bottom: 10px;
     font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+#cursor-coords:hover {
+    filter: brightness(1.2);
+    text-decoration: underline;
+}
+
+.coords-valid {
+    color: #4CAF50 !important;
+}
+
+.coords-invalid {
+    color: #888 !important;
+}
+
+.coords-copied {
+    color: #4CAF50 !important;
+    font-weight: bold;
 }
 
 #nav-controls {
