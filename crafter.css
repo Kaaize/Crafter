@@ -94,6 +94,14 @@ body {
     transform: scale(1.1);
 }
 
+.filter-arsenal-2:focus-visible,
+.filter-arsenal-3:focus-visible,
+.filter-arsenal-4:focus-visible,
+.filter-food:focus-visible {
+    outline: 2px solid #ad8484;
+    outline-offset: 2px;
+}
+
 /* Recipe Cards */
 .recipe {
     display: flex;
@@ -112,6 +120,11 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-color: #ad8484;
+}
+
+.recipe:focus-visible {
+    outline: 2px solid #ad8484;
+    outline-offset: 2px;
 }
 
 .recipe img {
@@ -276,6 +289,11 @@ body {
 
 .result-group-title:hover {
     background-color: #353941;
+}
+
+.result-group-title:focus-visible {
+    outline: 2px solid #ad8484;
+    outline-offset: -2px;
 }
 
 .result-group-title h3 {
