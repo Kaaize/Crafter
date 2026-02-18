@@ -468,6 +468,7 @@ function updateCursorCoords(e) {
 
 async function pasteAndFill() {
     const status = document.getElementById('status');
+    const btn = document.getElementById('btn-paste');
     try {
         const text = await navigator.clipboard.readText();
         const regex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)/i;
@@ -488,6 +489,22 @@ async function pasteAndFill() {
 
             status.textContent = "Pasted: " + match[1] + ", " + match[2];
             status.style.color = "#4CAF50";
+
+            if (btn) {
+                const originalText = "📋";
+                btn.textContent = "✅";
+                btn.style.backgroundColor = "rgba(76, 175, 80, 0.2)";
+                btn.style.borderColor = "#4CAF50";
+
+                if (btn._pasteTimeout) clearTimeout(btn._pasteTimeout);
+                btn._pasteTimeout = setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.backgroundColor = "";
+                    btn.style.borderColor = "";
+                    btn._pasteTimeout = null;
+                }, 2000);
+            }
+
             return true;
         } else {
             status.textContent = "No coords found in clipboard.";
