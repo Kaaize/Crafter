@@ -23,16 +23,16 @@
                 <div class="input-row">
                     <input type="number" id="input-x" placeholder="X">
                     <input type="number" id="input-y" placeholder="Y">
-                    <button id="btn-paste" title="Paste from Clipboard" onclick="pasteAndFill()">📋</button>
+                    <button id="btn-paste" title="Paste from Clipboard" aria-label="Paste coordinates from clipboard" onclick="pasteAndFill()">📋</button>
                 </div>
             </div>
 
             <div class="control-group">
                 <label>Position Z (Floor)</label>
                 <div class="floor-controls">
-                    <button id="floor-up" onclick="changeFloor(-1)">▲</button>
+                    <button id="floor-up" aria-label="Go up a floor" onclick="changeFloor(-1)">▲</button>
                     <input type="number" id="input-z" value="7" disabled>
-                    <button id="floor-down" onclick="changeFloor(1)">▼</button>
+                    <button id="floor-down" aria-label="Go down a floor" onclick="changeFloor(1)">▼</button>
                 </div>
             </div>
 
@@ -62,13 +62,13 @@
                 <!-- Vector items will appear here -->
             </div>
 
-            <div id="status"></div>
+            <div id="status" aria-live="polite"></div>
 
             <div class="bottom-controls">
-                <div id="cursor-coords">Hover map to see coords</div>
+                <div id="cursor-coords" role="button" tabindex="0" title="Click to copy coordinates" style="cursor: pointer;">Hover map to see coords</div>
                 <div id="nav-controls">
-                    <button onclick="zoomIn()">+</button>
-                    <button onclick="zoomOut()">-</button>
+                    <button aria-label="Zoom In" onclick="zoomIn()">+</button>
+                    <button aria-label="Zoom Out" onclick="zoomOut()">-</button>
                     <button onclick="resetView()">Reset</button>
                 </div>
             </div>

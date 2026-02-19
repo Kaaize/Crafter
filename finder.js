@@ -448,7 +448,54 @@ window.addEventListener('wheel', (e) => {
     }
 }, { passive: false });
 
+// Click-to-Copy Coordinates
+if (cursorDisplay) {
+    cursorDisplay.addEventListener('click', async () => {
+        const text = cursorDisplay.textContent;
+        // Simple regex to extract X, Y, Z (handling newlines)
+        const match = text.match(/X:\s*(\d+)\s+Y:\s*(\d+)\s+Z:\s*(\d+)/);
+
+        if (match) {
+            const formatted = `X: ${match[1]}, Y: ${match[2]}, Z: ${match[3]}`;
+            try {
+                await navigator.clipboard.writeText(formatted);
+
+                // Visual feedback
+                const originalText = text;
+                const originalColor = cursorDisplay.style.color;
+
+                cursorDisplay.textContent = "Copied!";
+
+                // Use a distinct color for success feedback
+                // #4CAF50 is the success green used elsewhere
+                cursorDisplay.style.color = "#4CAF50";
+
+                setTimeout(() => {
+                    // Only revert if user hasn't moved mouse back to map (which would overwrite text)
+                    if (cursorDisplay.textContent === "Copied!") {
+                        cursorDisplay.textContent = originalText;
+                        cursorDisplay.style.color = originalColor;
+                    }
+                }, 1500);
+            } catch (err) {
+                console.error("Copy failed:", err);
+            }
+        }
+    });
+
+    // Keyboard support (Enter/Space)
+    cursorDisplay.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            cursorDisplay.click();
+        }
+    });
+}
+
 function updateCursorCoords(e) {
+    // Sticky behavior: Don't update if hovering sidebar/controls
+    if (!e.target.closest('#map-viewport')) return;
+
     if (!canvas.width) return;
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
