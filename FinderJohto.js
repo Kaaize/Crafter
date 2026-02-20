@@ -26,6 +26,7 @@ let startX, startY;
 const mapImage = new Image();
 // List of vectors
 let vectors = [];
+let pasteTimeout;
 // We won't set src immediately if we are going full preload mode, 
 // to avoid the image loading race condition with our preload logic.
 // But we can fallback to image if OTMM fails.
@@ -372,6 +373,7 @@ function updateCursorCoords(e) {
 
 async function pasteAndFill() {
     const status = document.getElementById('status');
+    const pasteBtn = document.getElementById('btn-paste');
     try {
         const text = await navigator.clipboard.readText();
         const regex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)/i;
@@ -397,6 +399,14 @@ async function pasteAndFill() {
 
             status.textContent = "Pasted: " + match[1] + ", " + match[2];
             status.style.color = "#4CAF50";
+
+            // Visual Feedback
+            pasteBtn.textContent = "✅";
+            if (pasteTimeout) clearTimeout(pasteTimeout);
+            pasteTimeout = setTimeout(() => {
+                pasteBtn.textContent = "📋";
+            }, 1500);
+
             return true;
         } else {
             status.textContent = "No coords found in clipboard.";
@@ -507,6 +517,8 @@ function updateVectorList() {
         const btn = document.createElement('button');
         btn.className = 'delete-btn';
         btn.textContent = 'X';
+        btn.setAttribute('aria-label', 'Delete vector');
+        btn.setAttribute('title', 'Delete vector');
         btn.onclick = () => deleteVector(v.id);
 
         item.appendChild(info);
