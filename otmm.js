@@ -1,3 +1,35 @@
+// Precompute color palette for faster rendering
+// 6x6x6 color cube + alpha logic
+// Bolt Optimization: Replaced per-pixel math with O(1) LUT lookup and 32-bit writes
+const COLOR_LUT = new Uint32Array(256);
+(function () {
+    // Detect Endianness
+    const isLittleEndian = new Uint8Array(new Uint32Array([0x12345678]).buffer)[0] === 0x78;
+
+    for (let i = 0; i < 256; i++) {
+        let r = 0, g = 0, b = 0, a = 255;
+        if (i >= 216) {
+            a = 0;
+        } else {
+            // Original logic:
+            // r = Math.floor((colorIdx / 36) % 6 * 51);
+            // g = Math.floor((colorIdx / 6) % 6 * 51);
+            // b = Math.floor((colorIdx % 6) * 51);
+            r = (Math.floor(i / 36) % 6) * 51;
+            g = (Math.floor(i / 6) % 6) * 51;
+            b = (i % 6) * 51;
+        }
+
+        if (isLittleEndian) {
+            // ABGR
+            COLOR_LUT[i] = (a << 24) | (b << 16) | (g << 8) | r;
+        } else {
+            // RGBA
+            COLOR_LUT[i] = (r << 24) | (g << 16) | (b << 8) | a;
+        }
+    }
+})();
+
 class OTMMLoader {
     constructor() {
         this.blocks = [];
@@ -133,6 +165,9 @@ class OTMMLoader {
         const ctx = targetCanvas.getContext('2d');
         const mapImageData = ctx.createImageData(width, height);
 
+        // Bolt Optimization: Use 32-bit view for faster pixel writing
+        const mapData32 = new Uint32Array(mapImageData.data.buffer);
+
         let processed = 0;
         const total = blocks.length;
 
@@ -151,14 +186,8 @@ class OTMMLoader {
                 for (let i = 0; i < rawBytes.length; i += 3) {
                     const colorIdx = rawBytes[i + 1];
 
-                    let r = 0, g = 0, b = 0, a = 255;
-                    if (colorIdx >= 216) {
-                        a = 0;
-                    } else {
-                        r = Math.floor((colorIdx / 36) % 6 * 51);
-                        g = Math.floor((colorIdx / 6) % 6 * 51);
-                        b = Math.floor((colorIdx % 6) * 51);
-                    }
+                    // Bolt Optimization: Use LUT
+                    const packedColor = COLOR_LUT[colorIdx];
 
                     const pIdx = i / 3;
                     const px = pIdx % blockW;
@@ -167,12 +196,9 @@ class OTMMLoader {
                     const globalX = originX + px;
                     const globalY = originY + py;
 
-                    const bufferIdx = (globalY * width + globalX) * 4;
+                    const bufferIdx = (globalY * width + globalX);
 
-                    mapImageData.data[bufferIdx] = r;
-                    mapImageData.data[bufferIdx + 1] = g;
-                    mapImageData.data[bufferIdx + 2] = b;
-                    mapImageData.data[bufferIdx + 3] = a;
+                    mapData32[bufferIdx] = packedColor;
                 }
 
             } catch (err) { }

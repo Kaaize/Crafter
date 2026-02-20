@@ -33,6 +33,20 @@ async function loadInfo() {
     main();
 };
 
+function makeAccessible(element, label) {
+    element.setAttribute('tabindex', '0');
+    element.setAttribute('role', 'button');
+    if (label) {
+        element.setAttribute('aria-label', label);
+    }
+    element.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.target.click();
+        }
+    });
+}
+
 function formatPlaceHolder(text, format) {
     switch (format) {
         case 0: return `<span class="white-highlight">${text}</span>`;
@@ -50,12 +64,13 @@ function formatAbilityDescription(ability) {
     const values = ability.VALUES;
 
     let i = 0;
-    while (description.includes('%s') && i < values.length) {
-        description = description.replace('%s', formatPlaceHolder(values[i][0], values[i][1]));
-        i++;
-    }
-
-    return description;
+    return description.replace(/%s/g, (match) => {
+        if (i < values.length) {
+            const val = values[i++];
+            return formatPlaceHolder(val[0], val[1]);
+        }
+        return match;
+    });
 }
 
 function isItemCharacterAllowed(item, characterID) {
@@ -186,6 +201,8 @@ function loadArtifacts() {
             artifactClick(artifact.index, event)
         });
 
+        makeAccessible(div, "Select " + artifact.artifact.NAME);
+
         if (artifact.index == build.artifacts[currentArtifactSlotID]) {
             div.classList.add('selected')
         }
@@ -230,6 +247,8 @@ function loadTrophies() {
             trophyClick(trophy.index, event)
         });
 
+        makeAccessible(div, "Select " + trophy.trophy.NAME);
+
         if (trophy.index == build.trophies[currentTrophySlotID]) {
             div.classList.add('selected')
         }
@@ -257,6 +276,8 @@ function loadCharacters() {
         div.addEventListener("click", () => {
             characterOptionClick(index)
         });
+
+        makeAccessible(div, "Select " + character.NAME);
 
         const characterOptions = document.getElementsByClassName('character-options')[0];
         characterOptions.appendChild(div);
@@ -305,6 +326,8 @@ function loadOrbs(characterID, skillID) {
         div.addEventListener("click", (event) => {
             orbClick(skillID, index, event)
         });
+
+        makeAccessible(div, "Select " + orb.NAME);
 
         if (index == build.orbs[currentSkillSlotID]) {
             div.classList.add('selected')
@@ -697,7 +720,8 @@ function updateOrbTooltip(slotID, skillID) {
 
 function setModalEvents() {
     const artifacts = document.querySelectorAll(".artifact-slot-image");
-    artifacts.forEach(artifact => {
+    artifacts.forEach((artifact, index) => {
+        makeAccessible(artifact, "Select Artifact Slot " + (index + 1));
         artifact.addEventListener("click", artifactSlotClick);
         artifact.addEventListener('mouseenter', () => {
             const slotID = artifact.getAttribute('data-artifact-slot');
@@ -740,7 +764,8 @@ function setModalEvents() {
     });
 
     const trophies = document.querySelectorAll(".trophy-slot-image");
-    trophies.forEach(trophy => {
+    trophies.forEach((trophy, index) => {
+        makeAccessible(trophy, "Select Trophy Slot " + (index + 1));
         trophy.addEventListener("click", trophySlotClick);
         trophy.addEventListener('mouseenter', () => {
             const slotID = trophy.getAttribute('data-trophy-slot');
@@ -783,10 +808,12 @@ function setModalEvents() {
     });
 
     var characterImage = characterSlot.getElementsByClassName('character-slot-image')[0];
+    makeAccessible(characterImage, "Select Character");
     characterImage.addEventListener("click", characterSlotClick);
 
     const skills = document.querySelectorAll(".skill-slot-image");
     skills.forEach((skill, index) => {
+        makeAccessible(skill, "Select Ability Slot " + (index + 1));
         skill.addEventListener("click", skillSlotClick);
         skill.addEventListener('mouseenter', () => {
             if (!data.CHARACTERS[build.character] ||
@@ -908,8 +935,21 @@ function main() {
     loadCharacters()
     setModalEvents();
 
+    let copyTimeout;
     copyButton.addEventListener("click", () => {
-        navigator.clipboard.writeText(linkInput.value)
+        navigator.clipboard.writeText(linkInput.value).then(() => {
+            copyButton.innerText = "Copied!";
+            copyButton.classList.add("copied");
+
+            if (copyTimeout) clearTimeout(copyTimeout);
+
+            copyTimeout = setTimeout(() => {
+                copyButton.innerText = "Copy Link";
+                copyButton.classList.remove("copied");
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
     });
 
     updateBuild();

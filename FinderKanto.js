@@ -6,7 +6,11 @@ const loading = document.getElementById('map-loading');
 const cursorDisplay = document.getElementById('cursor-coords');
 const vectorListEl = document.getElementById('vector-list');
 
-// Map Config
+// Vector Canvas
+const vectorCanvas = document.getElementById('vector-canvas');
+const vectorCtx = vectorCanvas.getContext('2d');
+const mapViewport = document.getElementById('map-viewport');
+
 // Map Config
 let GLOBAL_OFFSET_X = 2816;
 let GLOBAL_OFFSET_Y = 3136;
@@ -15,6 +19,7 @@ let GLOBAL_OFFSET_Y = 3136;
 let currentFloor = 7;
 let floorsData = null; // Stores parsed OTMM data { z: { blocks, minX... } }
 const floorCache = new Map(); // Stores rendered contexts
+const MAX_CACHE_SIZE = 3; // LRU Cache Limit
 let isMapLoading = false;
 
 let scale = 1;
@@ -23,22 +28,29 @@ let pannedY = 0;
 let isDragging = false;
 let startX, startY;
 
-const mapImage = new Image();
+// Zoom Configuration
+const zoomFactors = [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0]; // 7 Levels: Fit -> Close (Soft start)
+let currentZoomIndex = 0;
+
 // List of vectors
 let vectors = [];
-// We won't set src immediately if we are going full preload mode, 
-// to avoid the image loading race condition with our preload logic.
-// But we can fallback to image if OTMM fails.
-// Just keep it simple: Init triggers the preload.
-
-// Fallback: Generate from OTMM if PNG fails is now the PRIMARY path for multi-floor
-// consistency. We will try to load OTMM immediately on start.
 
 window.addEventListener('DOMContentLoaded', initApp);
+window.addEventListener('resize', handleResize);
+
+function handleResize() {
+    if (!vectorCanvas || !mapViewport) return;
+    vectorCanvas.width = mapViewport.clientWidth;
+    vectorCanvas.height = mapViewport.clientHeight;
+    updateTransform();
+}
 
 async function initApp() {
     loading.style.display = 'block';
     loading.textContent = "Initializing Map Data...";
+
+    // Init vector canvas size
+    handleResize();
 
     try {
         const loader = new OTMMLoader();
@@ -71,10 +83,6 @@ async function initApp() {
         loading.innerHTML = `Error initializing map:<br>${err.message}<br><small>${err.stack}</small>`;
         loading.style.color = "#ff5555";
     }
-
-    // Fallback to legacy PNG mode if OTMM fails completely? 
-    // Or just show error since multi-floor depends on OTMM.
-    // Let's rely on OTMM for consistency.
 }
 
 function updateFloorUI() {
@@ -84,11 +92,8 @@ function updateFloorUI() {
 async function changeFloor(delta) {
     const newFloor = currentFloor + delta;
     if (floorsData && !floorsData[newFloor]) {
-        // If we have data but this floor doesn't exist, check limits?
-        // Or maybe just let it try?
-        // Check if floor exists in data keys
-        // if (!floorsData[newFloor]) return; 
-        // But 0-15 are standard, maybe just empty.
+        // If no data, we generally assume empty or skip?
+        // Standard Tibia floors 0-15
         if (newFloor < 0 || newFloor > 15) return;
     } else {
         if (newFloor < 0 || newFloor > 15) return;
@@ -125,36 +130,48 @@ async function loadFloor(z, preserveView, targetGlobalX, targetGlobalY) {
         // If we don't have buckets yet (init failed?), can't do much
         if (!floorsData) throw new Error("Map data not loaded");
 
-        let floorCtx = floorCache.get(z);
+        let floorCtx;
 
-        if (!floorCtx) {
+        // LRU Cache Logic
+        if (floorCache.has(z)) {
+            // Cache Hit: Move to end (most recent)
+            floorCtx = floorCache.get(z);
+            floorCache.delete(z);
+            floorCache.set(z, floorCtx);
+        } else {
+            // Cache Miss
+            // Evict if full
+            if (floorCache.size >= MAX_CACHE_SIZE) {
+                const oldestKey = floorCache.keys().next().value;
+                floorCache.delete(oldestKey);
+            }
+
             // Render it
             const fd = floorsData[z];
             if (!fd) {
-                console.warn(`Floor ${z} has no data! Floors found: ${Object.keys(floorsData)}`);
+                console.warn(`Floor ${z} has no data!`);
                 // Empty floor
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                isMapLoading = false;
-                return;
+                // Create a small empty canvas to avoid errors
+                const fCanvas = document.createElement('canvas');
+                fCanvas.width = 100;
+                fCanvas.height = 100;
+                floorCtx = fCanvas.getContext('2d');
+            } else {
+                console.log(`Rendering Floor ${z}, Found ${fd.blocks.length} blocks.`);
+                const width = (fd.maxX - fd.minX) + 64;
+                const height = (fd.maxY - fd.minY) + 64;
+
+                const fCanvas = document.createElement('canvas');
+                fCanvas.width = width;
+                fCanvas.height = height;
+
+                const loader = new OTMMLoader();
+                await loader.renderFloor(fd, fCanvas, (msg) => {
+                    loading.textContent = msg;
+                });
+                floorCtx = fCanvas.getContext('2d');
             }
 
-            console.log(`Rendering Floor ${z}, Found ${fd.blocks.length} blocks. Bounds: ${fd.minX},${fd.minY} to ${fd.maxX},${fd.maxY}`);
-
-            // Create canvas for this floor
-            // Bounds
-            const width = (fd.maxX - fd.minX) + 64;
-            const height = (fd.maxY - fd.minY) + 64;
-
-            const fCanvas = document.createElement('canvas');
-            fCanvas.width = width;
-            fCanvas.height = height;
-
-            const loader = new OTMMLoader(); // Helper instance
-            await loader.renderFloor(fd, fCanvas, (msg) => {
-                loading.textContent = msg;
-            });
-
-            floorCtx = fCanvas.getContext('2d');
             floorCache.set(z, floorCtx);
         }
 
@@ -162,12 +179,10 @@ async function loadFloor(z, preserveView, targetGlobalX, targetGlobalY) {
         canvas.width = floorCtx.canvas.width;
         canvas.height = floorCtx.canvas.height;
 
-        // Use our new unified redraw function to ensure vectors are drawn over the new floor
+        // Draw floor texture
         redrawMap();
 
         // Update Map Config for this floor
-        // We need minX/minY from the floorsData to set GLOBAL_OFFSET
-        // Wait, cache just stores context. We need metadata.
         const fd = floorsData[z];
         if (fd) {
             GLOBAL_OFFSET_X = fd.minX;
@@ -189,16 +204,16 @@ async function loadFloor(z, preserveView, targetGlobalX, targetGlobalY) {
             pannedX = (viewportW / 2) - (newLocalCenterX * scale);
             pannedY = (viewportH / 2) - (newLocalCenterY * scale);
         } else if (!preserveView) {
-            // Reset to center
+            // Reset to fit and center
+            currentZoomIndex = 0;
+            scale = getTargetScale(0);
             const viewportW = container.clientWidth;
             const viewportH = container.clientHeight;
-            pannedX = (viewportW - canvas.width) / 2;
-            pannedY = (viewportH - canvas.height) / 2;
-            scale = 0.8;
+            pannedX = (viewportW - canvas.width * scale) / 2;
+            pannedY = (viewportH - canvas.height * scale) / 2;
         }
 
-        updateTransform();
-        // renderCanvas(); // Removed: mapImage.onload will trigger renderCanvas via initMap
+        updateTransform(); // This will trigger drawVectors
         loading.style.display = 'none';
 
     } catch (err) {
@@ -210,95 +225,104 @@ async function loadFloor(z, preserveView, targetGlobalX, targetGlobalY) {
     isMapLoading = false;
 }
 
-// Remove old initMap as it is replaced by initApp / loadFloor logic
-// Keep renderCanvas etc.
-
 function redrawMap() {
+    // Only draws the map image. Vectors are handled by drawVectors.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw current floor from cache
     const floorCtx = floorCache.get(currentFloor);
     if (floorCtx) {
         ctx.drawImage(floorCtx.canvas, 0, 0);
-    } else {
-        // Fallback or empty?
-        // If we are here, maybe we should trigger a load, but usually load handles drawing.
     }
+}
 
-    // Draw ALL vectors
+// Replaces old drawVectorOnCanvas
+// Supports optional override parameters for animation syncing
+function drawVectors(overrideScale, overridePannedX, overridePannedY) {
+    // Use overrides if provided, otherwise use global state
+    const currentScale = (overrideScale !== undefined) ? overrideScale : scale;
+    const currentPannedX = (overridePannedX !== undefined) ? overridePannedX : pannedX;
+    const currentPannedY = (overridePannedY !== undefined) ? overridePannedY : pannedY;
+
+    // Clear vector canvas (screen space)
+    vectorCtx.clearRect(0, 0, vectorCanvas.width, vectorCanvas.height);
+
+    if (vectors.length === 0) return;
+
+    const viewportW = vectorCanvas.width;
+    const viewportH = vectorCanvas.height;
+    // Length large enough to cover screen diagonal
+    // Use map dimensions * scale to ensure lines don't disappear when panning
+    const maxLen = Math.max(canvas.width, canvas.height) * currentScale * 3;
+
     vectors.forEach(v => {
-        drawVectorOnCanvas(v);
+        const { localX, localY, angle1, angle2 } = v;
+
+        // Project Map Point to Screen Point
+        // Screen = Panned + Map * Scale
+        const screenX = currentPannedX + localX * currentScale;
+        const screenY = currentPannedY + localY * currentScale;
+
+        vectorCtx.save();
+
+        // Calculate endpoints in screen space
+        const x1 = screenX + Math.cos(angle1) * maxLen;
+        const y1 = screenY + Math.sin(angle1) * maxLen;
+        const x2 = screenX + Math.cos(angle2) * maxLen;
+        const y2 = screenY + Math.sin(angle2) * maxLen;
+
+        // --- 1. Vector Boundaries (The "V" Shape) ---
+        vectorCtx.beginPath();
+        vectorCtx.moveTo(screenX, screenY);
+        vectorCtx.lineTo(x1, y1);
+        vectorCtx.moveTo(screenX, screenY);
+        vectorCtx.lineTo(x2, y2);
+
+        // Draw Vector Lines
+        vectorCtx.lineWidth = 3;
+        vectorCtx.strokeStyle = "black";
+        vectorCtx.setLineDash([]);
+        vectorCtx.stroke();
+
+        // --- 2. Distance Markers (Clipped Squares) ---
+        // Distances: 30 and 500 (Map Units)
+        const distances = [
+            { r: 30, color: "black" },
+            { r: 500, color: "black" }
+        ];
+
+        // Setup Clip Region (The Cone)
+        vectorCtx.beginPath();
+        vectorCtx.moveTo(screenX, screenY);
+        vectorCtx.lineTo(x1, y1);
+        vectorCtx.lineTo(x2, y2);
+        vectorCtx.closePath();
+        vectorCtx.clip();
+
+        // Draw Squares
+        distances.forEach(d => {
+            const r = d.r * currentScale; // Scale the radius
+            vectorCtx.beginPath();
+            vectorCtx.rect(screenX - r, screenY - r, r * 2, r * 2);
+
+            vectorCtx.lineWidth = 3;
+            vectorCtx.strokeStyle = "black";
+            vectorCtx.setLineDash([]);
+            vectorCtx.stroke();
+        });
+
+        vectorCtx.restore();
+
+        // --- 3. Center Marker (Dot) ---
+        vectorCtx.fillStyle = "black";
+        vectorCtx.fillRect(screenX - 1, screenY - 1, 2, 2);
     });
 }
-// Alias for compatibility if needed, though we will replace calls.
-const renderCanvas = redrawMap;
-
-function drawVectorOnCanvas(data) {
-    const { localX, localY, angle1, angle2 } = data;
-
-    ctx.save();
-
-    // --- 1. Vector Boundaries (The "V" Shape) ---
-    const maxLen = Math.max(canvas.width, canvas.height) * 2;
-    const x1 = localX + Math.cos(angle1) * maxLen;
-    const y1 = localY + Math.sin(angle1) * maxLen;
-    const x2 = localX + Math.cos(angle2) * maxLen;
-    const y2 = localY + Math.sin(angle2) * maxLen;
-
-    ctx.beginPath();
-    ctx.moveTo(localX, localY);
-    ctx.lineTo(x1, y1);
-    ctx.moveTo(localX, localY);
-    ctx.lineTo(x2, y2);
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
-    ctx.setLineDash([]);
-    ctx.stroke();
-
-    // --- 2. Distance Markers (Clipped Squares) ---
-    // Distances: 30 and 500
-    const distances = [
-        { r: 30, color: "black" },
-        { r: 500, color: "black" }
-    ];
-
-    // Setup Clip Region (The Cone)
-    ctx.beginPath();
-    ctx.moveTo(localX, localY);
-    ctx.lineTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.closePath();
-    ctx.clip(); // <--- Only draw things inside the V
-
-    // Draw Squares
-    distances.forEach(d => {
-        const r = d.r;
-        ctx.beginPath();
-        // Draw full square centered at origin
-        ctx.rect(localX - r, localY - r, r * 2, r * 2);
-
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = d.color;
-        ctx.setLineDash([2, 2]); // Fine dots
-        ctx.stroke();
-    });
-
-    ctx.restore(); // Restore clip (and context stack)
-
-    // --- 3. Center Marker (Dot) ---
-    // Drawn AFTER restore so it's not clipped/affected
-    ctx.save();
-    ctx.fillStyle = "black";
-    ctx.fillRect(localX - 1, localY - 1, 2, 2); // 2x2 pixel dot
-    ctx.restore();
-}
-
-// ... (Transform/Clamp/Interaction functions remain same) ...
 
 function updateTransform() {
     clampPosition();
     content.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${scale})`;
+    // Sync vector overlay
+    drawVectors();
 }
 
 function clampPosition() {
@@ -312,29 +336,108 @@ function clampPosition() {
     else { const minY = viewportH - h; if (pannedY < minY) pannedY = minY; if (pannedY > 0) pannedY = 0; }
 }
 
-// ... (Mouse events remain same) ...
-container.addEventListener('mousedown', (e) => { e.preventDefault(); isDragging = true; startX = e.clientX - pannedX; startY = e.clientY - pannedY; });
+// ... Mouse events ...
+container.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isDragging = true;
+    startX = e.clientX - pannedX;
+    startY = e.clientY - pannedY;
+
+    // Disable transition during drag for responsiveness
+    content.classList.remove('map-transition');
+});
+
 window.addEventListener('mousemove', (e) => {
     updateCursorCoords(e);
-    if (!isDragging) return; e.preventDefault(); pannedX = e.clientX - startX; pannedY = e.clientY - startY; updateTransform();
+    if (!isDragging) return;
+    e.preventDefault();
+    pannedX = e.clientX - startX;
+    pannedY = e.clientY - startY;
+    updateTransform();
 });
 window.addEventListener('mouseup', () => { isDragging = false; });
 container.addEventListener('wheel', (e) => {
     e.preventDefault();
+    if (e.ctrlKey) return; // Floor shortcut handled below
+
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    const contentX = (mouseX - pannedX) / scale;
-    const contentY = (mouseY - pannedY) / scale;
-    const delta = -Math.sign(e.deltaY);
-    let newScale = scale * (delta > 0 ? 1.1 : 0.9);
-    if (newScale < 0.1) newScale = 0.1; if (newScale > 10) newScale = 10;
-    pannedX = mouseX - contentX * newScale;
-    pannedY = mouseY - contentY * newScale;
-    scale = newScale;
-    updateTransform();
+
+    const direction = -Math.sign(e.deltaY);
+    setZoomIndex(currentZoomIndex + direction, { x: mouseX, y: mouseY });
+
     updateCursorCoords(e);
 });
+
+// Touch Events (Mobile)
+let initialPinchDist = 0;
+let initialScale = 1;
+
+container.addEventListener('touchstart', (e) => {
+    // Disable transition for any touch interaction (pan/pinch)
+    content.classList.remove('map-transition');
+
+    if (e.touches.length === 1) {
+        // Single touch: Pan
+        isDragging = true;
+        startX = e.touches[0].clientX - pannedX;
+        startY = e.touches[0].clientY - pannedY;
+    } else if (e.touches.length === 2) {
+        // Multi touch: Pinch Zoom
+        isDragging = false;
+        initialPinchDist = getPinchDist(e);
+        initialScale = scale;
+    }
+}, { passive: false });
+
+container.addEventListener('touchmove', (e) => {
+    e.preventDefault(); // Prevent scroll/zoom of page
+    if (e.touches.length === 1 && isDragging) {
+        pannedX = e.touches[0].clientX - startX;
+        pannedY = e.touches[0].clientY - startY;
+        updateTransform();
+    } else if (e.touches.length === 2) {
+        const currentDist = getPinchDist(e);
+        if (initialPinchDist > 0) {
+            const pinchScale = currentDist / initialPinchDist;
+            let newScale = initialScale * pinchScale;
+
+            // Center zoom on pinch center
+            const rect = container.getBoundingClientRect();
+            const p1 = e.touches[0];
+            const p2 = e.touches[1];
+            const centerX = (p1.clientX + p2.clientX) / 2 - rect.left;
+            const centerY = (p1.clientY + p2.clientY) / 2 - rect.top;
+
+            const contentX = (centerX - pannedX) / scale;
+            const contentY = (centerY - pannedY) / scale;
+
+            if (newScale < 0.1) newScale = 0.1;
+            if (newScale > 10) newScale = 10;
+
+            pannedX = centerX - contentX * newScale;
+            pannedY = centerY - contentY * newScale;
+            scale = newScale;
+            updateTransform();
+        }
+    }
+}, { passive: false });
+
+container.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+        initialPinchDist = 0;
+    }
+    if (e.touches.length === 0) {
+        isDragging = false;
+    }
+});
+
+function getPinchDist(e) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
 
 // Floor shortcut (CTRL + Scroll)
 window.addEventListener('wheel', (e) => {
@@ -345,7 +448,6 @@ window.addEventListener('wheel', (e) => {
     }
 }, { passive: false });
 
-// ... (Cursor Coords / Paste remain same) ...
 function updateCursorCoords(e) {
     if (!canvas.width) return;
     const rect = container.getBoundingClientRect();
@@ -374,11 +476,6 @@ async function pasteAndFill() {
         if (match) {
             document.getElementById('input-x').value = match[1];
             document.getElementById('input-y').value = match[2];
-            // Check for Z if present
-            const regexZ = /(?:Z[:\s]*)?(\d+)/i;
-            // Logic to find Z might be tricky if not in same string, but let's try
-            // Actually original regex had Z, let's keep simple for now or parsing logic
-            // Original: /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)[^0-9]+(?:Z[:\s]*)?(\d+)/i
 
             const fullRegex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)[^0-9]+(?:Z[:\s]*)?(\d+)/i;
             const fullMatch = text.match(fullRegex);
@@ -406,18 +503,17 @@ async function pasteAndFill() {
 
 async function handleCompassClick(dir) {
     // 1. Try to paste first
-    const pasted = await pasteAndFill();
+    await pasteAndFill();
 
-    // 2. Add vector using current input values (whether pasted or existing)
+    // 2. Add vector using current input values
     addVector(dir);
 }
 
-// --- NEW Multi-Vector Logic (Updated) ---
 function addVector(dir) {
     const status = document.getElementById('status');
     const inputX = parseInt(document.getElementById('input-x').value);
     const inputY = parseInt(document.getElementById('input-y').value);
-    // dir is passed in now
+
     if (!dir) {
         status.textContent = "Please select a direction (N, NE, etc.)";
         status.style.color = "#ff5555";
@@ -453,18 +549,10 @@ function addVector(dir) {
     const rad1 = (baseAngle - coneHalfAngle) * (Math.PI / 180);
     const rad2 = (baseAngle + coneHalfAngle) * (Math.PI / 180);
 
-    const length = Math.max(canvas.width, canvas.height) * 2;
-
-    const x1 = localX + Math.cos(rad1) * length;
-    const y1 = localY + Math.sin(rad1) * length;
-
-    const x2 = localX + Math.cos(rad2) * length;
-    const y2 = localY + Math.sin(rad2) * length;
-
     const newVector = {
         id: Date.now(),
         label: `(${inputX}, ${inputY}) ${dir}`,
-        localX, localY, angle1: rad1, angle2: rad2, x1, y1, x2, y2
+        localX, localY, angle1: rad1, angle2: rad2
     };
 
     vectors.push(newVector);
@@ -479,13 +567,12 @@ function addVector(dir) {
     pannedY = (viewportH / 2) - (localY * scale);
 
     updateTransform();
-    renderCanvas();
 }
 
 function deleteVector(id) {
     vectors = vectors.filter(v => v.id !== id);
     updateVectorList();
-    renderCanvas();
+    drawVectors();
 }
 
 function updateVectorList() {
@@ -509,8 +596,101 @@ function updateVectorList() {
     });
 }
 
-function zoomIn() { scale *= 1.2; updateTransform(); }
-function zoomOut() { scale /= 1.2; updateTransform(); }
+function getTargetScale(index) {
+    if (!canvas.width) return 1;
+    const viewportW = container.clientWidth;
+    const viewportH = container.clientHeight;
+
+    // Scale to fit (95% of viewport)
+    const scaleFitX = viewportW / canvas.width;
+    const scaleFitY = viewportH / canvas.height;
+    const scaleFit = Math.min(scaleFitX, scaleFitY) * 0.95;
+
+    // Scale to show 100 tiles width
+    const scaleClose = viewportW / 100;
+
+    const factor = zoomFactors[index];
+    // Linear interpolation between Fit and Close
+    return scaleFit + (scaleClose - scaleFit) * factor;
+}
+
+function setZoomIndex(index, centerPoint) {
+    if (index < 0) index = 0;
+    if (index >= zoomFactors.length) index = zoomFactors.length - 1;
+
+    // Enable smooth transition for zoom actions
+    content.classList.add('map-transition');
+
+    const oldScale = scale;
+    const newScale = getTargetScale(index);
+    currentZoomIndex = index;
+    scale = newScale;
+
+    // Center Logic
+    const viewportW = container.clientWidth;
+    const viewportH = container.clientHeight;
+
+    let cX, cY;
+    if (centerPoint) {
+        cX = centerPoint.x;
+        cY = centerPoint.y;
+    } else {
+        cX = viewportW / 2;
+        cY = viewportH / 2;
+    }
+
+    // Screen = Panned + Content * Scale
+    // Content = (Screen - Panned) / OldScale
+    const contentX = (cX - pannedX) / oldScale;
+    const contentY = (cY - pannedY) / oldScale;
+
+    // NewPanned = Screen - Content * NewScale
+    pannedX = cX - contentX * newScale;
+    pannedY = cY - contentY * newScale;
+
+    updateTransform();
+
+    // Start synced vector animation
+    animateVectors();
+}
+
+let animationFrameId = null;
+
+function animateVectors() {
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+    const startTime = performance.now();
+
+    function loop() {
+        const style = window.getComputedStyle(content);
+        const matrix = new WebKitCSSMatrix(style.transform);
+
+        // Extract transition state
+        // scale is usually matrix.a (for 2d uniform scale)
+        // translate is matrix.e (x) and matrix.f (y)
+        const currentScale = matrix.a;
+        const currentPanX = matrix.e;
+        const currentPanY = matrix.f;
+
+        drawVectors(currentScale, currentPanX, currentPanY);
+
+        // Check if transition is roughly done (optional fallback)
+        // Better to rely on transitionend, but loop keeps it fluid
+        animationFrameId = requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+// Stop animation when transition ends
+content.addEventListener('transitionend', () => {
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+    drawVectors(); // Final draw with canonical state
+});
+
+function zoomIn() { setZoomIndex(currentZoomIndex + 1); }
+function zoomOut() { setZoomIndex(currentZoomIndex - 1); }
 function resetView() {
     // Clear vectors
     vectors = [];
@@ -518,4 +698,5 @@ function resetView() {
 
     // Reset view for current floor (preserveView = false)
     loadFloor(currentFloor, false);
+    // loadFloor calls setZoomIndex(0) inside via preserveView logic
 }

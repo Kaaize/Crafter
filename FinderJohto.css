@@ -39,6 +39,7 @@ html {
     padding: 20px;
     gap: 15px;
     backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
 }
 
 .sidebar-title {
@@ -377,6 +378,7 @@ button {
     height: 100%;
     cursor: grab;
     position: relative;
+    touch-action: none; /* Important for custom touch events */
 }
 
 #map-container:active {
@@ -388,6 +390,21 @@ button {
     top: 0;
     left: 0;
     transform-origin: 0 0;
+}
+
+/* Added for soft zoom effect */
+.map-transition {
+    transition: transform 0.3s ease-out;
+}
+
+#vector-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
 }
 
 #map-canvas {
@@ -411,4 +428,39 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #ad8484;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .finder-container {
+        flex-direction: column;
+    }
+
+    .sidebar-glass {
+        width: 100%;
+        height: 40%; /* Occupy bottom 40%? Or top? */
+        /* Let's make it a bottom sheet style for map tools, or top? */
+        /* Actually common pattern is sidebar is collapsible or takes full screen until map is needed */
+        /* Let's try flexible height but limited */
+        height: auto;
+        max-height: 40vh;
+        order: 2; /* Move to bottom */
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    #map-viewport {
+        width: 100%;
+        height: 60vh; /* Remaining height */
+        order: 1;
+    }
+
+    .sidebar-title {
+        font-size: 1.1rem;
+    }
+
+    .input-row {
+        flex-wrap: wrap;
+    }
 }
