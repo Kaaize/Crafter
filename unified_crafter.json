@@ -655,7 +655,199 @@
                     "qty": 4
                 }
             ]
+        },        
+        "kit_melhoria_5": {
+            "group": "arsenal_5",
+            "name": "Kit de Melhoria de Navio V",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "canhao_5",
+                    "qty": 1
+                },
+                {
+                    "id": "vela_5",
+                    "qty": 1
+                },
+                {
+                    "id": "casco_5",
+                    "qty": 1
+                }
+            ]
+        },      
+        "canhao_5": {
+            "group": "arsenal_5",
+            "name": "Canhão 5",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "prancha_de_carvalho",
+                    "qty": 2
+                },
+                {
+                    "id": "corda",
+                    "qty": 1
+                },
+                {
+                    "id": "lingote_de_ferro",
+                    "qty": 2
+                },
+                {
+                    "id": "prego_de_ferro",
+                    "qty": 2
+                },
+                {
+                    "id": "polvora_melhorada",
+                    "qty": 25
+                },
+                {
+                    "id": "bala_de_canhao",
+                    "qty": 4
+                }
+            ]
         },
+        "vela_5": {
+            "group": "arsenal_5",
+            "name": "Vela 5",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "tora_de_carvalho",
+                    "qty": 30
+                },
+                {
+                    "id": "pano",
+                    "qty": 7
+                },
+                {
+                    "id": "corda",
+                    "qty": 2
+                },
+                {
+                    "id": "prego_de_ferro",
+                    "qty": 2
+                },
+                {
+                    "id": "cola",
+                    "qty": 5
+                }
+            ]
+        },
+        "casco_5": {
+            "group": "arsenal_5",
+            "name": "Casco 5",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "prancha_de_carvalho",
+                    "qty": 11
+                },
+                {
+                    "id": "lingote_de_ferro",
+                    "qty": 3
+                },
+                {
+                    "id": "prego_de_ferro",
+                    "qty": 4
+                }
+            ]
+        },    
+        "kit_melhoria_6": {
+            "group": "arsenal_6",
+            "name": "Kit de Melhoria de Navio VI",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "canhao_6",
+                    "qty": 1
+                },
+                {
+                    "id": "vela_6",
+                    "qty": 1
+                },
+                {
+                    "id": "casco_6",
+                    "qty": 1
+                }
+            ]
+        },      
+        "canhao_6": {
+            "group": "arsenal_6",
+            "name": "Canhão 6",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "prancha_de_mogno",
+                    "qty": 2
+                },
+                {
+                    "id": "corda_melhorada",
+                    "qty": 1
+                },
+                {
+                    "id": "lingote_de_aco",
+                    "qty": 2
+                },
+                {
+                    "id": "prego_de_aco",
+                    "qty": 2
+                },
+                {
+                    "id": "polvora_superior",
+                    "qty": 25
+                },
+                {
+                    "id": "bala_de_canhao_de_aco",
+                    "qty": 4
+                }
+            ]
+        },
+        "vela_6": {
+            "group": "arsenal_6",
+            "name": "Vela 6",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "tora_de_mogno",
+                    "qty": 30
+                },
+                {
+                    "id": "pano_melhorado",
+                    "qty": 6
+                },
+                {
+                    "id": "corda_melhorada",
+                    "qty": 2
+                },
+                {
+                    "id": "prego_de_aco",
+                    "qty": 2
+                },
+                {
+                    "id": "grande_cola",
+                    "qty": 5
+                }
+            ]
+        },
+        "casco_6": {
+            "group": "arsenal_6",
+            "name": "Casco 6",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "prancha_de_mogno",
+                    "qty": 11
+                },
+                {
+                    "id": "lingote_de_aco",
+                    "qty": 3
+                },
+                {
+                    "id": "prego_de_aco",
+                    "qty": 4
+                }
+            ]
+        },               
         "bife_cru_premium": {
             "id": "1",
             "group": "food_ingredient",
