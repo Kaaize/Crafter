@@ -36,6 +36,18 @@ function setupEventListeners() {
         loadRecipes()
     });
 
+    arsenal5 = document.getElementById("filter-arsenal_5");
+    arsenal5.addEventListener("click", () => {
+        recipeList = filterItemsByGroup(allItems, "arsenal_5");
+        loadRecipes()
+    });
+
+    arsenal6 = document.getElementById("filter-arsenal_6");
+    arsenal6.addEventListener("click", () => {
+        recipeList = filterItemsByGroup(allItems, "arsenal_6");
+        loadRecipes()
+    });
+
     filterFood = document.getElementById("filter-food");
     if (filterFood) {
         filterFood.addEventListener("click", () => {
