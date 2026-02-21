@@ -55,6 +55,27 @@ function setupEventListeners() {
             loadRecipes();
         });
     }
+
+    const filters = [
+        'filter-food',
+        'filter-arsenal_2',
+        'filter-arsenal_3',
+        'filter-arsenal_4',
+        'filter-arsenal_5',
+        'filter-arsenal_6'
+    ];
+
+    filters.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    el.click();
+                }
+            });
+        }
+    });
 }
 
 /**
