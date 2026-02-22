@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 const loading = document.getElementById('map-loading');
 const cursorDisplay = document.getElementById('cursor-coords');
 const vectorListEl = document.getElementById('vector-list');
+const mapViewport = document.getElementById('map-viewport');
 
 // Map Config
 // Map Config
@@ -26,6 +27,7 @@ let startX, startY;
 const mapImage = new Image();
 // List of vectors
 let vectors = [];
+let lastValidCoords = "";
 // We won't set src immediately if we are going full preload mode, 
 // to avoid the image loading race condition with our preload logic.
 // But we can fallback to image if OTMM fails.
@@ -354,6 +356,21 @@ window.addEventListener('wheel', (e) => {
 // ... (Cursor Coords / Paste remain same) ...
 function updateCursorCoords(e) {
     if (!canvas.width) return;
+
+    // Check if mouse is inside mapViewport
+    const vpRect = mapViewport.getBoundingClientRect();
+    if (e.clientX < vpRect.left || e.clientX > vpRect.right ||
+        e.clientY < vpRect.top || e.clientY > vpRect.bottom) {
+        // Out of viewport -> Sticky logic
+        if (lastValidCoords) {
+            cursorDisplay.textContent = lastValidCoords;
+        } else {
+            cursorDisplay.textContent = `Out of bounds`;
+        }
+        cursorDisplay.style.color = "#888";
+        return;
+    }
+
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
@@ -361,11 +378,18 @@ function updateCursorCoords(e) {
     const localY = Math.floor((mouseY - pannedY) / scale);
     const globalX = localX + GLOBAL_OFFSET_X;
     const globalY = localY + GLOBAL_OFFSET_Y;
+
     if (localX >= 0 && localX < canvas.width && localY >= 0 && localY < canvas.height) {
-        cursorDisplay.textContent = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
+        const text = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
+        cursorDisplay.textContent = text;
         cursorDisplay.style.color = "#4CAF50";
+        lastValidCoords = text;
     } else {
-        cursorDisplay.textContent = `Out of bounds`;
+        if (lastValidCoords) {
+            cursorDisplay.textContent = lastValidCoords;
+        } else {
+            cursorDisplay.textContent = `Out of bounds`;
+        }
         cursorDisplay.style.color = "#888";
     }
 }
@@ -525,3 +549,26 @@ function resetView() {
     // Reset view for current floor (preserveView = false)
     loadFloor(currentFloor, false);
 }
+
+// Click-to-Copy Coords
+cursorDisplay.addEventListener('click', async () => {
+    if (!lastValidCoords) return;
+
+    try {
+        await navigator.clipboard.writeText(lastValidCoords);
+
+        // Visual Feedback
+        cursorDisplay.textContent = "Copied!";
+        cursorDisplay.style.color = "#fff";
+
+        setTimeout(() => {
+            // Restore only if still showing "Copied!"
+            if (cursorDisplay.textContent === "Copied!") {
+                cursorDisplay.textContent = lastValidCoords;
+                cursorDisplay.style.color = "#888"; // Sticky color
+            }
+        }, 1500);
+    } catch (err) {
+        console.error("Copy failed", err);
+    }
+});

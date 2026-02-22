@@ -329,6 +329,13 @@ button {
     text-align: center;
     margin-bottom: 10px;
     font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#cursor-coords:hover {
+    color: #fff;
+    text-decoration: underline;
 }
 
 #nav-controls {

@@ -34,6 +34,7 @@ let currentZoomIndex = 0;
 
 // List of vectors
 let vectors = [];
+let lastValidCoords = "";
 
 window.addEventListener('DOMContentLoaded', initApp);
 window.addEventListener('resize', handleResize);
@@ -450,6 +451,21 @@ window.addEventListener('wheel', (e) => {
 
 function updateCursorCoords(e) {
     if (!canvas.width) return;
+
+    // Check if mouse is inside mapViewport
+    const vpRect = mapViewport.getBoundingClientRect();
+    if (e.clientX < vpRect.left || e.clientX > vpRect.right ||
+        e.clientY < vpRect.top || e.clientY > vpRect.bottom) {
+        // Out of viewport -> Sticky logic
+        if (lastValidCoords) {
+            cursorDisplay.textContent = lastValidCoords;
+        } else {
+            cursorDisplay.textContent = `Out of bounds`;
+        }
+        cursorDisplay.style.color = "#888";
+        return;
+    }
+
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
@@ -457,11 +473,18 @@ function updateCursorCoords(e) {
     const localY = Math.floor((mouseY - pannedY) / scale);
     const globalX = localX + GLOBAL_OFFSET_X;
     const globalY = localY + GLOBAL_OFFSET_Y;
+
     if (localX >= 0 && localX < canvas.width && localY >= 0 && localY < canvas.height) {
-        cursorDisplay.textContent = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
+        const text = `X: ${globalX}\nY: ${globalY}\nZ: ${currentFloor}`;
+        cursorDisplay.textContent = text;
         cursorDisplay.style.color = "#4CAF50";
+        lastValidCoords = text;
     } else {
-        cursorDisplay.textContent = `Out of bounds`;
+        if (lastValidCoords) {
+            cursorDisplay.textContent = lastValidCoords;
+        } else {
+            cursorDisplay.textContent = `Out of bounds`;
+        }
         cursorDisplay.style.color = "#888";
     }
 }
@@ -700,3 +723,26 @@ function resetView() {
     loadFloor(currentFloor, false);
     // loadFloor calls setZoomIndex(0) inside via preserveView logic
 }
+
+// Click-to-Copy Coords
+cursorDisplay.addEventListener('click', async () => {
+    if (!lastValidCoords) return;
+
+    try {
+        await navigator.clipboard.writeText(lastValidCoords);
+
+        // Visual Feedback
+        cursorDisplay.textContent = "Copied!";
+        cursorDisplay.style.color = "#fff";
+
+        setTimeout(() => {
+            // Restore only if still showing "Copied!"
+            if (cursorDisplay.textContent === "Copied!") {
+                cursorDisplay.textContent = lastValidCoords;
+                cursorDisplay.style.color = "#888"; // Sticky color
+            }
+        }, 1500);
+    } catch (err) {
+        console.error("Copy failed", err);
+    }
+});
