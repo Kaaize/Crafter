@@ -1,0 +1,9 @@
+127.0.0.1 - - [23/Feb/2026 15:10:45] "GET /FinderJohto.html HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:45] "GET /otmm.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:45] "GET /otmm_data.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:45] "GET /FinderJohto.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:45] "GET /FinderJohto.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:46] "GET /imgs/drakantos/bg.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:50] "GET /FinderKanto.html HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:50] "GET /FinderKanto.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 15:10:50] "GET /FinderKanto.js HTTP/1.1" 200 -
