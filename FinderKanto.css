@@ -329,6 +329,19 @@ button {
     text-align: center;
     margin-bottom: 10px;
     font-size: 0.9rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+#cursor-coords:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#cursor-coords:active {
+    transform: scale(0.98);
 }
 
 #nav-controls {
