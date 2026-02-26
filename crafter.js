@@ -18,43 +18,32 @@ async function initializeCrafter() {
 }
 
 function setupEventListeners() {
-    arsenal2 = document.getElementById("filter-arsenal_2");
-    arsenal2.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_2");
-        loadRecipes();
-    });
+    const filters = [
+        { id: "filter-arsenal_2", group: "arsenal_2" },
+        { id: "filter-arsenal_3", group: "arsenal_3" },
+        { id: "filter-arsenal_4", group: "arsenal_4" },
+        { id: "filter-arsenal_5", group: "arsenal_5" },
+        { id: "filter-arsenal_6", group: "arsenal_6" },
+        { id: "filter-food", group: "food" }
+    ];
 
-    arsenal3 = document.getElementById("filter-arsenal_3");
-    arsenal3.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_3");
-        loadRecipes()
-    });
+    filters.forEach(filter => {
+        const element = document.getElementById(filter.id);
+        if (element) {
+            const updateFilter = () => {
+                recipeList = filterItemsByGroup(allItems, filter.group);
+                loadRecipes();
+            };
 
-    arsenal4 = document.getElementById("filter-arsenal_4");
-    arsenal4.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_4");
-        loadRecipes()
+            element.addEventListener("click", updateFilter);
+            element.addEventListener("keydown", (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    updateFilter();
+                }
+            });
+        }
     });
-
-    arsenal5 = document.getElementById("filter-arsenal_5");
-    arsenal5.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_5");
-        loadRecipes()
-    });
-
-    arsenal6 = document.getElementById("filter-arsenal_6");
-    arsenal6.addEventListener("click", () => {
-        recipeList = filterItemsByGroup(allItems, "arsenal_6");
-        loadRecipes()
-    });
-
-    filterFood = document.getElementById("filter-food");
-    if (filterFood) {
-        filterFood.addEventListener("click", () => {
-            recipeList = filterItemsByGroup(allItems, "food");
-            loadRecipes();
-        });
-    }
 }
 
 /**

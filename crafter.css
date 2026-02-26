@@ -74,6 +74,8 @@ body {
 .filter-arsenal-2,
 .filter-arsenal-3,
 .filter-arsenal-4,
+.filter-arsenal-5,
+.filter-arsenal-6,
 .filter-food {
     color: #888;
     transition: all 0.2s ease;
@@ -88,10 +90,28 @@ body {
 .filter-arsenal-2:hover,
 .filter-arsenal-3:hover,
 .filter-arsenal-4:hover,
-.filter-food:hover {
+.filter-arsenal-5:hover,
+.filter-arsenal-6:hover,
+.filter-food:hover,
+.filter-arsenal-2:focus-visible,
+.filter-arsenal-3:focus-visible,
+.filter-arsenal-4:focus-visible,
+.filter-arsenal-5:focus-visible,
+.filter-arsenal-6:focus-visible,
+.filter-food:focus-visible {
     color: #ad8484;
     background: rgba(173, 132, 132, 0.1);
     transform: scale(1.1);
+}
+
+.filter-arsenal-2:focus-visible,
+.filter-arsenal-3:focus-visible,
+.filter-arsenal-4:focus-visible,
+.filter-arsenal-5:focus-visible,
+.filter-arsenal-6:focus-visible,
+.filter-food:focus-visible {
+    outline: 2px solid #ad8484;
+    outline-offset: 2px;
 }
 
 /* Recipe Cards */
