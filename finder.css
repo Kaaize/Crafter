@@ -1,0 +1,161 @@
+body { 
+    margin: 0; 
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+#map { 
+    flex-grow: 1;
+    height: 100vh; 
+    background: #000; 
+}
+
+#panel {
+    width: 100px;           /* Largura fixa do painel */
+    height: 100vh;
+    background-color: #222; /* Cor escura para combinar com o dark gray */
+    color: white;
+    padding: 2px;
+    border-right: 2px solid #444;
+    font-size: 5px;
+}
+
+#panel h2 {
+    text-align: center;
+}
+
+#coords-display {        
+        background: rgba(0, 0, 0, 0.7);
+        color: #00ff00; /* Estilo terminal/dev */
+        padding: 4px 4px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 5px;
+        text-align: center;
+}
+
+.leaflet-tile {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;
+    }
+
+.leaflet-zoom-animated svg 
+.leaflet-zoom-animated svg path{
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+}
+
+.leaflet-tile {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#commands {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.distance {        
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.dist-btn {    
+    border-radius: 10px;
+    width: 5px;
+    height: 15px;
+}
+
+.dist-btn.g {
+    background-color: green;
+    color: green;
+}
+.dist-btn.y {
+    background-color: yellow;
+    color: yellow;
+}
+.dist-btn.r {
+    background-color: red;
+    color: red;
+}
+
+.directions {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.directions button {
+    border-radius: 10px;
+    border-style: solid;
+    color: #333;
+    text-align: center;
+    font-size: 8px;
+}
+
+#pos-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    font-size: 5px;
+    height: 40%;
+    overflow-y: scroll;
+}
+
+.pos-item {
+    display: flex;    
+    align-content: center;
+    text-align: center;
+    width: 90%;
+    height: 10px;
+    border-style: solid;
+    justify-content: space-between;
+    padding: 2px;
+    margin-bottom: 2px;
+}
+
+.pos-item button {
+    background-color: #555;
+    color: white;
+    font-size: 4px;
+}
+
+#clear-btn {
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 100%;
+    height: 15px;
+    background-color: #555;
+    color: white;
+    font-size: 8px;
+}
+
+.floor-control {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.floor-control button {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 4px;
+    font-size: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.floor-control button:hover {
+    background-color: #f4f4f4;
+}
+
+.floor-control button:active {
+    background-color: #ddd;
+}

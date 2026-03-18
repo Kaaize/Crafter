@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet Tiles - Z/X/Y</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="finder.css" />
+</head>
+
+<body>
+    <div id="panel">
+        <h2>Finder Kanto</h2>
+        <p id="coords-display">X: 0, Y: 0</p>
+        <div id="commands">
+            <div class="distance">
+                <button class="dist-btn g" onclick="distClick(0)"></button>
+                <button class="dist-btn y" onclick="distClick(1)"></button>
+                <button class="dist-btn r" onclick="distClick(2)"></button>
+            </div>
+            <div class="directions">
+                <button class="dir-nw" onclick="dirClick(5)">↖</button>
+                <button class="dir-n" onclick="dirClick(6)">↑</button>
+                <button class="dir-ne" onclick="dirClick(7)">↗</button>
+            </div>
+            <div class="directions">
+                <button class="dir-w" onclick="dirClick(4)">←</button>
+                <button class="dir-c" onclick="dirClick(-1)">•</button>
+                <button class="dir-e" onclick="dirClick(0)">→</button>  
+            </div>
+            <div class="directions">
+                <button class="dir-sw" onclick="dirClick(3)">↙</button>
+                <button class="dir-s" onclick="dirClick(2)">↓</button>
+                <button class="dir-se" onclick="dirClick(1)">↘</button>
+            </div>            
+        </div>  
+        <div>
+            <button id="clear-btn" onclick="LimparLista();">Limpar</button>
+        </div>
+        <div id="pos-list">            
+        </div>
+    </div>
+    <div id="map"></div>
+</body>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="finder.js"></script>
+
+</html>
