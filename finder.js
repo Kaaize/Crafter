@@ -3,46 +3,57 @@ const display = document.getElementById('coords-display');
 let seletorAtivo = null;
 let cruzAtiva = null;
 
-let limiteX = 7000
+let limiteX = 5000
 let limiteY = 7000
 
-let curDist = {min: 20, max: 200}
+let curDist = {min: 30, max: 500, zoom: 2}
 let curDir = 0
 
 let infos = []
+
+let zoom = {x: 0, y: 0, z: 0}
 
 var CRSPixel = L.Util.extend(L.CRS.Simple, {
     transformation: new L.Transformation(1, 0, 1, 0)
 })
 
+distButtons = document.querySelectorAll('.dist-btn');
+
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
 const andares = {
-    "1": L.tileLayer('tiles/1/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "2": L.tileLayer('tiles/2/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "3": L.tileLayer('tiles/3/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "4": L.tileLayer('tiles/4/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "5": L.tileLayer('tiles/5/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "6": L.tileLayer('tiles/6/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "7": L.tileLayer('tiles/7/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "8": L.tileLayer('tiles/8/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "9": L.tileLayer('tiles/9/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "10": L.tileLayer('tiles/10/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "11": L.tileLayer('tiles/11/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "12": L.tileLayer('tiles/12/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "13": L.tileLayer('tiles/13/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "14": L.tileLayer('tiles/14/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "15": L.tileLayer('tiles/15/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
-    "16": L.tileLayer('tiles/16/{z}/{x}/{y}.webp', {tileSize: 256, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "1": L.tileLayer('tiles/1/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "2": L.tileLayer('tiles/2/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "3": L.tileLayer('tiles/3/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "4": L.tileLayer('tiles/4/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "5": L.tileLayer('tiles/5/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "6": L.tileLayer('tiles/6/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "7": L.tileLayer('tiles/7/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "8": L.tileLayer('tiles/8/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "9": L.tileLayer('tiles/9/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "10": L.tileLayer('tiles/10/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "11": L.tileLayer('tiles/11/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "12": L.tileLayer('tiles/12/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "13": L.tileLayer('tiles/13/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "14": L.tileLayer('tiles/14/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "15": L.tileLayer('tiles/15/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
+    "16": L.tileLayer('tiles/16/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
 }
-// 1. Configura o mapa para o plano 2D
+
+var limites = [
+    [3000, 3000],
+    [7000, 7000]
+]
+
 const map = L.map('map', {
     crs: CRSPixel,
     layers: [andares["7"]],
     minZoom: -4,
     maxZoom: 4,
-    maxbounds: [[0, 0], [26, 19]],
+    maxBounds: limites,
     zoomSnap: 1,
     zoomDelta: 1
-}).setView([4056, 3689], -2)
+}).setView([3793, 4098], 2)
 
 let marks = L.layerGroup().addTo(map);
 
@@ -80,10 +91,13 @@ const ZControl = L.Control.extend({
 map.addControl(new ZControl());
 
 function mudarAndar(novoAndar) {
-    // 1. Remove a camada de tiles atual
+
+    if (!andares[novoAndar.toString()]) {
+        return
+    }
+
     map.removeLayer(andares[andarAtual.toString()]);
     
-    // 2. Atualiza a variável e adiciona a nova camada
     andarAtual = novoAndar;
     andares[andarAtual.toString()].addTo(map);
 }
@@ -114,16 +128,21 @@ map.on('click', function(e) {
     display.innerText = `X: ${Math.floor(x)}, Y: ${Math.floor(y)} | Z: ${andarAtual}`;
 });
 
-function distClick(dist) {
+function distClick(event, dist) {
+    distButtons.forEach(element => {
+        element.classList.remove('active');
+    });
+
+    event.currentTarget.classList.add('active');
     switch(dist) {
         case 0: 
-            curDist = {min: 0, max: 20}
+            curDist = {min: 0, max: 30, zoom: 3}
             break
         case 1: 
-            curDist = {min: 20, max: 200}
+            curDist = {min: 30, max: 500, zoom: 2}
             break
         case 2: 
-            curDist = {min: 200, max: Math.max(limiteY, limiteX)}
+            curDist = {min: 500, max: Math.max(limiteY, limiteX), zoom: -1}
             break
     }
 }
@@ -133,13 +152,16 @@ function dirClick(dir) {
     pasteAndFill()
 }
 
-function focarPonto(x, y, z) {
-    console.log(z)
+function focarPonto(x, y, z, zoom) {
+    console.log(x, y, z, zoom)
     if (z !== undefined && z !== andarAtual) {
         mudarAndar(z); 
     }
 
-    map.setView([y, x], 0); 
+    x = clamp(x, limites[0][0], limites[1][0]);
+    y = clamp(y, limites[0][1], limites[1][1]);
+
+    map.setView([y, x], zoom); 
 }
 
 async function pasteAndFill() {
@@ -157,9 +179,8 @@ async function pasteAndFill() {
         }
       
         point = {x: parseInt(match[1]), y: parseInt(match[2]), z: parseInt(match[3]), dist: curDist, ang: curDir};
-        point.mark = obterListaPontos({x: point.x, y: point.y}, point.ang, point.dist.min, point.dist.max);
-        map.setView([point.y, point.x], map.getZoom());
-        focarPonto(point.x, point.y, point.z);
+        point.mark = obterListaPontos({x: point.x, y: point.y, z: point.z}, point.ang, point.dist.min, point.dist.max);
+        focarPonto(zoom.x, zoom.y, zoom.z, curDist.zoom);
         infos.push(point);
         AtualizarLista();
         return true;
@@ -179,12 +200,32 @@ function calcularDistancia(x1, y1, x2, y2) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
+function obterListaPontosQuadrado(pos, dist) {
+    const pontos = [
+        {x: pos.x - dist, y: pos.y - dist},
+        {x: pos.x + dist, y: pos.y - dist},
+        {x: pos.x + dist, y: pos.y + dist},
+        {x: pos.x - dist, y: pos.y + dist}
+    ]
+
+    return L.polygon(pontos.map(p => [p.y, p.x]), {
+        color: "#161761", 
+        weight: 1, 
+        fillOpacity: 0.2, 
+        smoothFactor: 0
+    }).addTo(marks);
+}
+
 function obterListaPontos(pos, ang, distMin, distMax) {
+    if (ang === -45) {
+        return obterListaPontosQuadrado(pos, 30);
+    }
+
     const pontosMin = [];
     const pontosMax = [];
     const angulos = [degToRad(ang - 22.5), degToRad(ang), degToRad(ang + 22.5)];
 
-    angulos.forEach(angulo => {
+    angulos.forEach((angulo, i) => {
         cos = Math.cos(angulo);
         sin = Math.sin(angulo);
 
@@ -197,16 +238,24 @@ function obterListaPontos(pos, ang, distMin, distMax) {
 
         div = Math.max(Math.abs(cos), Math.abs(sin));
         multMin = (distMin) / div;
-        multMax = Math.min(distMax, 5000) / div;
+        multMax = distMax / div;
+        multZoom = ((distMax + distMin) / 2) / div;
 
         x_min = pos.x + (cos * multMin) + pad;
         y_min = pos.y + (sin * multMin) + pad;
         x_max = pos.x + (cos * multMax);
         y_max = pos.y + (sin * multMax);
+        
+        if (i == 1) {
+            zoom.x = pos.x + (cos * multZoom);
+            zoom.y = pos.y + (sin * multZoom);
+            zoom.z = pos.z;
+        }
+
         pontosMin.push({x: x_min, y: y_min});
         pontosMax.push({x: x_max, y: y_max});
     });
-    //reverse para garantir a ordem correta dos pontos (sentido horário ou anti-horário)
+    
     const pontos = [...pontosMin, ...pontosMax.reverse()];
     return L.polygon(pontos.map(p => [p.y, p.x]), {
         color: "#161761", 
@@ -260,6 +309,5 @@ function LimparLista() {
         }
     });
     infos = []
-    console.log(infos)
     AtualizarLista();
 }

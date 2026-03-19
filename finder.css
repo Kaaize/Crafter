@@ -69,6 +69,10 @@ body {
     height: 40px;
 }
 
+.dist-btn.active {
+    border: 4px solid white;
+}
+
 .dist-btn.g {
     background-color: green;
     color: green;
