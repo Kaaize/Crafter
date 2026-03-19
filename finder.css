@@ -12,13 +12,12 @@ body {
 }
 
 #panel {
-    width: 100px;           /* Largura fixa do painel */
+    width: 250px;           /* Largura fixa do painel */
     height: 100vh;
     background-color: #222; /* Cor escura para combinar com o dark gray */
     color: white;
     padding: 2px;
     border-right: 2px solid #444;
-    font-size: 5px;
 }
 
 #panel h2 {
@@ -31,7 +30,6 @@ body {
         padding: 4px 4px;
         border-radius: 4px;
         font-family: monospace;
-        font-size: 5px;
         text-align: center;
 }
 
@@ -66,9 +64,9 @@ body {
 }
 
 .dist-btn {    
-    border-radius: 10px;
-    width: 5px;
-    height: 15px;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
 }
 
 .dist-btn.g {
@@ -96,15 +94,16 @@ body {
     border-style: solid;
     color: #333;
     text-align: center;
-    font-size: 8px;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
 }
 
 #pos-list {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    font-size: 5px;
-    height: 40%;
+    height: 60%;
     overflow-y: scroll;
 }
 
@@ -113,8 +112,9 @@ body {
     align-content: center;
     text-align: center;
     width: 90%;
-    height: 10px;
+    height: 20px;
     border-style: solid;
+    border-width: 1px;
     justify-content: space-between;
     padding: 2px;
     margin-bottom: 2px;
@@ -123,17 +123,15 @@ body {
 .pos-item button {
     background-color: #555;
     color: white;
-    font-size: 4px;
 }
 
 #clear-btn {
     margin-top: 10px;
     border-radius: 10px;
     width: 100%;
-    height: 15px;
+    height: 40px;
     background-color: #555;
     color: white;
-    font-size: 8px;
 }
 
 .floor-control {
@@ -143,11 +141,10 @@ body {
 }
 
 .floor-control button {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background-color: white;
     border-radius: 4px;
-    font-size: 5px;
     font-weight: bold;
     cursor: pointer;
 }
