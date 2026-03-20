@@ -68,6 +68,10 @@ const ZControl = L.Control.extend({
         btnUp.innerHTML = '▲';
         btnUp.title = 'Subir Andar';
 
+        const btnDisplay = L.DomUtil.create('button', '', container);
+        btnDisplay.innerHTML = andarAtual;
+        btnDisplay.className = 'floor-display';
+
         const btnDown = L.DomUtil.create('button', '', container);
         btnDown.innerHTML = '▼';
         btnDown.title = 'Descer Andar';
@@ -75,13 +79,13 @@ const ZControl = L.Control.extend({
         // Evento Subir
         L.DomEvent.on(btnUp, 'click', (e) => {
             L.DomEvent.stop(e);
-            if (andarAtual < 16) mudarAndar(andarAtual + 1);
+            if (andarAtual < 16) mudarAndar(andarAtual - 1);
         });
 
         // Evento Descer
         L.DomEvent.on(btnDown, 'click', (e) => {
             L.DomEvent.stop(e);
-            if (andarAtual > 1) mudarAndar(andarAtual - 1);
+            if (andarAtual > 1) mudarAndar(andarAtual + 1);
         });
 
         return container;
@@ -180,7 +184,12 @@ async function pasteAndFill() {
       
         point = {x: parseInt(match[1]), y: parseInt(match[2]), z: parseInt(match[3]), dist: curDist, ang: curDir};
         point.mark = obterListaPontos({x: point.x, y: point.y, z: point.z}, point.ang, point.dist.min, point.dist.max);
-        focarPonto(zoom.x, zoom.y, zoom.z, curDist.zoom);
+        if (curDist.min == 0) {
+            focarPonto(zoom.x, zoom.y, zoom.z, curDist.zoom);        
+        }
+        else {
+            focarPonto(zoom.x, zoom.y, 7, curDist.zoom);        
+        }
         infos.push(point);
         AtualizarLista();
         return true;
