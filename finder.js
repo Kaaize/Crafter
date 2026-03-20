@@ -17,6 +17,8 @@ var CRSPixel = L.Util.extend(L.CRS.Simple, {
     transformation: new L.Transformation(1, 0, 1, 0)
 })
 
+var btnDisplay = null;
+
 distButtons = document.querySelectorAll('.dist-btn');
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
@@ -68,9 +70,12 @@ const ZControl = L.Control.extend({
         btnUp.innerHTML = '▲';
         btnUp.title = 'Subir Andar';
 
-        const btnDisplay = L.DomUtil.create('button', '', container);
+        btnDisplay = L.DomUtil.create('button', '', container);
         btnDisplay.innerHTML = andarAtual;
         btnDisplay.className = 'floor-display';
+        L.DomEvent.on(btnDisplay, 'click', (e) => {
+            mudarAndar(7);
+        });
 
         const btnDown = L.DomUtil.create('button', '', container);
         btnDown.innerHTML = '▼';
@@ -79,13 +84,13 @@ const ZControl = L.Control.extend({
         // Evento Subir
         L.DomEvent.on(btnUp, 'click', (e) => {
             L.DomEvent.stop(e);
-            if (andarAtual < 16) mudarAndar(andarAtual - 1);
+            if (andarAtual > 1) mudarAndar(andarAtual - 1);
         });
 
         // Evento Descer
         L.DomEvent.on(btnDown, 'click', (e) => {
             L.DomEvent.stop(e);
-            if (andarAtual > 1) mudarAndar(andarAtual + 1);
+            if (andarAtual < 16) mudarAndar(andarAtual + 1);
         });
 
         return container;
@@ -104,6 +109,7 @@ function mudarAndar(novoAndar) {
     
     andarAtual = novoAndar;
     andares[andarAtual.toString()].addTo(map);
+    btnDisplay.innerHTML = andarAtual;
 }
 
 map.on('click', function(e) {
