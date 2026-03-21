@@ -1,17 +1,31 @@
+let allSpawnMarks
+
+async function loadSpawnMarks() {
+    try {
+        const response = await fetch('spawn_mark.json');
+
+        allSpawnMarks = await response.json();
+    } catch (error) {
+        console.error("Erro ao carregar o json de SpawnMark:", error)
+    }
+}
+
+loadSpawnMarks();
+
 const display = document.getElementById('coords-display');
 
-let seletorAtivo = null;
-let cruzAtiva = null;
+let activeSelector = null;
+let activeCross = null;
 
-let limiteX = 5000
-let limiteY = 7000
+let limitX = 5000
+let limitY = 7000
 
-let curDist = {min: 30, max: 500, zoom: 2}
+let curDist = {min: 30, max: 500}
 let curDir = 0
 
 let infos = []
 
-let zoom = {x: 0, y: 0, z: 0}
+let intersection = {mark: null, center: null, centroid: null, box: null};
 
 var CRSPixel = L.Util.extend(L.CRS.Simple, {
     transformation: new L.Transformation(1, 0, 1, 0)
@@ -23,7 +37,7 @@ distButtons = document.querySelectorAll('.dist-btn');
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-const andares = {
+const floors = {
     "1": L.tileLayer('tiles/1/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
     "2": L.tileLayer('tiles/2/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
     "3": L.tileLayer('tiles/3/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
@@ -42,55 +56,56 @@ const andares = {
     "16": L.tileLayer('tiles/16/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
 }
 
-var limites = [
+var bounds = [
     [3000, 3000],
     [7000, 7000]
 ]
 
 const map = L.map('map', {
     crs: CRSPixel,
-    layers: [andares["7"]],
+    layers: [floors["7"]],
     minZoom: -4,
     maxZoom: 4,
-    maxBounds: limites,
+    maxBounds: bounds,
     zoomSnap: 1,
     zoomDelta: 1
 }).setView([3793, 4098], 2)
 
-let marks = L.layerGroup().addTo(map);
+let spawnsLayer = L.layerGroup().addTo(map);
 
-let andarAtual = 7; // Começa no 7 conforme seu setView
+let curFloor = 7; 
 
 const ZControl = L.Control.extend({
     options: { position: 'topleft' },
     onAdd: function() {
         const container = L.DomUtil.create('div', 'floor-control');
+
+        L.DomEvent.disableClickPropagation(container);
         
         const btnUp = L.DomUtil.create('button', '', container);
         btnUp.innerHTML = '▲';
         btnUp.title = 'Subir Andar';
 
         btnDisplay = L.DomUtil.create('button', '', container);
-        btnDisplay.innerHTML = andarAtual;
+        btnDisplay.innerHTML = curFloor;
         btnDisplay.className = 'floor-display';
         L.DomEvent.on(btnDisplay, 'click', (e) => {
-            mudarAndar(7);
+            L.DomEvent.stop(e);
+            changeFloor(7);
         });
 
         const btnDown = L.DomUtil.create('button', '', container);
         btnDown.innerHTML = '▼';
         btnDown.title = 'Descer Andar';
 
-        // Evento Subir
         L.DomEvent.on(btnUp, 'click', (e) => {
             L.DomEvent.stop(e);
-            if (andarAtual > 1) mudarAndar(andarAtual - 1);
+            if (curFloor > 1) changeFloor(curFloor - 1);
         });
 
-        // Evento Descer
         L.DomEvent.on(btnDown, 'click', (e) => {
             L.DomEvent.stop(e);
-            if (andarAtual < 16) mudarAndar(andarAtual + 1);
+            if (curFloor < 16) changeFloor(curFloor + 1);
         });
 
         return container;
@@ -99,22 +114,25 @@ const ZControl = L.Control.extend({
 
 map.addControl(new ZControl());
 
-function mudarAndar(novoAndar) {
+function changeFloor(novoAndar) {
 
-    if (!andares[novoAndar.toString()]) {
+    if (!floors[novoAndar.toString()]) {
         return
     }
 
-    map.removeLayer(andares[andarAtual.toString()]);
+    map.removeLayer(floors[curFloor.toString()]);
     
-    andarAtual = novoAndar;
-    andares[andarAtual.toString()].addTo(map);
-    btnDisplay.innerHTML = andarAtual;
+    curFloor = novoAndar;
+    floors[curFloor.toString()].addTo(map);
+    btnDisplay.innerHTML = curFloor;
+
+    const points = getPointsToMarkSpawn();
+    markSpawnPoints(points);
 }
 
 map.on('click', function(e) {
-    if (seletorAtivo) map.removeLayer(seletorAtivo);
-    if (cruzAtiva) map.removeLayer(cruzAtiva);
+    if (activeSelector) map.removeLayer(activeSelector);
+    if (activeCross) map.removeLayer(activeCross);
 
     const x = Math.floor(e.latlng.lng) + 0.5;
     const y = Math.floor(e.latlng.lat) + 0.5;    
@@ -125,17 +143,16 @@ map.on('click', function(e) {
         [y - raio, x - raio]
     ];
     
-    seletorAtivo = L.rectangle(bounds, {color: "#333333", weight: 1, fillOpacity: 0, smoothFactor: 0, interactive: false}).addTo(map);
+    activeSelector = L.rectangle(bounds, {color: "#333333", weight: 1, fillOpacity: 0, smoothFactor: 0, interactive: false}).addTo(map);
 
     xMeio = x; 
     yMeio = y;
 
-    const linhaV = L.polyline([[0, xMeio], [limiteY, xMeio]], {color: '#333333', weight: 1, interactive: false});
-    const linhaH = L.polyline([[yMeio, 0], [yMeio, limiteX]], {color: '#333333', weight: 1, interactive: false});
-    cruzAtiva = L.layerGroup([linhaV, linhaH]).addTo(map);
+    const linhaV = L.polyline([[0, xMeio], [limitY, xMeio]], {color: '#333333', weight: 1, interactive: false});
+    const linhaH = L.polyline([[yMeio, 0], [yMeio, limitX]], {color: '#333333', weight: 1, interactive: false});
+    activeCross = L.layerGroup([linhaV, linhaH]).addTo(map);
     
-    // Atualiza o texto do elemento
-    display.innerText = `X: ${Math.floor(x)}, Y: ${Math.floor(y)} | Z: ${andarAtual}`;
+    display.innerText = `X: ${Math.floor(x)}, Y: ${Math.floor(y)} | Z: ${curFloor}`;
 });
 
 function distClick(event, dist) {
@@ -146,13 +163,13 @@ function distClick(event, dist) {
     event.currentTarget.classList.add('active');
     switch(dist) {
         case 0: 
-            curDist = {min: 0, max: 30, zoom: 3}
+            curDist = {min: 0, max: 30}
             break
         case 1: 
-            curDist = {min: 30, max: 500, zoom: 2}
+            curDist = {min: 30, max: 500}
             break
         case 2: 
-            curDist = {min: 500, max: Math.max(limiteY, limiteX), zoom: -1}
+            curDist = {min: 500, max: Math.max(limitY, limitX)}
             break
     }
 }
@@ -162,14 +179,13 @@ function dirClick(dir) {
     pasteAndFill()
 }
 
-function focarPonto(x, y, z, zoom) {
-    console.log(x, y, z, zoom)
-    if (z !== undefined && z !== andarAtual) {
-        mudarAndar(z); 
+function focusPoint(x, y, z, zoom) {
+    if (z !== undefined && z !== curFloor) {
+        changeFloor(z); 
     }
 
-    x = clamp(x, limites[0][0], limites[1][0]);
-    y = clamp(y, limites[0][1], limites[1][1]);
+    x = clamp(x, bounds[0][0], bounds[1][0]);
+    y = clamp(y, bounds[0][1], bounds[1][1]);
 
     map.setView([y, x], zoom); 
 }
@@ -189,15 +205,10 @@ async function pasteAndFill() {
         }
       
         point = {x: parseInt(match[1]), y: parseInt(match[2]), z: parseInt(match[3]), dist: curDist, ang: curDir};
-        point.mark = obterListaPontos({x: point.x, y: point.y, z: point.z}, point.ang, point.dist.min, point.dist.max);
-        if (curDist.min == 0) {
-            focarPonto(zoom.x, zoom.y, zoom.z, curDist.zoom);        
-        }
-        else {
-            focarPonto(zoom.x, zoom.y, 7, curDist.zoom);        
-        }
+        point.points = getPoints({x: point.x, y: point.y, z: point.z}, point.ang, point.dist.min, point.dist.max);
         infos.push(point);
-        AtualizarLista();
+        updateMarks();
+        listUpdate();
         return true;
     } catch (err) {
         console.error(err);
@@ -209,40 +220,35 @@ function degToRad(deg) {
     return deg * (Math.PI / 180);
 }
 
-function calcularDistancia(x1, y1, x2, y2) {
+function calcDist(x1, y1, x2, y2) {
     let dx = x2 - x1;
     let dy = y2 - y1;
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-function obterListaPontosQuadrado(pos, dist) {
-    const pontos = [
+function getSquarePoints(pos, dist) {
+    const points = [
         {x: pos.x - dist, y: pos.y - dist},
         {x: pos.x + dist, y: pos.y - dist},
         {x: pos.x + dist, y: pos.y + dist},
         {x: pos.x - dist, y: pos.y + dist}
     ]
 
-    return L.polygon(pontos.map(p => [p.y, p.x]), {
-        color: "#161761", 
-        weight: 1, 
-        fillOpacity: 0.2, 
-        smoothFactor: 0
-    }).addTo(marks);
+    return points;
 }
 
-function obterListaPontos(pos, ang, distMin, distMax) {
+function getPoints(pos, ang, distMin, distMax) {
     if (ang === -45) {
-        return obterListaPontosQuadrado(pos, 30);
+        return getSquarePoints(pos, 30);
     }
 
-    const pontosMin = [];
-    const pontosMax = [];
-    const angulos = [degToRad(ang - 22.5), degToRad(ang), degToRad(ang + 22.5)];
+    const innerPoints = [];
+    const outerPoints = [];
+    const angles = [degToRad(ang - 22.5), degToRad(ang), degToRad(ang + 22.5)];
 
-    angulos.forEach((angulo, i) => {
-        cos = Math.cos(angulo);
-        sin = Math.sin(angulo);
+    angles.forEach((angle, i) => {
+        cos = Math.cos(angle);
+        sin = Math.sin(angle);
 
         if (distMin === 0) {
             pad = 0.5; 
@@ -254,62 +260,57 @@ function obterListaPontos(pos, ang, distMin, distMax) {
         div = Math.max(Math.abs(cos), Math.abs(sin));
         multMin = (distMin) / div;
         multMax = distMax / div;
-        multZoom = ((distMax + distMin) / 2) / div;
 
         x_min = pos.x + (cos * multMin) + pad;
         y_min = pos.y + (sin * multMin) + pad;
         x_max = pos.x + (cos * multMax);
         y_max = pos.y + (sin * multMax);
         
-        if (i == 1) {
-            zoom.x = pos.x + (cos * multZoom);
-            zoom.y = pos.y + (sin * multZoom);
-            zoom.z = pos.z;
-        }
-
-        pontosMin.push({x: x_min, y: y_min});
-        pontosMax.push({x: x_max, y: y_max});
+        innerPoints.push({x: x_min, y: y_min});
+        outerPoints.push({x: x_max, y: y_max});
     });
     
-    const pontos = [...pontosMin, ...pontosMax.reverse()];
-    return L.polygon(pontos.map(p => [p.y, p.x]), {
-        color: "#161761", 
-        weight: 1, 
-        fillOpacity: 0.2, 
-        smoothFactor: 0
-    }).addTo(marks);
+    const points = [...innerPoints, ...outerPoints.reverse()];
+    return points;
+}
+
+function updateMarks() {
+    calcIntersection();
+
+    if (intersection.mark) {        
+        intersection.mark.addTo(map);
+        focusPoint(intersection.center[0], intersection.center[1], curFloor, getZoomLevelFromBox(intersection.box));
+
+        const width = Math.abs(intersection.box[2] - intersection.box[0]);
+        const height = Math.abs(intersection.box[3] - intersection.box[1]);
+
+        if (width <= 500 && height <= 500) {
+            const spawnsInBox = getPointsToMarkSpawn();
+            markSpawnPoints(spawnsInBox);
+        }
+    }
 }
     
-function AtualizarLista() {
+function listUpdate() {
     const listContainer = document.getElementById('pos-list');
     listContainer.innerHTML = ''; 
 
-    // Usamos o index para saber exatamente qual item remover do array
     infos.forEach((info, index) => {
         const div = document.createElement('div');
         div.className = 'pos-item'; 
         
-        // Texto das coordenadas
         const span = document.createElement('span');
         span.innerText = `X: ${info.x}, Y: ${info.y}, Z: ${info.z} `;
         div.appendChild(span);
 
-        // Botão de deletar
         const delbtn = document.createElement('button');
         delbtn.innerText = 'X';
-        delbtn.className = 'del-btn'; // Para você estilizar no CSS
+        delbtn.className = 'del-btn'; 
         
-        delbtn.onclick = () => {
-            // 1. Remove o polígono (layer) do mapa
-            if (info.mark) {
-                map.removeLayer(info.mark);
-            }
-            
-            // 2. Remove o item do array 'infos'
+        delbtn.onclick = () => {            
             infos.splice(index, 1);
-            
-            // 3. Atualiza a interface novamente
-            AtualizarLista();
+            updateMarks();
+            listUpdate();
         };
 
         div.appendChild(delbtn);
@@ -317,12 +318,109 @@ function AtualizarLista() {
     });
 }
 
-function LimparLista() {
-    infos.forEach(info => {
-        if (info.mark) {
-            map.removeLayer(info.mark);
-        }
-    });
+function clearList() {
     infos = []
-    AtualizarLista();
+
+    if (intersection.mark) {
+        map.removeLayer(intersection.mark);
+        intersection = {mark: null, center: null, centroid: null, box: null};
+    }
+
+    listUpdate();
+}
+
+function getPointsToMarkSpawn()  {
+    if (!intersection.box) {
+        return [];
+    }
+
+    const [xMin, yMin, xMax, yMax] = intersection.box;
+
+    return allSpawnMarks.filter(pos => {
+        if (pos.z !== curFloor) {
+            return false;
+        }
+
+        return pos.x >= xMin &&
+               pos.x <= xMax &&
+               pos.y >= yMin &&
+               pos.y <= yMax;
+    });
+}
+
+function markSpawnPoints(points) {
+    spawnsLayer.clearLayers();
+
+    points.forEach(point => {
+        const marker = L.circle([point.y - 0.5, point.x - 0.5], {
+            radius: 1.5,
+            color: '#000000',
+            fillColor: '#000000',
+            fillOpacity: 0.3,
+            weight: 1,
+            interactive: false
+        });
+
+        marker.addTo(spawnsLayer)
+    });
+}
+
+function getZoomLevelFromBox(bbox) {
+    if (!bbox) return 2;
+
+    const width = Math.abs(bbox[2] - bbox[0]);
+    const height = Math.abs(bbox[3] - bbox[1]);
+    const maxDim = Math.max(width, height);
+
+    if (maxDim > 1000) return -1;
+    if (maxDim > 500)  return 0;
+    if (maxDim > 200)  return 1;
+    if (maxDim > 50)   return 2;
+    if (maxDim > 10)   return 3;
+    return 4;
+}
+
+function calcIntersection() {
+    if (intersection.mark) {
+        map.removeLayer(intersection.mark);
+    }
+
+    intersection = {mark: null, center: null, centroid: null, box: null};
+
+    let curIntersection = null;
+    
+    for (let i =0; i < infos.length; i++) {
+        let coords = infos[i].points.map(p => [p.x, p.y]);
+        coords.push([infos[i].points[0].x, infos[i].points[0].y]);
+
+        let polyTurf = turf.polygon([coords]);
+
+        if (i === 0) {
+            curIntersection = polyTurf;        
+        }
+        else {
+            curIntersection = turf.intersect(curIntersection, polyTurf);
+        }
+
+        if (!curIntersection) {
+            break;
+        }
+    }
+
+    if (curIntersection) {
+        intersection.box = turf.bbox(curIntersection);
+        const center = turf.center(curIntersection);
+        const centroid = turf.centroid(curIntersection);
+        intersection.center = [center.geometry.coordinates[0], center.geometry.coordinates[1]];
+        intersection.centroid = [centroid.geometry.coordinates[0], centroid.geometry.coordinates[1]];
+
+        intersection.mark = L.geoJSON(curIntersection, {
+            style: {
+                color: '#161761',
+                weight: 2,
+                fillColor: '#161761',
+                fillOpacity: 0.3
+            }
+        });
+    }
 }
