@@ -1,3 +1,14 @@
+const directions = {
+    0: "East",
+    45: "SouthEast",
+    90: "South",
+    135: "SouthWest",
+    180: "West",
+    225: "NorthWest",
+    270: "North",
+    315: "NorthEast"
+}
+
 let allSpawnMarks
 
 async function loadSpawnMarks() {
@@ -152,7 +163,7 @@ map.on('click', function(e) {
     const linhaH = L.polyline([[yMeio, 0], [yMeio, limitX]], {color: '#333333', weight: 1, interactive: false});
     activeCross = L.layerGroup([linhaV, linhaH]).addTo(map);
     
-    display.innerText = `X: ${Math.floor(x)}, Y: ${Math.floor(y)} | Z: ${curFloor}`;
+    display.innerText = `X: ${Math.floor(x)}, Y: ${Math.floor(y)}, Z: ${curFloor}`;
 });
 
 function distClick(event, dist) {
@@ -192,7 +203,15 @@ function focusPoint(x, y, z, zoom) {
 
 async function pasteAndFill() {
     try {
-        const text = await navigator.clipboard.readText();
+        const cbxModoTeste = document.getElementById('checkbox-modo');
+
+        if (cbxModoTeste.checked) {
+            text =  display.textContent;
+        }
+        else {
+            text = await navigator.clipboard.readText();
+        }
+
         const regex = /(?:X[:\s]*)?(\d+)[^0-9]+(?:Y[:\s]*)?(\d+)[^0-9]+(?:Z[:\s]*)?(\d+)/i;
         const match = text.match(regex);
 
@@ -300,19 +319,25 @@ function listUpdate() {
         div.className = 'pos-item'; 
         
         const span = document.createElement('span');
-        span.innerText = `X: ${info.x}, Y: ${info.y}, Z: ${info.z} `;
+        span.innerText = `${info.x}, ${info.y}, ${info.z} `;
         div.appendChild(span);
 
-        const delbtn = document.createElement('button');
-        delbtn.innerText = 'X';
+        const dirbtn = document.createElement('img');
+        dirbtn.src = `/imgs_finder/${directions[info.ang]}.png`
+        dirbtn.className = 'del-btn'; 
+
+        const delbtn = document.createElement('img');
+        delbtn.src = '/imgs_finder/Delete.png'
         delbtn.className = 'del-btn'; 
         
+
         delbtn.onclick = () => {            
             infos.splice(index, 1);
             updateMarks();
             listUpdate();
         };
 
+        div.appendChild(dirbtn)
         div.appendChild(delbtn);
         listContainer.appendChild(div);
     });

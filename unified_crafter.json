@@ -925,10 +925,10 @@
             "price": 15,
             "image": "images/FOLHAS_VERDES.PNG"
         },
-        "wface": {
+        "alface": {
             "id": "12",
             "group": "food_ingredient",
-            "name": "WFACE",
+            "name": "ALFACE",
             "price": 20,
             "image": "images/ALFACE.PNG"
         },
@@ -1072,37 +1072,25 @@
             "price": 650,
             "image": "images/CARNE_DE_CORDEIRO_CRUA.PNG"
         },
-        "frango_teriyaki": {
+        "paella_de_camarao": {
             "group": "food",
-            "name": "FRANGO TERIYAKI",
+            "name": "PAELLA DE CAMARAO",
             "price": 0,
             "craft": [
                 {
-                    "id": "galinha",
-                    "qty": 5
+                    "id": "camarao_cru",
+                    "qty": 8
                 },
                 {
-                    "id": "pimenta",
+                    "id": "folhas_verdes",
                     "qty": 1
                 },
                 {
                     "id": "tomates",
-                    "qty": 3
+                    "qty": 1
                 },
                 {
-                    "id": "sal",
-                    "qty": 2
-                },
-                {
-                    "id": "azeite",
-                    "qty": 6
-                },
-                {
-                    "id": "folhas_verdes",
-                    "qty": 3
-                },
-                {
-                    "id": "alho",
+                    "id": "agua",
                     "qty": 3
                 },
                 {
@@ -1110,8 +1098,64 @@
                     "qty": 3
                 },
                 {
+                    "id": "sal",
+                    "qty": 1
+                },
+                {
+                    "id": "pimenta",
+                    "qty": 1
+                },
+                {
+                    "id": "arroz",
+                    "qty": 2
+                },
+                {
+                    "id": "azeite",
+                    "qty": 1
+                }
+            ],
+            "image": "images/PAELLA_DE_CAMARAO.PNG"
+        },        
+        "frango_teriyaki": {
+            "group": "food",
+            "name": "FRANGO TERIYAKI",
+            "price": 0,
+            "craft": [
+                {
+                    "id": "folhas_verdes",
+                    "qty": 3
+                },
+                {
+                    "id": "tomates",
+                    "qty": 3
+                },
+                {
+                    "id": "trufa_branca",
+                    "qty": 3
+                },
+                {
+                    "id": "sal",
+                    "qty": 2
+                },
+                {
+                    "id": "pimenta",
+                    "qty": 1
+                },
+                {
+                    "id": "alho",
+                    "qty": 3
+                },
+                {
+                    "id": "azeite",
+                    "qty": 6
+                },
+                {
                     "id": "creme_de_leite",
                     "qty": 3
+                },
+                {
+                    "id": "galinha",
+                    "qty": 5
                 }
             ],
             "image": "images/FRANGO_TERIYAKI.PNG"
@@ -1134,7 +1178,7 @@
                     "qty": 2
                 },
                 {
-                    "id": "wface",
+                    "id": "alface",
                     "qty": 4
                 },
                 {
@@ -1146,15 +1190,15 @@
                     "qty": 1
                 },
                 {
-                    "id": "pimenta",
-                    "qty": 2
-                },
-                {
                     "id": "alho",
                     "qty": 2
                 },
                 {
                     "id": "azeite",
+                    "qty": 2
+                },
+                {
+                    "id": "pimenta",
                     "qty": 2
                 }
             ],
@@ -1202,32 +1246,8 @@
                     "qty": 6
                 },
                 {
-                    "id": "sal",
-                    "qty": 4
-                },
-                {
-                    "id": "pimenta",
-                    "qty": 3
-                },
-                {
-                    "id": "azeite",
-                    "qty": 6
-                },
-                {
                     "id": "folhas_verdes",
                     "qty": 4
-                },
-                {
-                    "id": "cebola",
-                    "qty": 3
-                },
-                {
-                    "id": "alho",
-                    "qty": 2
-                },
-                {
-                    "id": "cogumelo",
-                    "qty": 5
                 },
                 {
                     "id": "limao",
@@ -1238,8 +1258,32 @@
                     "qty": 1
                 },
                 {
+                    "id": "cogumelo",
+                    "qty": 5
+                },
+                {
                     "id": "trufa_branca",
                     "qty": 2
+                },
+                {
+                    "id": "sal",
+                    "qty": 4
+                },
+                {
+                    "id": "pimenta",
+                    "qty": 3
+                },
+                {
+                    "id": "alho",
+                    "qty": 2
+                },
+                {
+                    "id": "azeite",
+                    "qty": 6
+                },
+                {
+                    "id": "cebola",
+                    "qty": 3
                 }
             ],
             "image": "images/BIFE_WAGYU.PNG"
@@ -1278,16 +1322,16 @@
                     "qty": 1
                 },
                 {
-                    "id": "pimenta",
-                    "qty": 2
-                },
-                {
                     "id": "alho",
                     "qty": 4
                 },
                 {
                     "id": "azeite",
                     "qty": 3
+                },
+                {
+                    "id": "pimenta",
+                    "qty": 2
                 }
             ],
             "image": "images/CAMAROES_SALTEADOS.PNG"
@@ -1486,15 +1530,15 @@
                     "qty": 3
                 },
                 {
-                    "id": "pimenta",
-                    "qty": 1
-                },
-                {
                     "id": "arroz",
                     "qty": 2
                 },
                 {
                     "id": "azeite",
+                    "qty": 1
+                },
+                {
+                    "id": "pimenta",
                     "qty": 1
                 }
             ],
@@ -1510,7 +1554,7 @@
                     "qty": 1
                 },
                 {
-                    "id": "wface",
+                    "id": "alface",
                     "qty": 5
                 },
                 {
@@ -1715,50 +1759,6 @@
                 }
             ],
             "image": "images/POLVO_GRELHADO.PNG"
-        },
-        "paella_de_camarao": {
-            "group": "food",
-            "name": "PAELLA DE CAMARAO",
-            "price": 0,
-            "craft": [
-                {
-                    "id": "camarao_cru",
-                    "qty": 8
-                },
-                {
-                    "id": "folhas_verdes",
-                    "qty": 1
-                },
-                {
-                    "id": "tomates",
-                    "qty": 1
-                },
-                {
-                    "id": "agua",
-                    "qty": 3
-                },
-                {
-                    "id": "trufa_branca",
-                    "qty": 3
-                },
-                {
-                    "id": "sal",
-                    "qty": 1
-                },
-                {
-                    "id": "pimenta",
-                    "qty": 1
-                },
-                {
-                    "id": "arroz",
-                    "qty": 2
-                },
-                {
-                    "id": "azeite",
-                    "qty": 1
-                }
-            ],
-            "image": "images/PAELLA_DE_CAMARAO.PNG"
         }
     }
 }
