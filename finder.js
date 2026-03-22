@@ -323,11 +323,11 @@ function listUpdate() {
         div.appendChild(span);
 
         const dirbtn = document.createElement('img');
-        dirbtn.src = `/imgs_finder/${directions[info.ang]}.png`
+        dirbtn.src = `imgs_finder/${directions[info.ang]}.png`
         dirbtn.className = 'del-btn'; 
 
         const delbtn = document.createElement('img');
-        delbtn.src = '/imgs_finder/Delete.png'
+        delbtn.src = 'imgs_finder/Delete.png'
         delbtn.className = 'del-btn'; 
         
 
