@@ -385,7 +385,7 @@ function markSpawnPoints(points) {
 
     points.forEach(point => {
         const marker = L.circle([point.y - 0.5, point.x - 0.5], {
-            radius: 1.5,
+            radius: 0.5,
             color: '#000000',
             fillColor: '#000000',
             fillOpacity: 0.3,
