@@ -330,11 +330,11 @@ function listUpdate() {
         else {
             dir_img = directions[info.ang]
         }
-        dirbtn.src = `/imgs_finder/${dir_img}.png`
+        dirbtn.src = `Crafter/imgs_finder/${dir_img}.png`
         dirbtn.className = 'del-btn'; 
 
         const delbtn = document.createElement('img');
-        delbtn.src = '/imgs_finder/Delete.png'
+        delbtn.src = 'Crafter/imgs_finder/Delete.png'
         delbtn.className = 'del-btn'; 
         
 
