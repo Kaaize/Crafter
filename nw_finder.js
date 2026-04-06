@@ -68,24 +68,24 @@ const floors = {
     "16": L.tileLayer('nw_tiles/16/{z}/{x}/{y}.webp', {tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4}),
 }
 
-var bounds = [
-    [29696, 19968],
-    [31488, 21248]
+var mapBounds = [
+    [19968, 29696],
+    [21248, 31488]
 ]
 
 const map = L.map('map', {
     crs: CRSPixel,
-    layers: [floors["7"]],
+    layers: [floors["5"]],
     minZoom: -4,
     maxZoom: 4,
-    maxBounds: bounds,
+    maxBounds: mapBounds,
     zoomSnap: 1,
     zoomDelta: 1
-}).setView([29696, 19968], 2)
+}).setView([20518, 30564], 2)
 
 let spawnsLayer = L.layerGroup().addTo(map);
 
-let curFloor = 7; 
+let curFloor = 5; 
 
 const ZControl = L.Control.extend({
     options: { position: 'topleft' },
@@ -192,12 +192,13 @@ function dirClick(dir) {
 }
 
 function focusPoint(x, y, z, zoom) {
+    console.log(x,y,z,zoom)
     if (z !== undefined && z !== curFloor) {
         changeFloor(z); 
     }
 
-    x = clamp(x, bounds[0][0], bounds[1][0]);
-    y = clamp(y, bounds[0][1], bounds[1][1]);
+    x = clamp(x, mapBounds[0][1], mapBounds[1][1]);
+    y = clamp(y, mapBounds[0][0], mapBounds[1][0]);
 
     map.setView([y, x], zoom); 
 }
