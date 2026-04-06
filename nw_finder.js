@@ -81,7 +81,7 @@ const map = L.map('map', {
     maxBounds: bounds,
     zoomSnap: 1,
     zoomDelta: 1
-}).setView([3793, 4098], 2)
+}).setView([29696, 19968], 2)
 
 let spawnsLayer = L.layerGroup().addTo(map);
 
