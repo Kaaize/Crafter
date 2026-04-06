@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet Tiles - Z/X/Y</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="finder.css" />
+</head>
+
+<body>
+    <div id="panel">
+        <div>
+            <input type="checkbox" id="checkbox-modo">
+            <label for="checkbox-modo">Modo Teste</label>
+        </div>
+        <h2>Finder Kanto</h2>
+        <p id="coords-display">X: 0, Y: 0, Z: 0</p>
+        <div id="commands">
+            <div class="distance">
+                <img class="dist-btn g" src="imgs_finder/RadarGreen.png", onclick="distClick(event, 0)" width="40", height="40">
+                <img class="dist-btn y" src="imgs_finder/RadarYellow.png", onclick="distClick(event, 1)" width="40", height="40">
+                <img class="dist-btn r" src="imgs_finder/RadarRed.png", onclick="distClick(event, 2)" width="40", height="40">
+            </div>
+            <div class="directions">
+                <img class="dir-btn nw" onclick="dirClick(5)" src="imgs_finder/NorthWest.png", width="40", height="40">
+                <img class="dir-btn n" onclick="dirClick(6)" src="imgs_finder/North.png", width="40", height="40">
+                <img class="dir-btn ne" onclick="dirClick(7)" src="imgs_finder/NorthEast.png", width="40", height="40">
+            </div>
+            <div class="directions">
+                <img class="dir-btn w" onclick="dirClick(4)" src="imgs_finder/West.png", width="40", height="40">
+                <img class="dir-btn c" onclick="dirClick(-1)" src="imgs_finder/Center.png", width="40", height="40">
+                <img class="dir-btn e" onclick="dirClick(0)" src="imgs_finder/East.png", width="40", height="40">
+            </div>
+            <div class="directions">
+                <img class="dir-btn sw" onclick="dirClick(3)" src="imgs_finder/SouthWest.png", width="40", height="40">
+                <img class="dir-btn s" onclick="dirClick(2)" src="imgs_finder/South.png", width="40", height="40">
+                <img class="dir-btn se" onclick="dirClick(1)" src="imgs_finder/SouthEast.png", width="40", height="40">
+            </div>            
+        </div>  
+        <div class="clear-panel">
+            <button id="clear-btn" onclick="clearList();">Limpar <img src="imgs_finder/Clear.png" width="32" height="32"></button>
+        </div>
+        <div id="pos-list">            
+        </div>
+    </div>
+    <div id="map"></div>
+</body>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+<script src="finder.js"></script>
+
+</html>
