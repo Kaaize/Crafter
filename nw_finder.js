@@ -175,13 +175,13 @@ function distClick(event, dist) {
     event.currentTarget.classList.add('active');
     switch(dist) {
         case 0: 
-            curDist = {min: 0, max: 30}
+            curDist = {min: 0, max: 20}
             break
         case 1: 
-            curDist = {min: 30, max: 500}
+            curDist = {min: 20, max: 35}
             break
         case 2: 
-            curDist = {min: 500, max: Math.max(limitY, limitX)}
+            curDist = {min: 35, max: Math.max(limitY, limitX)}
             break
     }
 }
