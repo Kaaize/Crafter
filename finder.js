@@ -195,8 +195,8 @@ function focusPoint(x, y, z, zoom) {
         changeFloor(z); 
     }
 
-    x = clamp(x, bounds[0][0], bounds[1][0]);
-    y = clamp(y, bounds[0][1], bounds[1][1]);
+    y = clamp(y, bounds[0][0], bounds[1][0]);
+    x = clamp(x, bounds[0][1], bounds[1][1]);
 
     map.setView([y, x], zoom); 
 }
