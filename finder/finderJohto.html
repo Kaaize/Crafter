@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Finder Johto</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="finder.css" />
+</head>
+
+<body>
+    <div id="panel">
+        <div>
+            <input type="checkbox" id="checkbox-modo">
+            <label for="checkbox-modo">Modo Teste</label>
+        </div>
+        <h2>Finder Kanto</h2>
+        <p id="coords-display">X: 0, Y: 0, Z: 0</p>
+        <div id="commands">
+            <div class="distance">
+                <img class="dist-btn g" src="imgs_finder/RadarGreen.png" width="40" height="40">
+                <img class="dist-btn y" src="imgs_finder/RadarYellow.png" width="40" height="40">
+                <img class="dist-btn r" src="imgs_finder/RadarRed.png" width="40" height="40">
+            </div>
+            <div class="directions">
+                <img class="dir-btn nw" data-dir="5" src="imgs_finder/NorthWest.png" width="40" height="40">
+                <img class="dir-btn n" data-dir="6" src="imgs_finder/North.png" width="40" height="40">
+                <img class="dir-btn ne" data-dir="7" src="imgs_finder/NorthEast.png" width="40" height="40">
+            </div>
+            <div class="directions">
+                <img class="dir-btn w" data-dir="4" src="imgs_finder/West.png" width="40" height="40">
+                <img class="dir-btn c" data-dir="-1" src="imgs_finder/Center.png" width="40" height="40">
+                <img class="dir-btn e" data-dir="0" src="imgs_finder/East.png" width="40" height="40">
+            </div>
+            <div class="directions">
+                <img class="dir-btn sw" data-dir="3" src="imgs_finder/SouthWest.png" width="40" height="40">
+                <img class="dir-btn s" data-dir="2" src="imgs_finder/South.png" width="40" height="40">
+                <img class="dir-btn se" data-dir="1" src="imgs_finder/SouthEast.png" width="40" height="40">
+            </div>            
+        </div>  
+        <div class="clear-panel">
+            <button id="clear-btn">Limpar <img src="imgs_finder/Clear.png" width="32" height="32"></button>
+        </div>
+        <div id="pos-list"></div>
+    </div>
+    <div id="map"></div>
+
+    <!-- Scripts Externos -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+    <!-- Módulo Principal JS -->
+    <script type="module" src="mainJohto.js"></script>
+</body>
+
+</html>
