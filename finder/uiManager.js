@@ -1,10 +1,26 @@
 import { directionsMap } from './geometryService.js';
 
 export class UIManager {
-    constructor(onDeleteClick) {
+    constructor(onDeleteClick) {    
         this.display = document.getElementById('coords-display');
         this.listContainer = document.getElementById('pos-list');
+        this.regionSelect = document.getElementById('regionSelect');
+        
         this.onDeleteClick = onDeleteClick;
+    }
+
+    onRegionChange(callback) {
+        if (!this.regionSelect) return;
+        this.regionSelect.addEventListener('change', (e) => {
+            const selectedRegion = e.target.value;
+            callback(selectedRegion)
+        });
+    }
+
+    setRegion(regionKey) {
+        if (this.regionSelect) {
+            this.regionSelect.value = regionKey;
+        }
     }
 
     updateCoords(x, y, z) {

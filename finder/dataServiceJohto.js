@@ -8,3 +8,19 @@ export async function fetchSpawnMarks() {
         return [];
     }
 }
+
+export async function loadIslandsGeoJSON(filePath = './islands_johto.geojson') {
+    try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+            throw new Error(`Erro ao carregar ${filePath}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        return data;
+    } catch (error) {
+        console.error("Falha ao carregar o GeoJSON das ilhas:", error);
+        return []; 
+    }
+}

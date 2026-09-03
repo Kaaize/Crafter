@@ -80,32 +80,56 @@ export function isPointWithinBounds(x, y, bounds) {
     return x >= xMin && x <= xMax && y >= yMin && y <= yMax;
 }
 
-export function isPointInExcludeAreas(x, y, excludeAreas = []) {
-    if (!excludeAreas || excludeAreas.length === 0) return false;
+export function isPointInExcludeAreas(point, excludeAreas) {
+    if (!excludeAreas || !Array.isArray(excludeAreas) || excludeAreas.length === 0) {
+        return false;
+    }
 
-    const pt = turf.point([x, y]);
+    const [x, y] = Array.isArray(point) ? point : [point.x, point.y];
 
-    return excludeAreas.some(area => {
-        if (Array.isArray(area) && area.length === 4) {
-            return x >= area[0] && y >= area[1] && x <= area[2] && y <= area[3];
-        }
-        return turf.booleanPointInPolygon(pt, area);
+    return excludeAreas.some(box => {
+        // Valida se a caixa de exclusão tem exatamente os 4 pontos [x1, y1, x2, y2]
+        if (!box || !Array.isArray(box) || box.length < 4) return false;
+
+        const [x1, y1, x2, y2] = box;
+        const minX = Math.min(x1, x2);
+        const maxX = Math.max(x1, x2);
+        const minY = Math.min(y1, y2);
+        const maxY = Math.max(y1, y2);
+
+        return x >= minX && x <= maxX && y >= minY && y <= maxY;
     });
 }
 
-export function filterSpawnsInsidePolygon(curIntersection, allSpawnMarks, bounds = null, excludeAreas = []) {
-    if (!curIntersection || !allSpawnMarks) return [];
+export function filterSpawnsInsidePolygon(searchPoly, spawns, bounds, excludeAreas, useIslandsFilter) {
+    if (!spawns || !Array.isArray(spawns)) return [];
 
-    return allSpawnMarks.filter(pos => {
-        const x = pos[0];
-        const y = pos[1];
+    // Se houver polígono de busca, converte/garante que é uma Feature
+    const polyFeature = searchPoly ? (searchPoly.type === 'Feature' ? searchPoly : turf.feature(searchPoly)) : null;
 
-        if (bounds && !isPointWithinBounds(x, y, bounds)) return false;
+    return spawns.filter(spawn => {
+        if (!spawn || spawn.length < 2) return false;
 
-        if (isPointInExcludeAreas(x, y, excludeAreas)) return false;
+        const [x, y] = spawn;
 
-        const pt = turf.point([x, y]);
-        return turf.booleanPointInPolygon(pt, curIntersection);
+        // 1. Descarta se estiver em uma área excluída
+        if (isPointInExcludeAreas([x, y], excludeAreas)) {
+            return false;
+        }
+
+        // 2. Descarta se estiver fora do bounds do mapa
+        if (bounds && bounds.length >= 2) {
+            const [[yMin, xMin], [yMax, xMax]] = bounds;
+            if (x < xMin || x > xMax || y < yMin || y > yMax) return false;
+        }
+
+        // 3. Testa se o ponto está dentro do polígono de busca do Turf
+        if (polyFeature) {
+            const pt = turf.point([x, y]);
+            return turf.booleanPointInPolygon(pt, polyFeature);
+        }
+
+        return true;
     });
 }
 
@@ -136,4 +160,83 @@ export function findMostProbableSpawn(pointsInside) {
     }
 
     return bestPoint; 
+}
+
+export function clipIslandsWithArea(intersectionPoly, islandsMultiPolygon) {
+    if (!intersectionPoly || !islandsMultiPolygon) return null;
+
+    try {
+        // 1. Extrai a geometria bruta do Polígono de busca
+        const searchGeo = intersectionPoly.geometry || (intersectionPoly.type === 'Feature' ? intersectionPoly.geometry : intersectionPoly);
+        if (!searchGeo || !searchGeo.coordinates) return null;
+
+        // 2. Extrai a geometria bruta do MultiPolygon das ilhas
+        const islandGeo = islandsMultiPolygon.geometry || (islandsMultiPolygon.type === 'Feature' ? islandsMultiPolygon.geometry : islandsMultiPolygon);
+        if (!islandGeo || !islandGeo.coordinates) return null;
+
+        // 3. Normaliza ambas explicitamente usando os construtores de Feature do Turf
+        const searchFeature = turf.feature(searchGeo);
+        const islandFeature = turf.feature(islandGeo);
+
+        // 4. Executa a intersecção testando compatibilidade das assinaturas do Turf (v6 e v7)
+        let clipped = null;
+
+        // Tenta sintaxe Turf 7.x (FeatureCollection)
+        try {
+            const fc = turf.featureCollection([searchFeature, islandFeature]);
+            clipped = turf.intersect(fc);
+        } catch (err) {
+            // Fallback para sintaxe Turf 5.x / 6.x (Argumentos Separados)
+            clipped = turf.intersect(searchFeature, islandFeature);
+        }
+
+        return clipped;
+
+    } catch (e) {
+        console.error("Erro ao calcular intersecção do MultiPolygon:", e);
+        return null;
+    }
+}
+
+export function createBoundsPolygon(bounds) {
+    if (!bounds || bounds.length < 2) return null;
+
+    const [yMin, xMin] = bounds[0];
+    const [yMax, xMax] = bounds[1];
+
+    return turf.polygon([[
+        [xMin, yMin],
+        [xMax, yMin],
+        [xMax, yMax],
+        [xMin, yMax],
+        [xMin, yMin]
+    ]]);
+}
+
+export function clipSearchAreaWithBounds(searchPoly, bounds) {
+    if (!searchPoly) return null;
+    if (!bounds) return searchPoly;
+
+    try {
+        const boundsPoly = createBoundsPolygon(bounds);
+        if (!boundsPoly) return searchPoly;
+
+        // Extrai a geometria limpa da área de busca
+        const searchGeo = searchPoly.geometry || (searchPoly.type === 'Feature' ? searchPoly.geometry : searchPoly);
+        const searchFeature = turf.feature(searchGeo);
+
+        // Corta a área de busca usando o retângulo dos limites
+        let clipped = null;
+        try {
+            const fc = turf.featureCollection([searchFeature, boundsPoly]);
+            clipped = turf.intersect(fc);
+        } catch (err) {
+            clipped = turf.intersect(searchFeature, boundsPoly);
+        }
+
+        return clipped;
+    } catch (e) {
+        console.error("Erro ao recortar polígono da dica no Bounds:", e);
+        return searchPoly;
+    }
 }

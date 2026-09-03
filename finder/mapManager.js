@@ -3,6 +3,8 @@ export class MapManager {
         this.map = mapInstance;
         this.floors = floors;
         this.curFloor = initialFloor;
+        this.activeTileLayer = floors[initialFloor.toString()] || null;
+        this.clippedIslandsLayer = null;
 
         this.targetIcon = L.icon({
             iconUrl: 'imgs_finder/BestTarget.png',
@@ -13,6 +15,7 @@ export class MapManager {
 
         this.layers = {
             searchArea: L.layerGroup().addTo(this.map),
+            clippedIslands: L.layerGroup().addTo(this.map),
             spawns: L.layerGroup().addTo(this.map),
             bestTarget: null,
             selector: null,
@@ -21,14 +24,32 @@ export class MapManager {
     }
 
     changeFloor(newFloor, onFloorChangedCallback) {
-        if (!this.floors[newFloor.toString()]) return;
+        const targetFloorStr = newFloor.toString();
+        if (!this.floors[targetFloorStr]) return;
 
-        this.map.removeLayer(this.floors[this.curFloor.toString()]);
+        // Remove o andar visível atual
+        if (this.floors[this.curFloor.toString()]) {
+            this.map.removeLayer(this.floors[this.curFloor.toString()]);
+        }
+
         this.curFloor = newFloor;
-        this.floors[this.curFloor.toString()].addTo(this.map);
+        this.floors[targetFloorStr].addTo(this.map);
 
         if (onFloorChangedCallback) onFloorChangedCallback(this.curFloor);
     }
+
+    updateFloors(newFloors, newFloorIndex) {
+        // Remove a camada visível da região antiga
+        if (this.floors[this.curFloor.toString()]) {
+            this.map.removeLayer(this.floors[this.curFloor.toString()]);
+        }
+
+        // Substitui o dicionário de andares
+        this.floors = newFloors;
+
+        // Exibe o andar inicial da nova região usando o changeFloor
+        this.changeFloor(newFloorIndex);
+    }    
 
     updateClickSelector(x, y, limitX, limitY) {
         if (this.layers.selector) this.map.removeLayer(this.layers.selector);
@@ -53,6 +74,27 @@ export class MapManager {
         this.layers.searchArea.addLayer(baseLayer);
     }
 
+    renderClippedIslands(geoJsonPolygon, islandsGeoJSON) {
+        this.layers.clippedIslands.clearLayers();
+
+        if (!geoJsonPolygon || !islandsGeoJSON) return;
+
+        const clippedGeoJSON = getClippedIslands(geoJsonPolygon, islandsGeoJSON);
+
+        if (!clippedGeoJSON || clippedGeoJSON.features.length === 0) return;
+
+        const islandStyle = {
+            color: "#B7950B",        
+            weight: 1.5,
+            fillColor: "#F1C40F",
+            fillOpacity: 0.5,
+            interactive: false
+        };
+
+        const islandLayer = L.geoJSON(clippedGeoJSON, { style: islandStyle });
+        this.layers.clippedIslands.addLayer(islandLayer);
+    }
+
     renderBestTarget(bestPoint) {
         if (this.layers.bestTarget) {
             this.map.removeLayer(this.layers.bestTarget);
@@ -61,8 +103,8 @@ export class MapManager {
 
         if (!bestPoint) return;
 
-        const y = bestPoint[1] + 0.5;
-        const x = bestPoint[0] + 0.5;
+        const y = bestPoint[1] - 0.5;
+        const x = bestPoint[0] - 0.5;
 
         this.layers.bestTarget = L.marker([y, x], {
             icon: this.targetIcon,
@@ -89,12 +131,37 @@ export class MapManager {
         });
     }
 
+    renderClippedIslands(clippedGeoJSON) {
+        if (this.clippedIslandsLayer) {
+            this.map.removeLayer(this.clippedIslandsLayer);
+            this.clippedIslandsLayer = null;
+        }
+
+        if (!clippedGeoJSON) return;
+
+        this.clippedIslandsLayer = L.geoJSON(clippedGeoJSON, {
+            style: {
+                color: '#ff7800',
+                weight: 2,
+                opacity: 0.25,
+                fillColor: '#ff7800',
+                fillOpacity: 0.15
+            }
+        });
+
+        this.clippedIslandsLayer.addTo(this.map);
+    }
+
     clearAll() {
         this.layers.searchArea.clearLayers();
         this.layers.spawns.clearLayers();
         if (this.layers.bestTarget) {
             this.map.removeLayer(this.layers.bestTarget);
             this.layers.bestTarget = null;
+        }
+        if (this.clippedIslandsLayer) {
+            this.map.removeLayer(this.clippedIslandsLayer);
+            this.clippedIslandsLayer = null;
         }
     }
 }

@@ -1,36 +1,50 @@
-import { fetchSpawnMarks } from './dataService.js';
-import { getPoints, calcIntersectionPolygon, filterSpawnsInsidePolygon, getZoomLevelFromBox, findMostProbableSpawn } from './geometryService.js';
+import {MAP_CONFIGS, DEFAULT_MAP } from './mapConfig.js';
+import { fetchSpawnMarks, loadIslandsGeoJSON } from './dataService.js';
+import { getPoints, calcIntersectionPolygon, filterSpawnsInsidePolygon, getZoomLevelFromBox, findMostProbableSpawn, clipIslandsWithArea, clipSearchAreaWithBounds } from './geometryService.js';
 import { MapManager } from './mapManager.js';
 import { UIManager } from './uiManager.js';
 
+let currentRegion = DEFAULT_MAP;
+let config = MAP_CONFIGS[currentRegion];
+
 const state = {    
-    initPos: [3791, 4098, 7],
+    initPos: config.initPos,
     allSpawnMarks: [],
-    limitX: 5000,
-    limitY: 7000,
+    limitX: config.limitX,
+    limitY: config.limitY,
     curDist: { min: 30, max: 500 },
     curDir: 0,
     infos: [],
-    bounds: [[2700, 2700], [7000, 7000]],
-    excludeAreas: [[2360, 2680, 3308, 3472]]
+    bounds: config.bounds,
+    excludeAreas: [config.excludeAreas],
+    includeAreas: null,
 };
 
-// Configuração do CRS Pixel
 const CRSPixel = L.Util.extend(L.CRS.Simple, {
     transformation: new L.Transformation(1, 0, 1, 0)
 });
 
-const floors = {};
-for (let i = 1; i <= 16; i++) {
-    floors[i.toString()] = L.tileLayer(`tiles/${i}/{z}/{x}/{y}.webp`, {
-        tileSize: 1024, noWrap: true, minNativeZoom: 0, maxNativeZoom: 0, minZoom: -4, maxZoom: 4
-    });
+function createFloorLayers(basePath) {
+    const floors = {};
+    for (let i = 1; i <= 16; i++) {
+        floors[i.toString()] = L.tileLayer(`${basePath}/${i}/{z}/{x}/{y}.webp`, {
+            tileSize: 1024,
+            noWrap: true,
+            minNativeZoom: 0,
+            maxNativeZoom: 0,
+            minZoom: -4,
+            maxZoom: 4
+        });
+    }
+    
+    return floors;
 }
 
-// Instância do Leaflet Map
+const floors = createFloorLayers(config.basePathTile);
+
 const map = L.map('map', {
     crs: CRSPixel,
-    layers: [floors["7"]],
+    layers: [floors[state.initPos[2].toString()]],
     minZoom: -4,
     maxZoom: 4,
     maxBounds: state.bounds,
@@ -38,8 +52,41 @@ const map = L.map('map', {
     zoomDelta: 1
 }).setView([state.initPos[0], state.initPos[1]], 2);
 
+async function switchMapRegion(regionKey) {
+    if (!MAP_CONFIGS[regionKey]) return;
+    
+    config = MAP_CONFIGS[regionKey];
+
+    state.bounds = config.bounds;
+    state.limitX = config.limitX;
+    state.limitY = config.limitY;
+    state.excludeAreas = config.excludeAreas;
+    state.initPos = config.initPos;
+    state.infos = [];
+
+    mapManager.clearAll();
+
+    map.setMaxBounds(config.bounds);
+
+    const newFloors = createFloorLayers(config.basePathTile);
+    mapManager.updateFloors(newFloors, state.initPos[2]);
+
+    map.setView([state.initPos[0], state.initPos[1]], 2);
+    map.setMaxBounds(config.bounds);
+
+    state.allSpawnMarks = await fetchSpawnMarks(config.spawnsJsonPath);
+    state.includeAreas = await loadIslandsGeoJSON(config.islandsGeoJsonPath);
+    
+    renderPipelineLayers();
+}
+
 const mapManager = new MapManager(map, floors, state.initPos[2]);
 const uiManager = new UIManager((index) => removeItem(index));
+
+uiManager.onRegionChange(async (newRegion) => {
+    console.log(`Trocando região para: ${newRegion}`);
+    await switchMapRegion(newRegion);
+});
 
 let btnDisplay = null;
 const ZControl = L.Control.extend({
@@ -82,10 +129,16 @@ function updateFloorUI(newFloor) {
 function renderPipelineLayers() {
     mapManager.clearAll();
 
-    const curIntersection = calcIntersectionPolygon(state.infos);
+    let curIntersection = calcIntersectionPolygon(state.infos);
+    if (!curIntersection) return;
+
+    curIntersection = clipSearchAreaWithBounds(curIntersection, state.bounds);
     if (!curIntersection) return;
 
     mapManager.renderSearchArea(curIntersection);
+
+    const clippedIslands = clipIslandsWithArea(curIntersection, state.includeAreas);
+    mapManager.renderClippedIslands(clippedIslands);
 
     const pointsInside = filterSpawnsInsidePolygon(
         curIntersection, 
@@ -101,7 +154,7 @@ function renderPipelineLayers() {
     const width = Math.abs(bbox[2] - bbox[0]);
     const height = Math.abs(bbox[3] - bbox[1]);
 
-    if (width <= 500 && height <= 500) {
+    if (width <= 100 && height <= 100) {
         const floorSpawns = pointsInside.filter(pos => pos[2] === mapManager.curFloor);
         mapManager.renderSpawnPoints(floorSpawns);
     }
@@ -189,10 +242,11 @@ async function pasteAndFill() {
     }
 }
 
-// Inicialização do aplicativo
 async function initApp() {
-    state.allSpawnMarks = await fetchSpawnMarks();
-    console.log("App carregado com sucesso!");
+    state.allSpawnMarks = await fetchSpawnMarks(config.spawnsJsonPath);
+    state.includeAreas = await loadIslandsGeoJSON(config.islandsGeoJsonPath);
+
+    console.log(`Região ${config.name} carregada!`);
 }
 
 initApp();

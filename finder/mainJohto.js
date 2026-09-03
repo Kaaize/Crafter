@@ -1,5 +1,5 @@
-import { fetchSpawnMarks } from './dataServiceJohto.js';
-import { getPoints, calcIntersectionPolygon, filterSpawnsInsidePolygon, getZoomLevelFromBox, findMostProbableSpawn } from './geometryService.js';
+import { fetchSpawnMarks, loadIslandsGeoJSON } from './dataService.js';
+import { getPoints, calcIntersectionPolygon, filterSpawnsInsidePolygon, getZoomLevelFromBox, findMostProbableSpawn, clipIslandsWithArea } from './geometryService.js';
 import { MapManager } from './mapManager.js';
 import { UIManager } from './uiManager.js';
 
@@ -12,10 +12,11 @@ const state = {
     curDir: 0,
     infos: [],
     bounds: [[28672, 0], [32768, 5120]],
-    excludeAreas: []
+    excludeAreas: [],
+    includeAreas: [],
+    useIslandsFilter: true
 };
 
-// Configuração do CRS Pixel
 const CRSPixel = L.Util.extend(L.CRS.Simple, {
     transformation: new L.Transformation(1, 0, 1, 0)
 });
@@ -86,6 +87,9 @@ function renderPipelineLayers() {
     if (!curIntersection) return;
 
     mapManager.renderSearchArea(curIntersection);
+    
+    const clippedIslands = clipIslandsWithArea(curIntersection, state.includeAreas);
+    mapManager.renderClippedIslands(clippedIslands);
 
     const pointsInside = filterSpawnsInsidePolygon(
         curIntersection, 
@@ -192,6 +196,7 @@ async function pasteAndFill() {
 // Inicialização do aplicativo
 async function initApp() {
     state.allSpawnMarks = await fetchSpawnMarks();
+    state.includeAreas = await loadIslandsGeoJSON();
     console.log("App carregado com sucesso!");
 }
 

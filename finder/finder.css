@@ -175,3 +175,63 @@ body {
     cursor: pointer;
     margin-right: 5px;
 }
+
+/* Container do seletor de região */
+.region-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(20, 24, 33, 0.85);
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.region-control label {
+    color: #a0aec0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Customização do Select */
+.region-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #1a202c;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 6px 32px 6px 12px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+
+    /* Seta customizada via SVG codificado */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+/* Estados de Hover e Focus */
+.region-select:hover {
+    border-color: #4a5568;
+    background-color: #2d3748;
+}
+
+.region-select:focus {
+    border-color: #3182ce;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.3);
+}
+
+/* Estilização das opções internas */
+.region-select option {
+    background-color: #1a202c;
+    color: #e2e8f0;
+    padding: 8px;
+}
