@@ -168,7 +168,7 @@ function updatePipeline() {
 
     const bbox = turf.bbox(curIntersection);
     const center = turf.center(curIntersection);
-    const zoom = Math.min(getZoomLevelFromBox(bbox), 0);
+    const zoom = Math.min(Math.max(getZoomLevelFromBox(bbox), -4), 4);
 
     map.setView([center.geometry.coordinates[1], center.geometry.coordinates[0]], zoom);
 }
