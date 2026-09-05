@@ -4,7 +4,7 @@ export class MapManager {
         this.floors = floors;
         this.curFloor = initialFloor;
         this.activeTileLayer = floors[initialFloor.toString()] || null;
-        this.clippedIslandsLayer = null;
+        this.onFloorChangedCallback = null;
 
         this.targetIcon = L.icon({
             iconUrl: 'imgs_finder/BestTarget.png',
@@ -21,9 +21,30 @@ export class MapManager {
             selector: null,
             cross: null
         };
+
+        this.bindFloorScrollShortcut();
     }
 
-    changeFloor(newFloor, onFloorChangedCallback) {
+    bindFloorScrollShortcut() {
+        if (!this.map) return;
+
+        this.map.getContainer().addEventListener('wheel', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+
+                if (e.deltaY < 0 && this.curFloor > 1) {
+                    this.changeFloor(this.curFloor - 1);
+                } 
+                else if (e.deltaY > 0 && this.curFloor < 16) {
+                    this.changeFloor(this.curFloor + 1);
+                }
+            }
+        }, { passive: false, capture: true });
+    }
+
+    changeFloor(newFloor, customCallback) {
         const targetFloorStr = newFloor.toString();
         if (!this.floors[targetFloorStr]) return;
 
@@ -35,7 +56,10 @@ export class MapManager {
         this.curFloor = newFloor;
         this.floors[targetFloorStr].addTo(this.map);
 
-        if (onFloorChangedCallback) onFloorChangedCallback(this.curFloor);
+        const callbackToExecute = customCallback || this.onFloorChangedCallback;
+        if (typeof callbackToExecute === 'function') {
+            callbackToExecute(this.curFloor);
+        }
     }
 
     updateFloors(newFloors, newFloorIndex) {
@@ -132,20 +156,16 @@ export class MapManager {
         this.layers.searchArea.addLayer(baseLayer);
     }
 
-    renderClippedIslands(geoJsonPolygon, islandsGeoJSON) {
+    renderClippedIslands(clippedGeoJSON) {
         this.layers.clippedIslands.clearLayers();
 
-        if (!geoJsonPolygon || !islandsGeoJSON) return;
-
-        const clippedGeoJSON = getClippedIslands(geoJsonPolygon, islandsGeoJSON);
-
-        if (!clippedGeoJSON || clippedGeoJSON.features.length === 0) return;
+        if (!clippedGeoJSON) return;
 
         const islandStyle = {
             color: "#B7950B",        
             weight: 1.5,
             fillColor: "#F1C40F",
-            fillOpacity: 0.5,
+            fillOpacity: 0.1,
             interactive: false
         };
 
@@ -187,27 +207,6 @@ export class MapManager {
 
             marker.addTo(this.layers.spawns);
         });
-    }
-
-    renderClippedIslands(clippedGeoJSON) {
-        if (this.clippedIslandsLayer) {
-            this.map.removeLayer(this.clippedIslandsLayer);
-            this.clippedIslandsLayer = null;
-        }
-
-        if (!clippedGeoJSON) return;
-
-        this.clippedIslandsLayer = L.geoJSON(clippedGeoJSON, {
-            style: {
-                color: '#ff7800',
-                weight: 2,
-                opacity: 0.25,
-                fillColor: '#ff7800',
-                fillOpacity: 0.15
-            }
-        });
-
-        this.clippedIslandsLayer.addTo(this.map);
     }
 
     clearAll() {

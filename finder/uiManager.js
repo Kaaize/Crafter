@@ -35,7 +35,7 @@ export class UIManager {
             div.className = 'pos-item';
 
             const span = document.createElement('span');
-            span.innerText = `${info.x}, ${info.y}, ${info.z} `;
+            span.innerText = `${info.x - 0.5}, ${info.y - 0.5}, ${info.z} `;
             div.appendChild(span);
 
             const dirbtn = document.createElement('img');

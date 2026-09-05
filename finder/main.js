@@ -80,7 +80,7 @@ async function switchMapRegion(regionKey) {
     renderPipelineLayers();
 }
 
-const mapManager = new MapManager(map, floors, state.initPos[2]);
+const mapManager = new MapManager(map, floors, state.initPos[2], updateFloorUI);
 const uiManager = new UIManager((index) => removeItem(index));
 
 uiManager.onRegionChange(async (newRegion) => {
@@ -169,8 +169,10 @@ function updatePipeline() {
     const bbox = turf.bbox(curIntersection);
     const center = turf.center(curIntersection);
     const zoom = Math.min(Math.max(getZoomLevelFromBox(bbox), -4), 4);
+    const floor = state.initPos[2];
 
     map.setView([center.geometry.coordinates[1], center.geometry.coordinates[0]], zoom);
+    mapManager.changeFloor(floor, updateFloorUI)
 }
 
 function removeItem(index) {
@@ -227,19 +229,17 @@ async function pasteAndFill() {
         const point = {
             x: parseInt(match[1]) + 0.5,
             y: parseInt(match[2]) + 0.5,
-            z: state.initPos[2],
+            z: parseInt(match[3]),
             dist: state.curDist,
             ang: state.curDir
         };
 
         point.points = getPoints({ x: point.x, y: point.y, z: point.z }, point.ang, point.dist.min, point.dist.max);
         state.infos.push(point);
-        console.log(state.infos)
 
         uiManager.renderList(state.infos);
         updatePipeline();
     } catch (err) {
-        console.error(err);
     }
 }
 
