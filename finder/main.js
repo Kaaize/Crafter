@@ -227,7 +227,7 @@ async function pasteAndFill() {
         const point = {
             x: parseInt(match[1]) + 0.5,
             y: parseInt(match[2]) + 0.5,
-            z: state.initPos[3],
+            z: state.initPos[2],
             dist: state.curDist,
             ang: state.curDir
         };
