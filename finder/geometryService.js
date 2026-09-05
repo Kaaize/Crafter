@@ -17,7 +17,7 @@ export function getSquarePoints(pos, dist) {
 }
 
 export function getPoints(pos, ang, distMin, distMax) {
-    if (ang === -45) return getSquarePoints(pos, 30);
+    if (ang === -45) return getSquarePoints(pos, 29.5);
 
     const innerPoints = [];
     const outerPoints = [];
