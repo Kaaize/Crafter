@@ -154,7 +154,7 @@ function renderPipelineLayers() {
     const width = Math.abs(bbox[2] - bbox[0]);
     const height = Math.abs(bbox[3] - bbox[1]);
 
-    if (width <= 100 && height <= 100) {
+    if (width <= 200 && height <= 200) {
         const floorSpawns = pointsInside.filter(pos => pos[2] === mapManager.curFloor);
         mapManager.renderSpawnPoints(floorSpawns);
     }
@@ -223,11 +223,11 @@ async function pasteAndFill() {
         const match = text.match(regex);
 
         if (!match || match.length < 4) return;
-
+        
         const point = {
             x: parseInt(match[1]) + 0.5,
             y: parseInt(match[2]) + 0.5,
-            z: parseInt(match[3]),
+            z: state.initPos[3],
             dist: state.curDist,
             ang: state.curDir
         };
