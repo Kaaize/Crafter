@@ -71,8 +71,8 @@ export class MapManager {
         if (this.layers.selector) this.map.removeLayer(this.layers.selector);
         if (this.layers.cross) this.map.removeLayer(this.layers.cross);
 
-        const minR = 30;  
-        const maxR = 500; 
+        const minR = 29.5;  
+        const maxR = 499.5; 
 
         const radius = 0.5;
         const bounds = [[y + radius, x + radius], [y - radius, x - radius]];
@@ -122,25 +122,12 @@ export class MapManager {
         this.layers.cross = L.layerGroup(lineElements).addTo(this.map);
     }
 
-    /*updateClickSelector(x, y, limitX, limitY) {
-        if (this.layers.selector) this.map.removeLayer(this.layers.selector);
-        if (this.layers.cross) this.map.removeLayer(this.layers.cross);
-
-        const radius = 0.5;
-        const bounds = [[y + radius, x + radius], [y - radius, x - radius]];
-        this.layers.selector = L.rectangle(bounds, { color: "#333333", weight: 1, fillOpacity: 0, interactive: false }).addTo(this.map);
-
-        const lineV = L.polyline([[0, x], [limitY, x]], { color: '#333333', weight: 1, interactive: false });
-        const lineH = L.polyline([[y, 0], [y, limitX]], { color: '#333333', weight: 1, interactive: false });
-        this.layers.cross = L.layerGroup([lineV, lineH]).addTo(this.map);
-    }*/
-
     renderSearchArea(geoJsonPolygon) {
         this.layers.searchArea.clearLayers();
         if (!geoJsonPolygon) return;
 
         const baseLayer = L.geoJSON(geoJsonPolygon, {
-            style: { color: '#161761', weight: 2, fillColor: '#161761', fillOpacity: 0.25 }
+            style: { color: '#161761', weight: 2, fillColor: '#200f7e', fillOpacity: 0.25 }
         });
         this.layers.searchArea.addLayer(baseLayer);
     }

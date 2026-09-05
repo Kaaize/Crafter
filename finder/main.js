@@ -194,8 +194,8 @@ document.querySelectorAll('.dist-btn').forEach((btn, index) => {
         document.querySelectorAll('.dist-btn').forEach(b => b.classList.remove('active'));
         e.currentTarget.classList.add('active');
 
-        if (index === 0) state.curDist = { min: 0, max: 30 };
-        else if (index === 1) state.curDist = { min: 30, max: 500 };
+        if (index === 0) state.curDist = { min: 0, max: 29 };
+        else if (index === 1) state.curDist = { min: 30, max: 499 };
         else state.curDist = { min: 500, max: Math.max(state.limitY, state.limitX) };
     });
 });
@@ -225,8 +225,8 @@ async function pasteAndFill() {
         if (!match || match.length < 4) return;
 
         const point = {
-            x: parseInt(match[1]),
-            y: parseInt(match[2]),
+            x: parseInt(match[1]) + 0.5,
+            y: parseInt(match[2]) + 0.5,
             z: parseInt(match[3]),
             dist: state.curDist,
             ang: state.curDir
@@ -234,6 +234,7 @@ async function pasteAndFill() {
 
         point.points = getPoints({ x: point.x, y: point.y, z: point.z }, point.ang, point.dist.min, point.dist.max);
         state.infos.push(point);
+        console.log(state.infos)
 
         uiManager.renderList(state.infos);
         updatePipeline();

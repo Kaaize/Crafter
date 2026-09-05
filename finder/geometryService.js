@@ -27,13 +27,14 @@ export function getPoints(pos, ang, distMin, distMax) {
         const cos = Math.cos(angle);
         const sin = Math.sin(angle);
         const pad = (distMin === 0) ? 0.5 : 0;
-        const div = Math.max(Math.abs(cos), Math.abs(sin));
+        const div = Math.max(Math.abs(cos), Math.abs(sin)) || 1;
 
-        const multMin = distMin / div;
-        const multMax = distMax / div;
+        const minRadius = (distMin === 0) ? 0: distMin - 0.5
+        const multMin = minRadius / div;
+        const multMax = (distMax + 0.5) / div;
 
-        innerPoints.push({ x: pos.x + (cos * multMin) + pad, y: pos.y + (sin * multMin) + pad });
-        outerPoints.push({ x: pos.x + (cos * multMax), y: pos.y + (sin * multMax) });
+        innerPoints.push({ x: pos.x + (cos * multMin), y: pos.y + (sin * multMin)});
+        outerPoints.push({ x: pos.x + (cos * multMax), y: pos.y + (sin * multMax)});
     });
 
     return [...innerPoints, ...outerPoints.reverse()];
