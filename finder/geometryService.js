@@ -127,7 +127,12 @@ export function filterSpawnsInsidePolygon(searchPoly, spawns, bounds, excludeAre
         // 3. Testa se o ponto está dentro do polígono de busca do Turf
         if (polyFeature) {
             const pt = turf.point([x, y]);
-            return turf.booleanPointInPolygon(pt, polyFeature);
+            if (turf.booleanPointInPolygon(pt, polyFeature)) return true;
+
+            const line = turf.polygonToLine(polyFeature);
+            const distToBorder = turf.pointToLineDistance(pt, line, { units : 'degrees' });
+
+            return distToBorder <= 3;
         }
 
         return true;
