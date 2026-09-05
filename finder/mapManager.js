@@ -176,7 +176,7 @@ export class MapManager {
         if (!points || points.length === 0) return;
 
         points.forEach(point => {
-            const marker = L.circle([point[1] - 0.5, point[0] - 0.5], {
+            const marker = L.circle([point[1] + 0.5, point[0] + 0.5], {
                 radius: 0.5,
                 color: "#000000",
                 fillColor: "#000000",
