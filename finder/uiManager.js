@@ -5,6 +5,7 @@ export class UIManager {
         this.display = document.getElementById('coords-display');
         this.listContainer = document.getElementById('pos-list');
         this.regionSelect = document.getElementById('regionSelect');
+        this.btnCoordFrag = document.getElementById('btn-coord-frag')
         
         this.onDeleteClick = onDeleteClick;
     }

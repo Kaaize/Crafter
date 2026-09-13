@@ -106,7 +106,7 @@ const ZControl = L.Control.extend({
         btnDisplay.innerHTML = mapManager.curFloor;
         L.DomEvent.on(btnDisplay, 'click', (e) => {
             L.DomEvent.stop(e);
-            mapManager.changeFloor(7, updateFloorUI);
+            mapManager.changeFloor(state.initPos, updateFloorUI);
         });
 
         const btnDown = L.DomUtil.create('button', '', container);
@@ -162,23 +162,22 @@ function renderPipelineLayers() {
     return curIntersection;    
 }
 
-function updatePipeline() {
+function updatePipeline(curFloor) {
     const curIntersection = renderPipelineLayers();
     if (!curIntersection) return;
 
     const bbox = turf.bbox(curIntersection);
     const center = turf.center(curIntersection);
     const zoom = Math.min(Math.max(getZoomLevelFromBox(bbox), -4), 4);
-    const floor = state.initPos[2];
 
     map.setView([center.geometry.coordinates[1], center.geometry.coordinates[0]], zoom);
-    mapManager.changeFloor(floor, updateFloorUI)
+    mapManager.changeFloor(curFloor, updateFloorUI)
 }
 
 function removeItem(index) {
     state.infos.splice(index, 1);
     uiManager.renderList(state.infos);
-    updatePipeline();
+    updatePipeline(state.initPos[2]);
 }
 
 // Eventos de clique do Mapa
@@ -188,6 +187,10 @@ map.on('click', function (e) {
 
     mapManager.updateClickSelector(x, y, state.limitX, state.limitY);
     uiManager.updateCoords(x, y, mapManager.curFloor);
+});
+
+uiManager.btnCoordFrag.addEventListener('click', (e) => {
+    navigator.clipboard.writeText('6219, 3506, 10')
 });
 
 // Eventos da Interface (Botões de Distância/Direção)
@@ -238,7 +241,7 @@ async function pasteAndFill() {
         state.infos.push(point);
 
         uiManager.renderList(state.infos);
-        updatePipeline();
+        updatePipeline(point.z);
     } catch (err) {
     }
 }
