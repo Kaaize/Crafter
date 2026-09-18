@@ -6,16 +6,8 @@ export class MapManager {
         this.activeTileLayer = floors[initialFloor.toString()] || null;
         this.onFloorChangedCallback = null;
 
-        this.targetIcon = L.icon({
-            iconUrl: 'imgs_finder/BestTarget.png',
-            iconSize: [36, 36],
-            iconAnchor: [18, 36],
-            popupAnchor: [0, -36]
-        });
-
         this.layers = {
             searchArea: L.layerGroup().addTo(this.map),
-            clippedIslands: L.layerGroup().addTo(this.map),
             spawns: L.layerGroup().addTo(this.map),
             bestTarget: null,
             selector: null,
@@ -151,27 +143,21 @@ export class MapManager {
         if (!geoJsonPolygon) return;
 
         const baseLayer = L.geoJSON(geoJsonPolygon, {
-            style: { color: '#161761', weight: 2, fillColor: '#200f7e', fillOpacity: 0.25 }
+            style: { color: '#161761', weight: 2, fillColor: '#a2ca11', fillOpacity: 0.25 }
         });
         this.layers.searchArea.addLayer(baseLayer);
     }
 
-    renderClippedIslands(clippedGeoJSON) {
-        this.layers.clippedIslands.clearLayers();
+    toPointFive(value) {
+        const integerPart = Math.floor(value);
+        const decimalPart = value - integerPart;
 
-        if (!clippedGeoJSON) return;
-
-        const islandStyle = {
-            color: "#B7950B",        
-            weight: 1.5,
-            fillColor: "#F1C40F",
-            fillOpacity: 0.1,
-            interactive: false
-        };
-
-        const islandLayer = L.geoJSON(clippedGeoJSON, { style: islandStyle });
-        this.layers.clippedIslands.addLayer(islandLayer);
-    }
+        if (decimalPart >= 0.8) {
+            return (integerPart - 1) + 0.5;
+        }
+    
+        return integerPart + 0.5;
+    }    
 
     renderBestTarget(bestPoint) {
         if (this.layers.bestTarget) {
@@ -180,13 +166,15 @@ export class MapManager {
         }
 
         if (!bestPoint) return;
-
-        const y = bestPoint[1] - 0.5;
-        const x = bestPoint[0] - 0.5;
-
-        this.layers.bestTarget = L.marker([y, x], {
-            icon: this.targetIcon,
-            interactive: false
+  
+        const y = this.toPointFive(bestPoint.geometry.coordinates[1]);
+        const x = this.toPointFive(bestPoint.geometry.coordinates[0]);
+ 
+        this.layers.bestTarget = L.circleMarker([y, x], {
+            radius: 5,
+            color: 'red',
+            fillColor: "orange",
+            fillOpacity: 1
         }).addTo(this.map);        
     }
 
@@ -215,10 +203,6 @@ export class MapManager {
         if (this.layers.bestTarget) {
             this.map.removeLayer(this.layers.bestTarget);
             this.layers.bestTarget = null;
-        }
-        if (this.clippedIslandsLayer) {
-            this.map.removeLayer(this.clippedIslandsLayer);
-            this.clippedIslandsLayer = null;
         }
     }
 }

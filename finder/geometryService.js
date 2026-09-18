@@ -43,7 +43,7 @@ export function getPoints(pos, ang, distMin, distMax) {
 export function calcIntersectionPolygon(infos) {
     if (!infos || infos.length === 0) return null;
 
-    let curIntersection = null;
+    let curIntersection = null;    
 
     for (let i = 0; i < infos.length; i++) {
         const coords = infos[i].points.map(p => [p.x, p.y]);
@@ -139,71 +139,6 @@ export function filterSpawnsInsidePolygon(searchPoly, spawns, bounds, excludeAre
     });
 }
 
-export function findMostProbableSpawn(pointsInside) {
-    if (!pointsInside || pointsInside.length === 0) return null;
-    if (pointsInside.length === 1) return pointsInside[0];
-
-    let bestPoint = null;
-    let minTotalDistance = Infinity;
-
-    for (let i = 0; i < pointsInside.length; i++) {
-        let totalDist = 0;
-        const p1 = pointsInside[i];
-
-        for (let j = 0; j < pointsInside.length; j++) {
-            if (i === j) continue;
-            const p2 = pointsInside[j];
-            
-            const dx = p1[0] - p2[0];
-            const dy = p1[1] - p2[1];
-            totalDist += Math.sqrt(dx * dx + dy * dy);
-        }
-
-        if (totalDist < minTotalDistance) {
-            minTotalDistance = totalDist;
-            bestPoint = p1;
-        }
-    }
-
-    return bestPoint; 
-}
-
-export function clipIslandsWithArea(intersectionPoly, islandsMultiPolygon) {
-    if (!intersectionPoly || !islandsMultiPolygon) return null;
-
-    try {
-        // 1. Extrai a geometria bruta do Polígono de busca
-        const searchGeo = intersectionPoly.geometry || (intersectionPoly.type === 'Feature' ? intersectionPoly.geometry : intersectionPoly);
-        if (!searchGeo || !searchGeo.coordinates) return null;
-
-        // 2. Extrai a geometria bruta do MultiPolygon das ilhas
-        const islandGeo = islandsMultiPolygon.geometry || (islandsMultiPolygon.type === 'Feature' ? islandsMultiPolygon.geometry : islandsMultiPolygon);
-        if (!islandGeo || !islandGeo.coordinates) return null;
-
-        // 3. Normaliza ambas explicitamente usando os construtores de Feature do Turf
-        const searchFeature = turf.feature(searchGeo);
-        const islandFeature = turf.feature(islandGeo);
-
-        // 4. Executa a intersecção testando compatibilidade das assinaturas do Turf (v6 e v7)
-        let clipped = null;
-
-        // Tenta sintaxe Turf 7.x (FeatureCollection)
-        try {
-            const fc = turf.featureCollection([searchFeature, islandFeature]);
-            clipped = turf.intersect(fc);
-        } catch (err) {
-            // Fallback para sintaxe Turf 5.x / 6.x (Argumentos Separados)
-            clipped = turf.intersect(searchFeature, islandFeature);
-        }
-
-        return clipped;
-
-    } catch (e) {
-        console.error("Erro ao calcular intersecção do MultiPolygon:", e);
-        return null;
-    }
-}
-
 export function createBoundsPolygon(bounds) {
     if (!bounds || bounds.length < 2) return null;
 
@@ -217,32 +152,4 @@ export function createBoundsPolygon(bounds) {
         [xMin, yMax],
         [xMin, yMin]
     ]]);
-}
-
-export function clipSearchAreaWithBounds(searchPoly, bounds) {
-    if (!searchPoly) return null;
-    if (!bounds) return searchPoly;
-
-    try {
-        const boundsPoly = createBoundsPolygon(bounds);
-        if (!boundsPoly) return searchPoly;
-
-        // Extrai a geometria limpa da área de busca
-        const searchGeo = searchPoly.geometry || (searchPoly.type === 'Feature' ? searchPoly.geometry : searchPoly);
-        const searchFeature = turf.feature(searchGeo);
-
-        // Corta a área de busca usando o retângulo dos limites
-        let clipped = null;
-        try {
-            const fc = turf.featureCollection([searchFeature, boundsPoly]);
-            clipped = turf.intersect(fc);
-        } catch (err) {
-            clipped = turf.intersect(searchFeature, boundsPoly);
-        }
-
-        return clipped;
-    } catch (e) {
-        console.error("Erro ao recortar polígono da dica no Bounds:", e);
-        return searchPoly;
-    }
 }

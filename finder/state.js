@@ -8,5 +8,5 @@ export const state = {
     infos: [], 
     bounds: [[2700, 2700], [7000,7000]],
     excludeAreas: [[2360, 2680, 3308, 3472]],
-    includeAreas: [],
+    includeAreas: []
 };

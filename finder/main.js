@@ -1,6 +1,6 @@
 import {MAP_CONFIGS, DEFAULT_MAP } from './mapConfig.js';
-import { fetchSpawnMarks, loadIslandsGeoJSON } from './dataService.js';
-import { getPoints, calcIntersectionPolygon, filterSpawnsInsidePolygon, getZoomLevelFromBox, findMostProbableSpawn, clipIslandsWithArea, clipSearchAreaWithBounds } from './geometryService.js';
+import { fetchSpawnMarks } from './dataService.js';
+import { getPoints, calcIntersectionPolygon, filterSpawnsInsidePolygon, getZoomLevelFromBox } from './geometryService.js';
 import { MapManager } from './mapManager.js';
 import { UIManager } from './uiManager.js';
 
@@ -75,8 +75,7 @@ async function switchMapRegion(regionKey) {
     map.setMaxBounds(config.bounds);
 
     state.allSpawnMarks = await fetchSpawnMarks(config.spawnsJsonPath);
-    state.includeAreas = await loadIslandsGeoJSON(config.islandsGeoJsonPath);
-    
+   
     renderPipelineLayers();
 }
 
@@ -86,6 +85,8 @@ const uiManager = new UIManager((index) => removeItem(index));
 uiManager.onRegionChange(async (newRegion) => {
     console.log(`Trocando região para: ${newRegion}`);
     await switchMapRegion(newRegion);
+    calculateRegionPolygon;
+
 });
 
 let btnDisplay = null;
@@ -132,13 +133,7 @@ function renderPipelineLayers() {
     let curIntersection = calcIntersectionPolygon(state.infos);
     if (!curIntersection) return;
 
-    curIntersection = clipSearchAreaWithBounds(curIntersection, state.bounds);
-    if (!curIntersection) return;
-
     mapManager.renderSearchArea(curIntersection);
-
-    const clippedIslands = clipIslandsWithArea(curIntersection, state.includeAreas);
-    mapManager.renderClippedIslands(clippedIslands);
 
     const pointsInside = filterSpawnsInsidePolygon(
         curIntersection, 
@@ -147,7 +142,7 @@ function renderPipelineLayers() {
         state.excludeAreas
     );
 
-    const bestPoint = findMostProbableSpawn(pointsInside);
+    const bestPoint = turf.centerOfMass(curIntersection)
     mapManager.renderBestTarget(bestPoint);
 
     const bbox = turf.bbox(curIntersection);
@@ -248,7 +243,6 @@ async function pasteAndFill() {
 
 async function initApp() {
     state.allSpawnMarks = await fetchSpawnMarks(config.spawnsJsonPath);
-    state.includeAreas = await loadIslandsGeoJSON(config.islandsGeoJsonPath);
 
     console.log(`Região ${config.name} carregada!`);
 }

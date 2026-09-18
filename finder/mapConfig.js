@@ -11,7 +11,7 @@ export const MAP_CONFIGS = {
         initPos: [3791, 4098, 7],
         excludeAreas: [
             [2360, 2680, 3308, 3472]
-        ]
+        ],
     },
     johto: {
         id: 'johto',
@@ -23,7 +23,7 @@ export const MAP_CONFIGS = {
         islandsGeoJsonPath: 'data/islands_johto.geojson',
         spawnsJsonPath: 'data/spawn_johto.json',
         initPos: [30356, 3230, 6],
-        excludeAreas: []
+        excludeAreas: [],
     }
 };
 
