@@ -127,6 +127,26 @@ function updateFloorUI(newFloor) {
     renderPipelineLayers();
 }
 
+function bindFloorScrollShortcut() {
+    if (!mapManager.map) return;
+
+    mapManager.map.getContainer().addEventListener('wheel', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+
+            if (e.deltaY < 0 && mapManager.curFloor > 1) {
+                mapManager.changeFloor(mapManager.curFloor - 1, updateFloorUI);
+            } 
+            else if (e.deltaY > 0 && mapManager.curFloor < 16) {
+                mapManager.changeFloor(mapManager.curFloor + 1, updateFloorUI);
+            }
+
+        }
+    }, { passive: false, capture: true });
+}
+
 function renderPipelineLayers() {
     mapManager.clearAll();
 
@@ -243,6 +263,7 @@ async function pasteAndFill() {
 
 async function initApp() {
     state.allSpawnMarks = await fetchSpawnMarks(config.spawnsJsonPath);
+    bindFloorScrollShortcut();
 
     console.log(`Região ${config.name} carregada!`);
 }

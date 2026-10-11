@@ -13,27 +13,6 @@ export class MapManager {
             selector: null,
             cross: null
         };
-
-        this.bindFloorScrollShortcut();
-    }
-
-    bindFloorScrollShortcut() {
-        if (!this.map) return;
-
-        this.map.getContainer().addEventListener('wheel', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-
-                if (e.deltaY < 0 && this.curFloor > 1) {
-                    this.changeFloor(this.curFloor - 1);
-                } 
-                else if (e.deltaY > 0 && this.curFloor < 16) {
-                    this.changeFloor(this.curFloor + 1);
-                }
-            }
-        }, { passive: false, capture: true });
     }
 
     changeFloor(newFloor, customCallback) {
