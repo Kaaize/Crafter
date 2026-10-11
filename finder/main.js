@@ -85,7 +85,7 @@ const uiManager = new UIManager((index) => removeItem(index));
 uiManager.onRegionChange(async (newRegion) => {
     console.log(`Trocando região para: ${newRegion}`);
     await switchMapRegion(newRegion);
-    calculateRegionPolygon;
+    renderPipelineLayers();
 
 });
 
